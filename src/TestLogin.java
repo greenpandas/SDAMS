@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import model.User;
 import service.UserService;
+import service.MenuRouter;
 
 public class TestLogin {
 
@@ -21,13 +22,18 @@ public class TestLogin {
 
         if (user != null) {
 
-            System.out.println("\nLogin Successful!");
-            System.out.println("Welcome " + user.getName());
-            System.out.println("Role: " + user.getRole());
+    System.out.println("\nLogin Successful!");
+    System.out.println("Welcome " + user.getName());
+    System.out.println("Role: " + user.getRole());
+    MenuRouter router = new MenuRouter(); 
+    router.route(user);
 
-        } else {
+    
 
-            System.out.println("\nInvalid username or password.");
-        }
+    } else {
+
+    System.out.println("Invalid username or password");
+
+}
     }
 }

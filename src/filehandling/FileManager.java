@@ -3,12 +3,15 @@ package filehandling;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.io.FileWriter;
 
 import model.User;
 
 public class FileManager {
 
     public ArrayList<User> readUsers() {
+        
+        
 
         ArrayList<User> users = new ArrayList<>();
 
@@ -44,4 +47,27 @@ public class FileManager {
 
         return users;
     }
+    public void saveUser(String record) {
+
+    try {
+
+        
+        System.out.println(record);
+        
+        FileWriter fw =
+                new FileWriter("data/users.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving user.");
+        e.printStackTrace();
+    }
+}
+
+
+    
 }
