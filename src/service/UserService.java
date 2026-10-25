@@ -1,13 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package service;
 
-/**
- *
- * @author tatsuuko
- */
+import filehandling.FileManager;
+import model.User;
+
+import java.util.ArrayList;
+
 public class UserService {
-    
+
+    public User login(String username, String password) {
+
+        FileManager fileManager = new FileManager();
+
+        ArrayList<User> users = fileManager.readUsers();
+
+        for (User user : users) {
+
+            if (user.getUsername().equals(username)
+                    && user.getPassword().equals(password)) {
+
+                return user;
+            }
+        }
+
+        return null;
+    }
 }
