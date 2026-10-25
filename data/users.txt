@@ -1,4 +1,8 @@
-M001,manager1,1234,Ali,Manager
+M001,m,1,Ali,Manager
 A001,admin1,1234,John,Administrator
 S001,student1,1234,Sarah,Student
-I001,instructor1,1234,David,Instructor
+I001,instructor1,1234,David,InstructorA002,admin2,1234,Sarah,Administrator
+A002,SHA,1234,SHA,Administrator
+1,sa,123,sha,Administrator
+1,1,1,1,Administrator
+1,3,4,2,Administrator
