@@ -106,16 +106,52 @@ public class ManagerService {
     Scanner scanner = new Scanner(System.in);
 
     System.out.print("\nEnter Admin ID to update: ");
-
     String adminId = scanner.nextLine();
 
-    System.out.println(
-        "Update Administrator functionality coming next."
-    );
+    FileManager fileManager = new FileManager();
 
-    System.out.println(
-        "Selected Administrator: " + adminId
-    );
+    ArrayList<User> users = fileManager.readUsers();
+
+    boolean found = false;
+
+    for (User user : users) {
+
+        if (user.getRole().equals("Administrator")
+                && user.getUserId().equals(adminId)) {
+
+            System.out.print("New Name: ");
+            String newName = scanner.nextLine();
+
+            System.out.print("New Username: ");
+            String newUsername = scanner.nextLine();
+
+            System.out.print("New Password: ");
+            String newPassword = scanner.nextLine();
+
+            user.setName(newName);
+            user.setUsername(newUsername);
+            user.setPassword(newPassword);
+
+            found = true;
+
+            break;
+        }
+    }
+
+    if (found) {
+
+        fileManager.overwriteUsers(users);
+
+        System.out.println(
+                "Administrator updated successfully."
+        );
+
+    } else {
+
+        System.out.println(
+                "Administrator not found."
+        );
+    }
 }
 
     public void deleteAdministrator() {
@@ -126,18 +162,51 @@ public class ManagerService {
 
     String adminId = scanner.nextLine();
 
-    System.out.println(
-        "Delete Administrator functionality coming next."
-    );
+    FileManager fileManager = new FileManager();
 
-    System.out.println(
-        "Selected Administrator: " + adminId
-    );
+    ArrayList<User> users =
+            fileManager.readUsers();
+
+    boolean removed = false;
+
+    for (int i = 0; i < users.size(); i++) {
+
+        User user = users.get(i);
+
+        if (user.getRole().equals("Administrator")
+                && user.getUserId().equals(adminId)) {
+
+            users.remove(i);
+
+            removed = true;
+
+            break;
+        }
+    }
+
+    if (removed) {
+
+        fileManager.overwriteUsers(users);
+
+        System.out.println(
+                "Administrator deleted successfully."
+        );
+
+    } else {
+
+        System.out.println(
+                "Administrator not found."
+        );
+    }
 }
 
     public void manageAdministrators() {
 
-        Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
+
+    boolean running = true;
+
+    while (running) {
 
         System.out.println("\n===== ADMINISTRATOR MANAGEMENT =====");
 
@@ -151,8 +220,9 @@ public class ManagerService {
         System.out.print("\nEnter choice: ");
 
         int choice = scanner.nextInt();
+        scanner.nextLine();
 
-        switch(choice) {
+        switch (choice) {
 
             case 1:
                 addAdministrator();
@@ -175,23 +245,87 @@ public class ManagerService {
                 break;
 
             case 6:
-                System.out.println("Returning...");
+                running = false;
                 break;
 
             default:
                 System.out.println("Invalid choice.");
         }
     }
+}
 
     public void viewStaff() {
-        System.out.println("View Staff module.");
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> users = fileManager.readUsers();
+
+    System.out.println("\n===== STAFF LIST =====");
+
+    for(User user : users) {
+
+        System.out.println(
+                user.getUserId()
+                + " | "
+                + user.getName()
+                + " | "
+                + user.getRole()
+        );
     }
+}
 
     public void generateStaffReport() {
-        System.out.println("Staff Report module.");
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> users = fileManager.readUsers();
+
+    int managerCount = 0;
+    int adminCount = 0;
+    int instructorCount = 0;
+    int studentCount = 0;
+
+    for(User user : users) {
+
+        switch(user.getRole()) {
+
+            case "Manager":
+                managerCount++;
+                break;
+
+            case "Administrator":
+                adminCount++;
+                break;
+
+            case "Instructor":
+                instructorCount++;
+                break;
+
+            case "Student":
+                studentCount++;
+                break;
+        }
     }
 
+    System.out.println("\n===== STAFF REPORT =====");
+
+    System.out.println("Managers: " + managerCount);
+    System.out.println("Administrators: " + adminCount);
+    System.out.println("Instructors: " + instructorCount);
+    System.out.println("Students: " + studentCount);
+
+    System.out.println(
+            "\nTotal Users: "
+            + users.size()
+    );
+}
+
     public void generateRevenueReport() {
-        System.out.println("Revenue Report module.");
-    }
+
+    System.out.println(
+        "\nRevenue Report will be implemented "
+        + "when Payment Module is completed."
+    );
+
+}
 }

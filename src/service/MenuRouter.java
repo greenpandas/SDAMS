@@ -37,6 +37,12 @@ public class MenuRouter {
     Scanner scanner = new Scanner(System.in);
     ManagerService managerService = new ManagerService();
 
+   
+
+    boolean running = true;
+
+while(running)
+{
     System.out.println("\n===== MANAGER MENU =====");
     System.out.println("1. Manage Administrators");
     System.out.println("2. View Staff");
@@ -48,8 +54,8 @@ public class MenuRouter {
 
     int choice = scanner.nextInt();
 
-    switch(choice) {
-
+    switch(choice)
+    {
         case 1:
             managerService.manageAdministrators();
             break;
@@ -67,12 +73,14 @@ public class MenuRouter {
             break;
 
         case 5:
+            running = false;
             System.out.println("Logged out.");
             break;
 
         default:
             System.out.println("Invalid choice.");
     }
+}
 }
 
     private void showAdminMenu() {
