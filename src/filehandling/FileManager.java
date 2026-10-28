@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 
 import model.User;
 
@@ -66,8 +67,36 @@ public class FileManager {
         System.out.println("Error saving user.");
         e.printStackTrace();
     }
-}
-
-
     
+}
+    
+
+
+    public void overwriteUsers(ArrayList<User> users) {
+
+    try {
+
+        PrintWriter writer =
+                new PrintWriter("data/users.txt");
+
+        for (User user : users) {
+
+            String record =
+                    user.getUserId() + "," +
+                    user.getUsername() + "," +
+                    user.getPassword() + "," +
+                    user.getName() + "," +
+                    user.getRole();
+
+            writer.println(record);
+        }
+
+        writer.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error updating users file.");
+        e.printStackTrace();
+    }
+}
 }
