@@ -255,14 +255,77 @@ public class ManagerService {
 }
 
     public void viewStaff() {
-        System.out.println("View Staff module.");
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> users = fileManager.readUsers();
+
+    System.out.println("\n===== STAFF LIST =====");
+
+    for(User user : users) {
+
+        System.out.println(
+                user.getUserId()
+                + " | "
+                + user.getName()
+                + " | "
+                + user.getRole()
+        );
     }
+}
 
     public void generateStaffReport() {
-        System.out.println("Staff Report module.");
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> users = fileManager.readUsers();
+
+    int managerCount = 0;
+    int adminCount = 0;
+    int instructorCount = 0;
+    int studentCount = 0;
+
+    for(User user : users) {
+
+        switch(user.getRole()) {
+
+            case "Manager":
+                managerCount++;
+                break;
+
+            case "Administrator":
+                adminCount++;
+                break;
+
+            case "Instructor":
+                instructorCount++;
+                break;
+
+            case "Student":
+                studentCount++;
+                break;
+        }
     }
 
+    System.out.println("\n===== STAFF REPORT =====");
+
+    System.out.println("Managers: " + managerCount);
+    System.out.println("Administrators: " + adminCount);
+    System.out.println("Instructors: " + instructorCount);
+    System.out.println("Students: " + studentCount);
+
+    System.out.println(
+            "\nTotal Users: "
+            + users.size()
+    );
+}
+
     public void generateRevenueReport() {
-        System.out.println("Revenue Report module.");
-    }
+
+    System.out.println(
+        "\nRevenue Report will be implemented "
+        + "when Payment Module is completed."
+    );
+
+}
 }
