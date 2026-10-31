@@ -99,4 +99,21 @@ public class FileManager {
         e.printStackTrace();
     }
 }
+    public void saveClass(String record) {
+
+    try {
+
+        FileWriter fw =
+                new FileWriter("data/classes.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving class.");
+        e.printStackTrace();
+    }
+}
 }

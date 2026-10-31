@@ -1,13 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package service;
 
-/**
- *
- * @author tatsuuko
- */
 public class PaymentService {
-    
+
+    public void viewPayments() {
+
+        System.out.println("Viewing Payment Records");
+
+    }
+
+    public void addPayment() {
+
+        System.out.println("Adding Payment");
+
+    }
 }
