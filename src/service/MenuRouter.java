@@ -3,6 +3,7 @@ package service;
 import model.User;
 import java.util.Scanner;
 import service.ManagerService;
+import service.AdminService;
 
 public class MenuRouter {
 
@@ -84,8 +85,50 @@ while(running)
 }
 
     private void showAdminMenu() {
+
+    Scanner scanner = new Scanner(System.in);
+
+    AdminService adminService =
+            new AdminService();
+
+    boolean running = true;
+
+    while(running) {
+
         System.out.println("\n===== ADMIN MENU =====");
+
+        System.out.println("1. Manage Students");
+        System.out.println("2. Manage Staff");
+        System.out.println("3. Payment Records");
+        System.out.println("4. Logout");
+
+        System.out.print("\nEnter choice: ");
+
+        int choice = scanner.nextInt();
+
+        switch(choice) {
+
+            case 1:
+                adminService.manageStudents();
+                break;
+
+            case 2:
+                adminService.manageStaff();
+                break;
+
+            case 3:
+                adminService.managePayments();
+                break;
+
+            case 4:
+                running = false;
+                break;
+
+            default:
+                System.out.println("Invalid Choice.");
+        }
     }
+}
 
     private void showInstructorMenu() {
         System.out.println("\n===== INSTRUCTOR MENU =====");
