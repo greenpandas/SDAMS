@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import filehandling.FileManager;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import model.User;
 
 public class StudentService {
@@ -199,4 +201,50 @@ public class StudentService {
         );
     }
     }
+    public void viewClasses() {
+
+    try {
+
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/classes.txt"));
+
+        String line;
+
+        System.out.println(
+                "\n===== AVAILABLE CLASSES ====="
+        );
+
+        while((line = br.readLine()) != null) {
+
+            System.out.println(line);
+
+        }
+
+        br.close();
+
+    } catch(Exception e) {
+
+        System.out.println(
+                "Error reading classes."
+        );
+    }
+}
+    public void bookClass() {
+
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("\n===== BOOK CLASS =====");
+
+    System.out.print("Enter Class ID: ");
+
+    String classId =
+            scanner.nextLine();
+
+    System.out.println(
+            "Class "
+            + classId
+            + " booked successfully."
+    );
+}
 }

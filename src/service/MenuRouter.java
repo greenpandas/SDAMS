@@ -183,6 +183,44 @@ while(running)
 }
 
     private void showStudentMenu() {
+
+    Scanner scanner = new Scanner(System.in);
+
+    StudentService studentService =
+            new StudentService();
+
+    boolean running = true;
+
+    while(running) {
+
         System.out.println("\n===== STUDENT MENU =====");
+
+        System.out.println("1. View Classes");
+        System.out.println("2. Book Class");
+        System.out.println("3. Logout");
+
+        System.out.print("\nEnter choice: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch(choice) {
+
+            case 1:
+                studentService.viewClasses();
+                break;
+
+            case 2:
+                studentService.bookClass();
+                break;
+
+            case 3:
+                running = false;
+                break;
+
+            default:
+                System.out.println("Invalid choice.");
+        }
     }
+}
 }
