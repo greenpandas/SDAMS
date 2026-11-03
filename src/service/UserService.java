@@ -14,9 +14,10 @@ public class UserService {
         ArrayList<User> users = fileManager.readUsers();
 
         for (User user : users) {
+            
 
-            if (user.getUsername().equals(username)
-                    && user.getPassword().equals(password)) {
+        if (user.getUsername().trim().equals(username.trim())
+        && user.getPassword().trim().equals(password.trim())) {
 
                 return user;
             }

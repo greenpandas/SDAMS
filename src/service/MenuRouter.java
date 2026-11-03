@@ -27,6 +27,9 @@ public class MenuRouter {
             case "Student":
                 showStudentMenu();
                 break;
+            case "AttendanceOfficer":
+                showAttendanceMenu();
+                break;
 
             default:
                 System.out.println("Unknown role.");
@@ -220,6 +223,61 @@ while(running)
 
             default:
                 System.out.println("Invalid choice.");
+        }
+    }
+}
+    private void showAttendanceMenu() {
+
+    Scanner scanner = new Scanner(System.in);
+
+    AttendanceService attendanceService =
+            new AttendanceService();
+
+    boolean running = true;
+
+    while (running) {
+
+        System.out.println(
+            "\n===== ATTENDANCE MENU ====="
+        );
+
+        System.out.println(
+            "1. Record Attendance"
+        );
+
+        System.out.println(
+            "2. View Attendance"
+        );
+
+        System.out.println(
+            "3. Logout"
+        );
+
+        System.out.print(
+            "\nEnter choice: "
+        );
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch(choice) {
+
+            case 1:
+                attendanceService.recordAttendance();
+                break;
+
+            case 2:
+                attendanceService.viewAttendance();
+                break;
+
+            case 3:
+                running = false;
+                break;
+
+            default:
+                System.out.println(
+                    "Invalid choice."
+                );
         }
     }
 }

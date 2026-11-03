@@ -13,7 +13,7 @@ public class FileManager {
     public ArrayList<User> readUsers() {
         
         
-
+     
         ArrayList<User> users = new ArrayList<>();
 
         try {
@@ -24,8 +24,9 @@ public class FileManager {
             String line;
 
             while ((line = br.readLine()) != null) {
-
+                
                 String[] data = line.split(",");
+                
 
                 User user = new User(
                         data[0],
@@ -45,8 +46,11 @@ public class FileManager {
             System.out.println("Error reading users file.");
             e.printStackTrace();
         }
-
+        
+        
+        
         return users;
+        
     }
     public void saveUser(String record) {
 
@@ -113,6 +117,27 @@ public class FileManager {
     } catch (Exception e) {
 
         System.out.println("Error saving class.");
+        e.printStackTrace();
+    }
+    
+    
+}
+    public void saveAttendance(String record) {
+
+    try {
+
+        FileWriter fw =
+                new FileWriter("data/attendance.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.flush();
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving attendance.");
         e.printStackTrace();
     }
 }

@@ -1,4 +1,5 @@
-M001,m,1234,Ali,Manager
-A001,a,1234,John,Administrator
-I001,i,1234,David,Instructor
-S001,s,1234,Sarah,Student
+M001,manager1,1234,Ali,Manager
+A001,admin1,1234,John,Administrator
+I001,instructor1,1234,David,Instructor
+S001,student1,1234,Sarah,Student
+AT001,attendance1,1234,Ahmad,AttendanceOfficer
