@@ -5,6 +5,12 @@
         <group>
             <file>file:/C:/PROJECTS/J1/SDAMS/src/model/Manager.java</file>
             <file>file:/C:/PROJECTS/J1/SDAMS/src/filehandling/FileManager.java</file>
+            <file>file:/C:/PROJECTS/J1/SDAMS/src/model/User.java</file>
+            <file>file:/C:/PROJECTS/J1/SDAMS/src/service/UserService.java</file>
+            <file>file:/C:/PROJECTS/J1/SDAMS/src/gui/StudentMenu.java</file>
+            <file>file:/C:/PROJECTS/J1/SDAMS/src/gui/AttendanceMenu.java</file>
+            <file>file:/C:/PROJECTS/J1/SDAMS/src/gui/ManagerMenu.java</file>
+            <file>file:/C:/PROJECTS/J1/SDAMS/src/gui/LoginForm.java</file>
         </group>
     </open-files>
 </project-private>

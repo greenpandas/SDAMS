@@ -1,91 +1,34 @@
-## Team Members
-- Shaheer
-- Loai
-- Khalid
-- Mohammed
-- Ryan
-- Mashrur
-
-## Project Description
-Java Swing-based management system for a self-defence academy.
-
-## Technologies
-- Java
-- NetBeans
-- GitHub
-- Text File Storage
-
 # Self Defence Academy Management System (SDAMS)
 
 ## Project Overview
 
-The Self Defence Academy Management System (SDAMS) is a Java-based desktop application developed to manage the daily operations of a self-defence academy. The system enables efficient management of students, instructors, staff, attendance, bookings, payments, equipment, and facility-related issues.
+The Self Defence Academy Management System (SDAMS) is a Java-based desktop application developed using Object-Oriented Programming (OOP) principles.
 
-This project is developed as part of a 6-week academic assignment using Object-Oriented Programming (OOP) principles and file-based data storage.
+The system is designed to manage the daily operations of a self-defence academy, including:
 
----
-
-## Project Objectives
-
-- Manage student and staff records
-- Record attendance information
-- Manage class schedules and bookings
-- Track payments and transactions
-- Monitor academy equipment
-- Report and manage facility issues
-- Generate basic reports
-- Implement role-based user access
+- User Authentication
+- Staff Management
+- Student Management
+- Class Scheduling
+- Attendance Tracking
+- Class Booking
+- Payment Management
+- Equipment Management
+- Reporting
 
 ---
 
 ## Technology Stack
 
 - Java
-- NetBeans IDE
-- Java Swing (GUI)
+- NetBeans
+- Java Swing (Planned)
 - Git & GitHub
-- Text File Storage (.txt)
+- Text File Storage
 
 ---
 
-## Project Structure
-
-```text
-SDAMS
-│
-├── data
-│   ├── attendance.txt
-│   ├── bookings.txt
-│   ├── classes.txt
-│   ├── equipment.txt
-│   ├── issues.txt
-│   ├── payments.txt
-│   ├── ratings.txt
-│   ├── staff.txt
-│   ├── students.txt
-│   └── users.txt
-│
-├── diagrams
-│
-├── docs
-│
-├── screenshots
-│
-├── src
-│   ├── model
-│   ├── gui
-│   ├── service
-│   ├── filehandling
-│   └── reports
-│
-└── nbproject
-```
-
----
-
-## System Roles
-
-The system supports the following user roles:
+## User Roles
 
 - Manager
 - Administrator
@@ -94,23 +37,19 @@ The system supports the following user roles:
 - Facilities Officer
 - Attendance Officer
 
-Each role is provided with different permissions and system functionality.
-
 ---
 
-## Object-Oriented Design
+## OOP Concepts Implemented
 
-### Base Class
+### Encapsulation
 
-```java
-User
-```
+- Private attributes
+- Getters and Setters
 
-### Inheritance Structure
+### Inheritance
 
 ```text
 User
-│
 ├── Manager
 ├── Administrator
 ├── Instructor
@@ -119,216 +58,272 @@ User
 └── AttendanceOfficer
 ```
 
-### OOP Concepts Applied
+### Abstraction
 
-- Encapsulation
-- Inheritance
-- Polymorphism
-- Abstraction
+- Business logic separated into service classes
+- File handling separated into FileManager
 
----
+### Polymorphism
 
-## Main Classes
-
-### User Classes
-
-- User
-- Manager
-- Administrator
-- Instructor
-- Student
-- FacilitiesOfficer
-- AttendanceOfficer
-
-### System Classes
-
-- Booking
-- Payment
-- Attendance
-- Rating
-- Equipment
-- FacilityIssue
-- ClassSchedule
+- Planned during later implementation phases
 
 ---
 
-## GUI Components
+## Features Completed
 
-Current GUI class structure:
+### Core System
 
-- LoginForm
-- ManagerMenu
-- AdminMenu
-- StudentMenu
-- InstructorMenu
-- FacilitiesMenu
-- AttendanceMenu
+✅ User Model
 
-Java Swing implementation will be added during later development stages.
+✅ FileManager
+
+✅ User Authentication
+
+✅ Login Validation
+
+✅ Text File Data Persistence
+
+✅ Role-Based Access Control
+
+✅ Menu Routing System
+
+✅ Console Navigation with Back/Logout Functionality
+
+---
+
+### Manager Module
+
+✅ Administrator CRUD
+
+- Add Administrator
+- View Administrators
+- Search Administrator
+- Update Administrator
+- Delete Administrator
+
+✅ View Staff
+
+✅ Generate Staff Report
+
+✅ Revenue Report Foundation
+
+---
+
+### Administrator Module
+
+✅ Student CRUD
+
+- Add Student
+- View Students
+- Search Student
+- Update Student
+- Delete Student
+
+✅ Staff Management
+
+- View Staff
+- Search Staff
+
+✅ Payment Management Structure
+
+---
+
+### Instructor Module
+
+✅ Instructor Menu
+
+✅ Create Schedule
+
+✅ View Schedule
+
+✅ Schedule Storage using classes.txt
+
+---
+
+## Current System Flow
+
+```text
+users.txt
+     ↓
+FileManager
+     ↓
+UserService
+     ↓
+Authentication
+     ↓
+MenuRouter
+     ↓
+Role-Based Menus
+```
+
+---
+
+## Data Files
+
+```text
+users.txt
+classes.txt
+attendance.txt
+bookings.txt
+payments.txt
+equipment.txt
+issues.txt
+ratings.txt
+students.txt
+staff.txt
+```
 
 ---
 
 ## Service Layer
 
-Current service classes include:
-
-- UserService
-- BookingService
-- PaymentService
-- AttendanceService
-- EquipmentService
-
-These classes handle the business logic of the application.
-
----
-
-## File Management
-
-The project uses a text-file-based storage approach.
-
-### FileManager Responsibilities
-
-- Save records
-- Read records
-- Update records
-- Delete records
-
-Planned methods:
-
-```java
-saveUser()
-readUsers()
-updateUser()
-deleteUser()
-```
-
----
-
-## User Data Format
-
-Users are stored in `users.txt` using the following format:
+Implemented Services:
 
 ```text
-ID,USERNAME,PASSWORD,NAME,ROLE
-```
-
-Example:
-
-```text
-M001,manager1,1234,Ali,Manager
-A001,admin1,1234,Ahmad,Administrator
-S001,student1,1234,Sarah,Student
-I001,instructor1,1234,David,Instructor
+UserService
+ManagerService
+AdminService
+StudentService
+InstructorService
+FileManager
 ```
 
 ---
 
-## Git Workflow
+## Current Project Status
 
-Before starting work:
+### Completed
+
+✅ Authentication System
+
+✅ User Management Foundation
+
+✅ Role-Based Access Control
+
+✅ Manager Module
+
+✅ Administrator Module
+
+✅ Student CRUD
+
+✅ Staff Management
+
+✅ Instructor Scheduling
+
+✅ File Storage Architecture
+
+---
+
+### In Progress
+
+🔄 Attendance Module
+
+🔄 Facilities Module
+
+🔄 Booking System
+
+🔄 Payment Integration
+
+---
+
+### Upcoming
+
+⏳ Java Swing GUI
+
+⏳ Reporting System
+
+⏳ System Integration
+
+⏳ Testing
+
+⏳ Final Documentation
+
+⏳ Presentation
+
+---
+
+## Team Workflow
+
+Before coding:
 
 ```bash
 git pull
 ```
 
-Check project status:
-
-```bash
-git status
-```
-
-Stage changes:
+After completing a feature:
 
 ```bash
 git add .
-```
-
-Commit changes:
-
-```bash
-git commit -m "Meaningful commit message"
-```
-
-Push changes:
-
-```bash
+git commit -m "Feature Description"
 git push
 ```
 
-View commit history:
+---
 
-```bash
-git log --oneline
-```
+## Development Roadmap
+
+### Week 1
+✅ Planning and Setup
+
+✅ GitHub Configuration
+
+✅ Project Structure
+
+✅ UML Planning
 
 ---
 
-## Current Progress (Week 1)
+### Week 2
+✅ Authentication System
 
-### Completed
+✅ User Management
 
-✅ GitHub repository setup
+✅ Manager Module
 
-✅ Local repository configuration
-
-✅ Project folder structure
-
-✅ Package creation
-
-✅ Model class skeletons
-
-✅ GUI class skeletons
-
-✅ Service class skeletons
-
-✅ Data file structure
-
-✅ Documentation planning
-
-✅ UML planning
-
-✅ Git workflow implementation
+✅ Administrator CRUD
 
 ---
 
-## Week 1 Deliverables
+### Week 3
+✅ Student CRUD
 
-- User hierarchy completed
-- Project structure created
-- Initial class skeletons created
-- File storage structure prepared
-- GitHub repository configured
-- Documentation framework planned
+✅ Staff Management
 
----
+✅ Instructor Scheduling
 
-## Week 2 Development Plan
+🔄 Attendance Module
 
-The next phase focuses on the Login and Authentication Module.
-
-### Features to Implement
-
-- Login system
-- User authentication
-- Read users from users.txt
-- Credential validation
-- Role-based access control
-- Menu redirection based on user role
-
-This module will serve as the foundation for all remaining SDAMS features.
+🔄 Facilities Module
 
 ---
 
-## Team Repository
+### Week 4
+⏳ Booking System
 
-Repository Link:
+⏳ Attendance Integration
 
-https://github.com/greenpandas/SDAMS
+⏳ Payment Integration
+
+⏳ GUI Development
 
 ---
 
-## Authors
+### Week 5
+⏳ Reporting
 
-Self Defence Academy Management System (SDAMS)
+⏳ Testing
 
-Developed as an academic group project using Java, NetBeans, Git, and Object-Oriented Programming principles.
+⏳ Bug Fixing
+
+⏳ GUI Refinement
+
+---
+
+### Week 6
+⏳ Documentation
+
+⏳ Presentation
+
+⏳ Final Testing
+
+⏳ Submission
