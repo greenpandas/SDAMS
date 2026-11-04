@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 
 import model.User;
 
@@ -12,7 +13,7 @@ public class FileManager {
     public ArrayList<User> readUsers() {
         
         
-
+     
         ArrayList<User> users = new ArrayList<>();
 
         try {
@@ -23,8 +24,9 @@ public class FileManager {
             String line;
 
             while ((line = br.readLine()) != null) {
-
+                
                 String[] data = line.split(",");
+                
 
                 User user = new User(
                         data[0],
@@ -44,8 +46,11 @@ public class FileManager {
             System.out.println("Error reading users file.");
             e.printStackTrace();
         }
-
+        
+        
+        
         return users;
+        
     }
     public void saveUser(String record) {
 
@@ -66,8 +71,74 @@ public class FileManager {
         System.out.println("Error saving user.");
         e.printStackTrace();
     }
-}
-
-
     
+}
+    
+
+
+    public void overwriteUsers(ArrayList<User> users) {
+
+    try {
+
+        PrintWriter writer =
+                new PrintWriter("data/users.txt");
+
+        for (User user : users) {
+
+            String record =
+                    user.getUserId() + "," +
+                    user.getUsername() + "," +
+                    user.getPassword() + "," +
+                    user.getName() + "," +
+                    user.getRole();
+
+            writer.println(record);
+        }
+
+        writer.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error updating users file.");
+        e.printStackTrace();
+    }
+}
+    public void saveClass(String record) {
+
+    try {
+
+        FileWriter fw =
+                new FileWriter("data/classes.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving class.");
+        e.printStackTrace();
+    }
+    
+    
+}
+    public void saveAttendance(String record) {
+
+    try {
+
+        FileWriter fw =
+                new FileWriter("data/attendance.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.flush();
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving attendance.");
+        e.printStackTrace();
+    }
+}
 }

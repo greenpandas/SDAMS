@@ -22,31 +22,9 @@ The system is designed to manage the daily operations of a self-defence academy,
 
 - Java
 - NetBeans
-- Java Swing (Upcoming)
+- Java Swing (Planned)
 - Git & GitHub
 - Text File Storage
-
----
-
-## Current Project Structure
-
-```text
-SDAMS
-│
-├── data
-├── diagrams
-├── docs
-├── screenshots
-│
-├── src
-│   ├── model
-│   ├── gui
-│   ├── service
-│   ├── filehandling
-│   └── reports
-│
-└── nbproject
-```
 
 ---
 
@@ -80,75 +58,89 @@ User
 └── AttendanceOfficer
 ```
 
-### Polymorphism
-
-Planned during module implementation.
-
 ### Abstraction
 
-Planned during service implementation.
+- Business logic separated into service classes
+- File handling separated into FileManager
+
+### Polymorphism
+
+- Planned during later implementation phases
 
 ---
 
-## Completed Features
+## Features Completed
 
-### Week 1
+### Core System
 
-✅ Project Setup
+✅ User Model
 
-✅ GitHub Repository Configuration
-
-✅ Package Structure
-
-✅ Model Classes
-
-✅ Service Layer Classes
-
-✅ File Handling Layer
-
-✅ Documentation Structure
-
-✅ UML Planning
-
----
-
-### Week 2 Progress
-
-✅ User Model Completed
+✅ FileManager
 
 ✅ User Authentication
 
 ✅ Login Validation
 
-✅ FileManager User Reading
+✅ Text File Data Persistence
 
-✅ FileManager User Saving
+✅ Role-Based Access Control
 
-✅ Console-Based Login System
+✅ Menu Routing System
 
-✅ Role-Based Menu Routing
-
-✅ Interactive Manager Menu
-
-✅ Manager Service Layer
-
-✅ Administrator Management Menu
-
-✅ Add Administrator
-
-✅ Save Administrator To users.txt
-
-✅ View Administrators
-
-✅ Search Administrator
-
-✅ Update Administrator Skeleton
-
-✅ Delete Administrator Skeleton
+✅ Console Navigation with Back/Logout Functionality
 
 ---
 
-## Login Flow
+### Manager Module
+
+✅ Administrator CRUD
+
+- Add Administrator
+- View Administrators
+- Search Administrator
+- Update Administrator
+- Delete Administrator
+
+✅ View Staff
+
+✅ Generate Staff Report
+
+✅ Revenue Report Foundation
+
+---
+
+### Administrator Module
+
+✅ Student CRUD
+
+- Add Student
+- View Students
+- Search Student
+- Update Student
+- Delete Student
+
+✅ Staff Management
+
+- View Staff
+- Search Staff
+
+✅ Payment Management Structure
+
+---
+
+### Instructor Module
+
+✅ Instructor Menu
+
+✅ Create Schedule
+
+✅ View Schedule
+
+✅ Schedule Storage using classes.txt
+
+---
+
+## Current System Flow
 
 ```text
 users.txt
@@ -161,35 +153,92 @@ Authentication
      ↓
 MenuRouter
      ↓
-Role-Based Menu
+Role-Based Menus
 ```
 
 ---
 
-## Current Status
+## Data Files
+
+```text
+users.txt
+classes.txt
+attendance.txt
+bookings.txt
+payments.txt
+equipment.txt
+issues.txt
+ratings.txt
+students.txt
+staff.txt
+```
+
+---
+
+## Service Layer
+
+Implemented Services:
+
+```text
+UserService
+ManagerService
+AdminService
+StudentService
+InstructorService
+FileManager
+```
+
+---
+
+## Current Project Status
 
 ### Completed
 
-- User Authentication
-- Role Routing
-- Manager Menu System
-- Administrator CRUD Foundation
-- File Handling
-- Data Storage Design
+✅ Authentication System
+
+✅ User Management Foundation
+
+✅ Role-Based Access Control
+
+✅ Manager Module
+
+✅ Administrator Module
+
+✅ Student CRUD
+
+✅ Staff Management
+
+✅ Instructor Scheduling
+
+✅ File Storage Architecture
+
+---
 
 ### In Progress
 
-- Administrator CRUD Completion
-- Staff Management
-- Reports
+🔄 Attendance Module
+
+🔄 Facilities Module
+
+🔄 Booking System
+
+🔄 Payment Integration
+
+---
 
 ### Upcoming
 
-- Java Swing GUI
-- Attendance Module
-- Booking Module
-- Payment Module
-- Reporting System
+⏳ Java Swing GUI
+
+⏳ Reporting System
+
+⏳ System Integration
+
+⏳ Testing
+
+⏳ Final Documentation
+
+⏳ Presentation
 
 ---
 
@@ -205,7 +254,7 @@ After completing a feature:
 
 ```bash
 git add .
-git commit -m "Feature description"
+git commit -m "Feature Description"
 git push
 ```
 
@@ -213,27 +262,68 @@ git push
 
 ## Development Roadmap
 
+### Week 1
+✅ Planning and Setup
+
+✅ GitHub Configuration
+
+✅ Project Structure
+
+✅ UML Planning
+
+---
+
 ### Week 2
-- Login System
-- User Management
-- Manager Module
+✅ Authentication System
+
+✅ User Management
+
+✅ Manager Module
+
+✅ Administrator CRUD
+
+---
 
 ### Week 3
-- Administrator Module
-- Student Management
+✅ Student CRUD
+
+✅ Staff Management
+
+✅ Instructor Scheduling
+
+🔄 Attendance Module
+
+🔄 Facilities Module
+
+---
 
 ### Week 4
-- Booking
-- Attendance
-- Scheduling
+⏳ Booking System
+
+⏳ Attendance Integration
+
+⏳ Payment Integration
+
+⏳ GUI Development
+
+---
 
 ### Week 5
-- Facilities
-- Payments
-- Reports
+⏳ Reporting
+
+⏳ Testing
+
+⏳ Bug Fixing
+
+⏳ GUI Refinement
+
+---
 
 ### Week 6
-- Documentation
-- Testing
-- Presentation
-- Final Bug Fixes
+⏳ Documentation
+
+⏳ Presentation
+
+⏳ Final Testing
+
+⏳ Submission
