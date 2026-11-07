@@ -61,4 +61,32 @@ public class FacilitiesService {
         );
     }
 }
+    public void viewIssues() {
+
+    try {
+
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/issues.txt"));
+
+        String line;
+
+        System.out.println(
+                "\n===== FACILITY ISSUES ====="
+        );
+
+        while ((line = br.readLine()) != null) {
+
+            System.out.println(line);
+        }
+
+        br.close();
+
+    } catch (Exception e) {
+
+        System.out.println(
+                "Error reading issues."
+        );
+    }
+}
 }

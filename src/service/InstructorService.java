@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
 
+
 public class InstructorService {
 
     public void createSchedule() {
@@ -73,9 +74,31 @@ public class InstructorService {
 
     public void reportIssue() {
 
-        System.out.println("Facility Issue Module");
+    Scanner scanner = new Scanner(System.in);
 
-    }
+    System.out.println(
+            "\n===== REPORT FACILITY ISSUE ====="
+    );
+
+    System.out.print("Issue ID: ");
+    String issueId = scanner.nextLine();
+
+    System.out.print("Issue Description: ");
+    String description = scanner.nextLine();
+
+    String record =
+            issueId + "," +
+            description;
+
+    FileManager fileManager =
+            new FileManager();
+
+    fileManager.saveIssue(record);
+
+    System.out.println(
+            "\nIssue Reported Successfully!"
+    );
+}
 
     public void viewRatings() {
 

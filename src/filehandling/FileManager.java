@@ -213,4 +213,23 @@ public class FileManager {
         e.printStackTrace();
     }
 }
+    public void saveIssue(String record) {
+
+    try {
+
+        FileWriter fw =
+                new FileWriter("data/issues.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.flush();
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving issue.");
+        e.printStackTrace();
+    }
+}
 }

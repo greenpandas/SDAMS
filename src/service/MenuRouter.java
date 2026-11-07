@@ -315,9 +315,13 @@ while(running)
         System.out.println(
                 "2. View Equipment"
         );
+        
+        System.out.println(
+                "3. View Issues"
+        );
 
         System.out.println(
-                "3. Logout"
+                "4. Logout"
         );
 
         System.out.print(
@@ -338,8 +342,12 @@ while(running)
                 break;
 
             case 3:
+                facilitiesService.viewIssues();
+                break;
+            case 4:
                 running = false;
                 break;
+                
 
             default:
                 System.out.println(
