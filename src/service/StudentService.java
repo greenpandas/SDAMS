@@ -236,15 +236,79 @@ public class StudentService {
 
     System.out.println("\n===== BOOK CLASS =====");
 
-    System.out.print("Enter Class ID: ");
+    System.out.print("Student ID: ");
+    String studentId = scanner.nextLine();
 
-    String classId =
-            scanner.nextLine();
+    System.out.print("Class ID: ");
+    String classId = scanner.nextLine();
+
+    String record =
+            studentId + "," +
+            classId;
+
+    FileManager fileManager =
+            new FileManager();
+
+    fileManager.saveBooking(record);
 
     System.out.println(
-            "Class "
-            + classId
-            + " booked successfully."
+            "\nClass booked successfully!"
     );
 }
+    public void submitRating() {
+
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("\n===== SUBMIT RATING =====");
+
+    System.out.print("Instructor ID: ");
+    String instructorId = scanner.nextLine();
+
+    System.out.print("Rating (1-5): ");
+    String rating = scanner.nextLine();
+
+    String record =
+            instructorId + "," +
+            rating;
+
+    FileManager fileManager =
+            new FileManager();
+
+    fileManager.saveRating(record);
+
+    System.out.println(
+            "\nRating Submitted Successfully!"
+    );
+}
+    public void viewBookings() {
+
+    try {
+
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/bookings.txt"));
+
+        String line;
+
+        System.out.println(
+                "\n===== BOOKINGS ====="
+        );
+
+        while ((line = br.readLine()) != null) {
+
+            System.out.println(line);
+        }
+
+        br.close();
+
+    } catch (Exception e) {
+
+        System.out.println(
+                "Error reading bookings."
+        );
+
+        e.printStackTrace();
+    }
+}
+
 }

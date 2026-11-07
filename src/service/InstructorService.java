@@ -79,7 +79,30 @@ public class InstructorService {
 
     public void viewRatings() {
 
-        System.out.println("View Ratings Module");
+    try {
 
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/ratings.txt"));
+
+        String line;
+
+        System.out.println(
+                "\n===== RATINGS ====="
+        );
+
+        while((line = br.readLine()) != null) {
+
+            System.out.println(line);
+        }
+
+        br.close();
+
+    } catch(Exception e) {
+
+        System.out.println(
+                "Error reading ratings."
+        );
     }
+}
 }

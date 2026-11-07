@@ -141,4 +141,76 @@ public class FileManager {
         e.printStackTrace();
     }
 }
+    public void saveEquipment(String record) {
+
+    try {
+
+        FileWriter fw =
+                new FileWriter("data/equipment.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.flush();
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving equipment.");
+        e.printStackTrace();
+    }
+}
+    public void saveBooking(String record) {
+
+    try {
+
+        
+
+        System.out.println(
+                "Record = " + record
+        );
+
+        System.out.println(
+                new java.io.File("data/bookings.txt")
+                        .getAbsolutePath()
+        );
+
+        FileWriter fw =
+                new FileWriter("data/bookings.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.flush();
+
+        fw.close();
+
+        System.out.println(
+                "Booking saved."
+        );
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving booking.");
+        e.printStackTrace();
+    }
+}
+    public void saveRating(String record) {
+
+    try {
+
+        FileWriter fw =
+                new FileWriter("data/ratings.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.flush();
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving rating.");
+        e.printStackTrace();
+    }
+}
 }
