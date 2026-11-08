@@ -232,4 +232,23 @@ public class FileManager {
         e.printStackTrace();
     }
 }
+    public void savePayment(String record) {
+
+    try {
+
+        FileWriter fw =
+                new FileWriter("data/payments.txt", true);
+
+        fw.write(record + "\n");
+
+        fw.flush();
+
+        fw.close();
+
+    } catch (Exception e) {
+
+        System.out.println("Error saving payment.");
+        e.printStackTrace();
+    }
+}
 }

@@ -4,6 +4,8 @@ import java.util.Scanner;
 import filehandling.FileManager;
 import model.User;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class ManagerService {
 
@@ -322,10 +324,40 @@ public class ManagerService {
 
     public void generateRevenueReport() {
 
-    System.out.println(
-        "\nRevenue Report will be implemented "
-        + "when Payment Module is completed."
-    );
+    try {
 
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/payments.txt"));
+
+        String line;
+
+        double totalRevenue = 0;
+
+        while ((line = br.readLine()) != null) {
+
+            String[] data = line.split(",");
+
+            totalRevenue +=
+                    Double.parseDouble(data[1]);
+        }
+
+        br.close();
+
+        System.out.println(
+                "\n===== REVENUE REPORT ====="
+        );
+
+        System.out.println(
+                "Total Revenue: RM "
+                + totalRevenue
+        );
+
+    } catch (Exception e) {
+
+        System.out.println(
+                "Error generating revenue report."
+        );
+    }
 }
 }

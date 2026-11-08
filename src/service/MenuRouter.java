@@ -204,8 +204,9 @@ while(running)
         System.out.println("1. View Classes");
         System.out.println("2. Book Class");
         System.out.println("3. View Bookings");
-        System.out.println("4. Submit Rating");
-        System.out.println("5. Logout");
+        System.out.println("4. View Payments");
+        System.out.println("5. Submit Rating");
+        System.out.println("6. Logout");
 
         System.out.print("\nEnter choice: ");
 
@@ -226,10 +227,13 @@ while(running)
                 studentService.viewBookings();
                 break;
             case 4:
+                studentService.viewPayments();
+                break;
+            case 5:
                 studentService.submitRating();
                 break;
 
-            case 5:
+            case 6:
                 running = false;
                 break;
 

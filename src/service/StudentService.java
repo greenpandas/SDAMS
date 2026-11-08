@@ -310,5 +310,33 @@ public class StudentService {
         e.printStackTrace();
     }
 }
+    public void viewPayments() {
+
+    try {
+
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/payments.txt"));
+
+        String line;
+
+        System.out.println(
+                "\n===== PAYMENT HISTORY ====="
+        );
+
+        while ((line = br.readLine()) != null) {
+
+            System.out.println(line);
+        }
+
+        br.close();
+
+    } catch (Exception e) {
+
+        System.out.println(
+                "Error reading payments."
+        );
+    }
+}
 
 }
