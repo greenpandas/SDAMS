@@ -243,8 +243,9 @@ public class StudentService {
     String classId = scanner.nextLine();
 
     String record =
-            studentId + "," +
-            classId;
+        studentId + "," +
+        classId + "," +
+        "Booked";
 
     FileManager fileManager =
             new FileManager();
@@ -261,13 +262,16 @@ public class StudentService {
 
     System.out.println("\n===== SUBMIT RATING =====");
 
+    System.out.print("Student ID: ");
+    String studentId = scanner.nextLine();
+    
     System.out.print("Instructor ID: ");
     String instructorId = scanner.nextLine();
 
     System.out.print("Rating (1-5): ");
     String rating = scanner.nextLine();
 
-    String record =
+    String record = studentId + "," +
             instructorId + "," +
             rating;
 
@@ -291,13 +295,21 @@ public class StudentService {
         String line;
 
         System.out.println(
-                "\n===== BOOKINGS ====="
-        );
+        "\n===== BOOKINGS ====="
+);
 
-        while ((line = br.readLine()) != null) {
+while ((line = br.readLine()) != null) {
 
-            System.out.println(line);
-        }
+    String[] data =
+            line.split(",");
+
+    System.out.println(
+            "Student: " + data[0]
+            + " | Class: " + data[1]
+            + " | Status: " + data[2]
+    );
+}
+
 
         br.close();
 
