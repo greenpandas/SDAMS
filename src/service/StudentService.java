@@ -27,6 +27,18 @@ public class StudentService {
 
         System.out.print("Password: ");
         String password = scanner.nextLine();
+        
+        if(studentId.isEmpty()
+        || name.isEmpty()
+        || username.isEmpty()
+        || password.isEmpty()) {
+
+        System.out.println(
+            "All fields are required."
+        );
+
+        return;
+}
 
         FileManager fileManager = new FileManager();
 

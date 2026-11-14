@@ -18,6 +18,16 @@ public class FacilitiesService {
 
         System.out.print("Equipment Name: ");
         String equipmentName = scanner.nextLine();
+        
+        if(equipmentId.isEmpty()
+        || equipmentName.isEmpty()) {
+
+        System.out.println(
+            "All fields are required."
+        );
+
+        return;
+}
 
         String record =
                 equipmentId + "," +

@@ -116,7 +116,13 @@ public class InstructorService {
 
         while((line = br.readLine()) != null) {
 
-            System.out.println(line);
+            String[] data = line.split(",");
+
+            System.out.println(
+            "Student: " + data[0]
+            + " | Instructor: " + data[1]
+            + " | Rating: " + data[2]
+);
         }
 
         br.close();

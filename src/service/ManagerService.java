@@ -334,15 +334,27 @@ public class ManagerService {
 
         double totalRevenue = 0;
 
+        int paymentCount = 0;
+
         while ((line = br.readLine()) != null) {
 
             String[] data = line.split(",");
 
             totalRevenue +=
                     Double.parseDouble(data[1]);
+
+            paymentCount++;
         }
 
         br.close();
+
+        double average = 0;
+
+        if(paymentCount > 0) {
+
+            average =
+                    totalRevenue / paymentCount;
+        }
 
         System.out.println(
                 "\n===== REVENUE REPORT ====="
@@ -351,6 +363,16 @@ public class ManagerService {
         System.out.println(
                 "Total Revenue: RM "
                 + totalRevenue
+        );
+
+        System.out.println(
+                "Payments Recorded: "
+                + paymentCount
+        );
+
+        System.out.println(
+                "Average Payment: RM "
+                + average
         );
 
     } catch (Exception e) {
