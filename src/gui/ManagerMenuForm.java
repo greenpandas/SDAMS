@@ -29,30 +29,83 @@ public class ManagerMenuForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        btnManageAdmins = new javax.swing.JButton();
+        btnViewStaff = new javax.swing.JButton();
+        btnReports = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
         jLabel1.setText("MANAGER DASHBOARD");
+
+        btnManageAdmins.setText("Manage Administrators");
+        btnManageAdmins.addActionListener(this::btnManageAdminsActionPerformed);
+
+        btnViewStaff.setText("View Staff");
+        btnViewStaff.addActionListener(this::btnViewStaffActionPerformed);
+
+        btnReports.setText("Reports");
+        btnReports.addActionListener(this::btnReportsActionPerformed);
+
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(120, 120, 120))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnManageAdmins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnViewStaff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
+                .addGap(59, 59, 59)
                 .addComponent(jLabel1)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(btnManageAdmins)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnViewStaff)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnReports)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLogout)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        new LoginForm().setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnManageAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageAdminsActionPerformed
+        new AdminManagementForm().setVisible(true);
+                            
+    }//GEN-LAST:event_btnManageAdminsActionPerformed
+
+    private void btnViewStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewStaffActionPerformed
+        new StaffViewForm().setVisible(true);
+    }//GEN-LAST:event_btnViewStaffActionPerformed
+
+    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
+        new ReportsForm().setVisible(true);
+    }//GEN-LAST:event_btnReportsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,6 +133,10 @@ public class ManagerMenuForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnManageAdmins;
+    private javax.swing.JButton btnReports;
+    private javax.swing.JButton btnViewStaff;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
