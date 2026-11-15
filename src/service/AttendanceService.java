@@ -54,7 +54,13 @@ public class AttendanceService {
 
         while ((line = br.readLine()) != null) {
 
-            System.out.println(line);
+            String[] data = line.split(",");
+
+        System.out.println(
+        "Student: " + data[0]
+        + " | Date: " + data[1]
+        + " | Status: " + data[2]
+);
         }
 
         br.close();

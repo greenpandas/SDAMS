@@ -30,6 +30,9 @@ public class MenuRouter {
             case "AttendanceOfficer":
                 showAttendanceMenu();
                 break;
+            case "FacilitiesOfficer":
+                showFacilitiesMenu();
+                break;
 
             default:
                 System.out.println("Unknown role.");
@@ -57,7 +60,7 @@ while(running)
     System.out.print("\nEnter choice: ");
 
     int choice = scanner.nextInt();
-
+    scanner.nextLine();
     switch(choice)
     {
         case 1:
@@ -200,7 +203,10 @@ while(running)
 
         System.out.println("1. View Classes");
         System.out.println("2. Book Class");
-        System.out.println("3. Logout");
+        System.out.println("3. View Bookings");
+        System.out.println("4. View Payments");
+        System.out.println("5. Submit Rating");
+        System.out.println("6. Logout");
 
         System.out.print("\nEnter choice: ");
 
@@ -218,6 +224,16 @@ while(running)
                 break;
 
             case 3:
+                studentService.viewBookings();
+                break;
+            case 4:
+                studentService.viewPayments();
+                break;
+            case 5:
+                studentService.submitRating();
+                break;
+
+            case 6:
                 running = false;
                 break;
 
@@ -277,6 +293,69 @@ while(running)
             default:
                 System.out.println(
                     "Invalid choice."
+                );
+        }
+    }
+}
+    private void showFacilitiesMenu() {
+
+    Scanner scanner = new Scanner(System.in);
+
+    FacilitiesService facilitiesService =
+            new FacilitiesService();
+
+    boolean running = true;
+
+    while (running) {
+
+        System.out.println(
+                "\n===== FACILITIES MENU ====="
+        );
+
+        System.out.println(
+                "1. Add Equipment"
+        );
+
+        System.out.println(
+                "2. View Equipment"
+        );
+        
+        System.out.println(
+                "3. View Issues"
+        );
+
+        System.out.println(
+                "4. Logout"
+        );
+
+        System.out.print(
+                "\nEnter choice: "
+        );
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch(choice) {
+
+            case 1:
+                facilitiesService.addEquipment();
+                break;
+
+            case 2:
+                facilitiesService.viewEquipment();
+                break;
+
+            case 3:
+                facilitiesService.viewIssues();
+                break;
+            case 4:
+                running = false;
+                break;
+                
+
+            default:
+                System.out.println(
+                        "Invalid choice."
                 );
         }
     }

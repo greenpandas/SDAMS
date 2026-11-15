@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
 
+
 public class InstructorService {
 
     public void createSchedule() {
@@ -73,13 +74,64 @@ public class InstructorService {
 
     public void reportIssue() {
 
-        System.out.println("Facility Issue Module");
+    Scanner scanner = new Scanner(System.in);
 
-    }
+    System.out.println(
+            "\n===== REPORT FACILITY ISSUE ====="
+    );
+
+    System.out.print("Issue ID: ");
+    String issueId = scanner.nextLine();
+
+    System.out.print("Issue Description: ");
+    String description = scanner.nextLine();
+
+    String record =
+            issueId + "," +
+            description;
+
+    FileManager fileManager =
+            new FileManager();
+
+    fileManager.saveIssue(record);
+
+    System.out.println(
+            "\nIssue Reported Successfully!"
+    );
+}
 
     public void viewRatings() {
 
-        System.out.println("View Ratings Module");
+    try {
 
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/ratings.txt"));
+
+        String line;
+
+        System.out.println(
+                "\n===== RATINGS ====="
+        );
+
+        while((line = br.readLine()) != null) {
+
+            String[] data = line.split(",");
+
+            System.out.println(
+            "Student: " + data[0]
+            + " | Instructor: " + data[1]
+            + " | Rating: " + data[2]
+);
+        }
+
+        br.close();
+
+    } catch(Exception e) {
+
+        System.out.println(
+                "Error reading ratings."
+        );
     }
+}
 }
