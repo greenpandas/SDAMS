@@ -27,6 +27,18 @@ public class StudentService {
 
         System.out.print("Password: ");
         String password = scanner.nextLine();
+        
+        if(studentId.isEmpty()
+        || name.isEmpty()
+        || username.isEmpty()
+        || password.isEmpty()) {
+
+        System.out.println(
+            "All fields are required."
+        );
+
+        return;
+}
 
         FileManager fileManager = new FileManager();
 
@@ -236,15 +248,119 @@ public class StudentService {
 
     System.out.println("\n===== BOOK CLASS =====");
 
-    System.out.print("Enter Class ID: ");
+    System.out.print("Student ID: ");
+    String studentId = scanner.nextLine();
 
-    String classId =
-            scanner.nextLine();
+    System.out.print("Class ID: ");
+    String classId = scanner.nextLine();
+
+    String record =
+        studentId + "," +
+        classId + "," +
+        "Booked";
+
+    FileManager fileManager =
+            new FileManager();
+
+    fileManager.saveBooking(record);
 
     System.out.println(
-            "Class "
-            + classId
-            + " booked successfully."
+            "\nClass booked successfully!"
     );
 }
+    public void submitRating() {
+
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("\n===== SUBMIT RATING =====");
+
+    System.out.print("Student ID: ");
+    String studentId = scanner.nextLine();
+    
+    System.out.print("Instructor ID: ");
+    String instructorId = scanner.nextLine();
+
+    System.out.print("Rating (1-5): ");
+    String rating = scanner.nextLine();
+
+    String record = studentId + "," +
+            instructorId + "," +
+            rating;
+
+    FileManager fileManager =
+            new FileManager();
+
+    fileManager.saveRating(record);
+
+    System.out.println(
+            "\nRating Submitted Successfully!"
+    );
+}
+    public void viewBookings() {
+
+    try {
+
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/bookings.txt"));
+
+        String line;
+
+        System.out.println(
+        "\n===== BOOKINGS ====="
+);
+
+while ((line = br.readLine()) != null) {
+
+    String[] data =
+            line.split(",");
+
+    System.out.println(
+            "Student: " + data[0]
+            + " | Class: " + data[1]
+            + " | Status: " + data[2]
+    );
+}
+
+
+        br.close();
+
+    } catch (Exception e) {
+
+        System.out.println(
+                "Error reading bookings."
+        );
+
+        e.printStackTrace();
+    }
+}
+    public void viewPayments() {
+
+    try {
+
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/payments.txt"));
+
+        String line;
+
+        System.out.println(
+                "\n===== PAYMENT HISTORY ====="
+        );
+
+        while ((line = br.readLine()) != null) {
+
+            System.out.println(line);
+        }
+
+        br.close();
+
+    } catch (Exception e) {
+
+        System.out.println(
+                "Error reading payments."
+        );
+    }
+}
+
 }
