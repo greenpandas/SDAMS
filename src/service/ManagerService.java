@@ -8,6 +8,79 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class ManagerService {
+    public void addAdministrator(
+        String adminId,
+        String name,
+        String username,
+        String password) {
+
+    FileManager fileManager =
+            new FileManager();
+
+    String record =
+            adminId + "," +
+            username + "," +
+            password + "," +
+            name + "," +
+            "Administrator";
+
+    fileManager.saveUser(record);
+    
+}
+    
+    public void updateAdministrator(
+        String adminId,
+        String name,
+        String username,
+        String password) {
+
+    FileManager fileManager =
+            new FileManager();
+
+    ArrayList<User> users =
+            fileManager.readUsers();
+
+    for(User user : users) {
+
+        if(user.getRole()
+                .equals("Administrator")
+
+                &&
+
+                user.getUserId()
+                .equals(adminId)) {
+
+            user.setName(name);
+            user.setUsername(username);
+            user.setPassword(password);
+        }
+    }
+
+    fileManager.overwriteUsers(users);
+}
+    public void deleteAdministrator(
+        String adminId) {
+
+    FileManager fileManager =
+            new FileManager();
+
+    ArrayList<User> users =
+            fileManager.readUsers();
+
+    users.removeIf(user ->
+
+            user.getRole()
+                    .equals("Administrator")
+
+            &&
+
+            user.getUserId()
+                    .equals(adminId)
+
+    );
+
+    fileManager.overwriteUsers(users);
+}
 
     public void addAdministrator() {
         
