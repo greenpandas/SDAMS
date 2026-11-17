@@ -303,7 +303,36 @@ public String updateStudent(String studentId, String name,
     return null;
 }
 
-    
+public String deleteStudent(String studentId) {
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> users = fileManager.readUsers();
+
+    boolean studentFound = false;
+
+    for (int i = 0; i < users.size(); i++) {
+
+        User user = users.get(i);
+
+        if (user.getUserId().equals(studentId)
+                && user.getRole().equals("Student")) {
+
+            users.remove(i);
+            studentFound = true;
+            break;
+        }
+    }
+
+    if (!studentFound) {
+        return "Student could not be found.";
+    }
+
+    fileManager.overwriteUsers(users);
+
+    return null;
+}
+   
 public String generateStudentId() {
 
     FileManager fileManager = new FileManager();

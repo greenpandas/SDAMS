@@ -117,6 +117,7 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         btnUpdate.addActionListener(this::btnUpdateActionPerformed);
 
         btnAdd2.setText("Delete");
+        btnAdd2.addActionListener(this::btnAdd2ActionPerformed);
 
         btnAdd3.setText("Back");
         btnAdd3.addActionListener(this::btnAdd3ActionPerformed);
@@ -246,6 +247,53 @@ int selectedRow = tblStudents.getSelectedRow();
         // Refresh the table after the dialog closes.
         loadStudents();
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
+        int selectedRow = tblStudents.getSelectedRow();
+
+    if (selectedRow == -1) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Please select a student to delete."
+        );
+        return;
+    }
+
+    // Get the selected student's ID.
+    int modelRow = tblStudents.convertRowIndexToModel(selectedRow);
+
+    String selectedId = tblStudents.getModel()
+            .getValueAt(modelRow, 0).toString();
+
+    // Ask for confirmation before deleting.
+    int confirmation = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to delete student "
+                    + selectedId + "?",
+            "Confirm Deletion",
+            javax.swing.JOptionPane.YES_NO_OPTION,
+            javax.swing.JOptionPane.WARNING_MESSAGE
+    );
+
+    if (confirmation != javax.swing.JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    // Delete the selected student.
+    String result = adminService.deleteStudent(selectedId);
+
+    if (result != null) {
+        javax.swing.JOptionPane.showMessageDialog(this, result, "Deletion Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Student deleted successfully."
+    );
+
+    loadStudents();
+    }//GEN-LAST:event_btnAdd2ActionPerformed
 
     /**
      * @param args the command line arguments
