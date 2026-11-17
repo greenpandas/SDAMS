@@ -113,7 +113,8 @@ public class AdminMenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutActionPerformed
 
     private void manageStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStudentActionPerformed
-        // TODO add your handling code here:
+        new AdminManageStudentsForm().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_manageStudentActionPerformed
 
     /**

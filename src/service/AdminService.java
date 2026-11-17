@@ -276,22 +276,19 @@ public String generateStudentId() {
     return String.format("S%03d", max + 1);
 }
 
-public class UserService {
+
+public ArrayList<User> getUsersByRole(String role) {
 
     FileManager fileManager = new FileManager();
+    ArrayList<User> filteredUsers = new ArrayList<>();
 
-    public ArrayList<User> getUsersByRole(String role) {
+    for (User user : fileManager.readUsers()) {
 
-        ArrayList<User> filteredUsers = new ArrayList<>();
-
-        for (User user : fileManager.readUsers()) {
-
-            if (role.equalsIgnoreCase(user.getRole())) {
-                filteredUsers.add(user);
-            }
+        if (role.equalsIgnoreCase(user.getRole())) {
+            filteredUsers.add(user);
         }
+    }
 
         return filteredUsers;
     }
-}
 }

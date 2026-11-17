@@ -5,3 +5,4 @@ AT001,attendance1,1234,Ahmad,AttendanceOfficer
 F001,facility1,1234,Aiman,FacilitiesOfficer
 A006,S,S,S,Administrator
 A010,johnadmin,1234,John,Administrator
+S002,erer,erer,erer,Student

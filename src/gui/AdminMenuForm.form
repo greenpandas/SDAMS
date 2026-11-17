@@ -32,11 +32,9 @@
               <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="logout" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="manageStudent" max="32767" attributes="0"/>
-                      <Component id="manageStaff" max="32767" attributes="0"/>
-                      <Component id="paymentRecord" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="manageStudent" max="32767" attributes="0"/>
+                  <Component id="manageStaff" max="32767" attributes="0"/>
+                  <Component id="paymentRecord" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="207" max="32767" attributes="0"/>
           </Group>
