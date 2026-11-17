@@ -129,6 +129,7 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(this::btnUpdateActionPerformed);
 
         btnAdd2.setText("Delete");
 
@@ -210,7 +211,30 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         searchStudents();
+        for (User user : adminService.getUsersByRole("Student")) {
+
+        if (user.getUserId().equals(selectedId)) {
+            selectedStudent = user;
+            break;
+        }
+    }
+
+    // Check whether the student exists
+    if (selectedStudent == null) {
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "The selected student could not be found."
+        );
+
+        loadStudents();
+        return;
+    }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments

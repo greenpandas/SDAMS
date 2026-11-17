@@ -16,9 +16,11 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
      * Creates new form AddStudentMenu
      */
     public AdminUpdateStudentForm(java.awt.Frame parent, boolean modal, model.User student) {
+        this(parent, modal, new model.User("", "", "", "", "Student"));
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        
         
         //set user ID to read-only
         txtUserId.setEditable(false);
