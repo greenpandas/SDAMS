@@ -359,3 +359,323 @@ The project currently uses text-file persistence rather than a relational databa
 ## Student Module
 
 ✅ View Classes
+
+✅ Book Classes
+
+✅ View Bookings
+
+✅ View Payment History
+
+✅ Submit Ratings
+
+---
+
+## Instructor Module
+
+✅ Create Schedule
+
+✅ View Schedule
+
+✅ Report Facility Issues
+
+✅ View Student Ratings
+
+---
+
+## Attendance Module
+
+✅ Record Attendance
+
+✅ View Attendance
+
+✅ Attendance Persistence
+
+---
+
+## Facilities Module
+
+✅ Add Equipment
+
+✅ View Equipment
+
+✅ View Facility Issues
+
+---
+
+# Implemented Workflows
+
+## Class Scheduling Workflow
+
+```text
+Instructor
+      ↓
+Create Schedule
+      ↓
+classes.txt
+      ↓
+Student
+      ↓
+View Available Classes
+```
+
+---
+
+## Class Booking Workflow
+
+```text
+Student
+      ↓
+View Classes
+      ↓
+Book Class
+      ↓
+bookings.txt
+```
+
+---
+
+## Attendance Workflow
+
+```text
+Attendance Officer
+      ↓
+Record Attendance
+      ↓
+attendance.txt
+      ↓
+View Attendance
+```
+
+---
+
+## Facility Issue Reporting Workflow
+
+```text
+Instructor
+      ↓
+Report Issue
+      ↓
+issues.txt
+      ↓
+Facilities Officer
+      ↓
+View Reported Issues
+```
+
+---
+
+## Payment Workflow
+
+```text
+Administrator
+      ↓
+Add Payment
+      ↓
+payments.txt
+      ↓
+Student
+      ↓
+View Payments
+      ↓
+Manager
+      ↓
+Generate Revenue Reports
+```
+
+---
+
+# Service Layer
+
+The service layer contains the core business logic of the system.
+
+## Implemented Services
+
+```text
+UserService
+ManagerService
+AdminService
+StudentService
+InstructorService
+AttendanceService
+FacilitiesService
+PaymentService
+FileManager
+```
+
+---
+
+# GUI Development Status
+
+## Completed
+
+✅ LoginForm
+
+✅ Role-Based GUI Navigation
+
+✅ Manager Dashboard Foundation
+
+✅ Dashboard Structure Creation
+
+---
+
+## In Progress
+
+🔄 Administrator Dashboard
+
+🔄 Student Dashboard
+
+🔄 Instructor Dashboard
+
+🔄 Attendance Dashboard
+
+🔄 Facilities Dashboard
+
+🔄 Backend-to-GUI Integration
+
+---
+
+# Current Project Status
+
+## Completed
+
+✅ Authentication System
+
+✅ File Storage Layer
+
+✅ User Management
+
+✅ Manager Module
+
+✅ Administrator Module
+
+✅ Student CRUD Operations
+
+✅ Scheduling System
+
+✅ Booking System
+
+✅ Attendance Tracking
+
+✅ Equipment Management
+
+✅ Payment Management
+
+✅ Revenue Reporting
+
+✅ Facility Issue Tracking
+
+✅ Rating System
+
+---
+
+## Currently In Progress
+
+🔄 Java Swing GUI Development
+
+🔄 UML Diagram Creation
+
+🔄 Integration Testing
+
+🔄 Documentation Expansion
+
+---
+
+## Remaining Work
+
+⏳ Complete GUI Migration
+
+⏳ Advanced Reports
+
+⏳ System Testing
+
+⏳ Bug Fixing
+
+⏳ Documentation Finalization
+
+⏳ Presentation Preparation
+
+⏳ Final Submission
+
+---
+
+# Development Progress
+
+| Phase | Status |
+|---------|---------|
+| Planning & Design | ✅ Complete |
+| Authentication | ✅ Complete |
+| Core Backend Development | ✅ Complete |
+| Manager Module | ✅ Complete |
+| Administrator Module | ✅ Complete |
+| Student Management | ✅ Complete |
+| Attendance Module | ✅ Complete |
+| Facilities Module | ✅ Complete |
+| Payment Module | ✅ Complete |
+| GUI Development | 🔄 In Progress |
+| Testing | ⏳ Pending |
+| Documentation | 🔄 In Progress |
+
+---
+
+# Estimated Completion
+
+```text
+Backend Development      : 90%
+GUI Development          : 20%
+Documentation            : 30%
+
+Overall Project Progress : 75% - 80%
+```
+
+---
+
+# Team Workflow
+
+Before starting development:
+
+```bash
+git pull
+```
+
+After completing a feature:
+
+```bash
+git add .
+git commit -m "Meaningful Feature Description"
+git push
+```
+
+Example:
+
+```bash
+git commit -m "Implement instructor scheduling workflow"
+```
+
+---
+
+# Upcoming Milestones
+
+## Week 5
+
+- Complete GUI Development
+- Connect GUI to Backend Services
+- UML Diagram Completion
+- Begin Integration Testing
+
+## Week 6
+
+- Complete Documentation
+- Perform System Testing
+- Fix Remaining Bugs
+- Prepare Presentation
+- Final Submission
+
+---
+
+# Contributors
+
+**SDAMS Development Team**
+
+Academic Project - Object-Oriented Programming (OOP)
+
+Self Defence Academy Management System (SDAMS)
