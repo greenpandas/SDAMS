@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package gui;
 
-/**
- *
- * @author tatsuuko
- */
+package gui;
+import javax.swing.JOptionPane;
+
 public class ManagerMenuForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ManagerMenuForm.class.getName());
@@ -56,23 +50,22 @@ public class ManagerMenuForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(528, 528, 528)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnManageAdmins, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnViewStaff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(89, Short.MAX_VALUE))
+                            .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(590, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(210, 210, 210)
                 .addComponent(jLabel1)
                 .addGap(36, 36, 36)
                 .addComponent(btnManageAdmins)
@@ -82,29 +75,37 @@ public class ManagerMenuForm extends javax.swing.JFrame {
                 .addComponent(btnReports)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogout)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(313, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        new LoginForm().setVisible(true);
+       
+new LoginForm().setVisible(true);
 
-        this.dispose();
+    this.dispose();
+        
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnManageAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageAdminsActionPerformed
         new AdminManagementForm().setVisible(true);
+        this.dispose();
                             
     }//GEN-LAST:event_btnManageAdminsActionPerformed
 
     private void btnViewStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewStaffActionPerformed
-        new StaffViewForm().setVisible(true);
+        JOptionPane.showMessageDialog(
+        this,
+        "View Staff GUI Coming Next");
+
     }//GEN-LAST:event_btnViewStaffActionPerformed
 
     private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
-        new ReportsForm().setVisible(true);
+        JOptionPane.showMessageDialog(
+        this,
+        "Reports GUI Coming Next");
     }//GEN-LAST:event_btnReportsActionPerformed
 
     /**

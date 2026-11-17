@@ -15,8 +15,15 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form LoginForm
      */
     public LoginForm() {
-        initComponents();
-    }
+
+    initComponents();
+
+    setTitle(
+            "Self Defence Academy Management System"
+    );
+
+    setLocationRelativeTo(null);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +49,6 @@ public class LoginForm extends javax.swing.JFrame {
 
         Password.setText("Password");
 
-        txtPassword.setText("1234");
         txtPassword.addActionListener(this::txtPasswordActionPerformed);
 
         btnLogin.setText("Login");
@@ -56,22 +62,22 @@ public class LoginForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(561, 561, 561)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnLogin)
                     .addComponent(Username, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Password, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Password, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExit))
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(634, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(241, 241, 241)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Username)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -83,7 +89,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnExit))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,60 +101,90 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username =
-        txtUsername.getText();
+            txtUsername.getText();
 
-        String password =
-                new String(
-                txtPassword.getPassword());
-        UserService userService =
-        new UserService();
-        
-        User user =
-        userService.login(
-                username,
-                password);
-        
-        if(user != null) {
+    String password =
+            new String(
+                    txtPassword.getPassword());
 
-        if(user.getRole().equals("Manager"))
-        {
-        new ManagerMenuForm().setVisible(true);
-        }
-        else if(user.getRole().equals("Administrator"))
-        {
-        new AdminMenuForm().setVisible(true);
-        }
-        else if(user.getRole().equals("Student"))
-{
-        new StudentMenuForm().setVisible(true);
-}
-        else if(user.getRole().equals("Instructor"))
-{
-        new InstructorMenuForm().setVisible(true);
-}
-        else if(user.getRole().equals("AttendanceOfficer"))
-{
-        new AttendanceMenuForm().setVisible(true);
-}
-        else if(user.getRole().equals("FacilitiesOfficer"))
-{
-        new FacilitiesMenuForm().setVisible(true);
-}
-        this.dispose();
-        } else {
+    if(username.isEmpty()
+            || password.isEmpty()) {
 
         JOptionPane.showMessageDialog(
-            this,
-            "Invalid Username or Password");
+                this,
+                "Please enter username and password."
+        );
+
+        return;
+    }
+
+    UserService userService =
+            new UserService();
+
+    User user =
+            userService.login(
+                    username,
+                    password);
+
+    if(user != null) {
+
+        if(user.getRole().equals("Manager")) {
+
+            new ManagerMenuForm()
+                    .setVisible(true);
+
+        }
+        else if(user.getRole().equals("Administrator")) {
+
+            new AdminMenuForm()
+                    .setVisible(true);
+
+        }
+        else if(user.getRole().equals("Student")) {
+
+            new StudentMenuForm()
+                    .setVisible(true);
+
+        }
+        else if(user.getRole().equals("Instructor")) {
+
+            new InstructorMenuForm()
+                    .setVisible(true);
+
+        }
+        else if(user.getRole().equals("AttendanceOfficer")) {
+
+            new AttendanceMenuForm()
+                    .setVisible(true);
+
+        }
+        else if(user.getRole().equals("FacilitiesOfficer")) {
+
+            new FacilitiesMenuForm()
+                    .setVisible(true);
+
+        }
+
+        this.dispose();
+
+    } else {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Invalid Username or Password"
+        );
+
+        txtPassword.setText("");
+    }
         
 
-}
+
         
         
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
