@@ -3,10 +3,32 @@ package service;
 import filehandling.FileManager;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Scanner;
 
 
 public class InstructorService {
+
+    private final FileManager fileManager = new FileManager();
+
+    public boolean createSchedule(String classId, String className, String date, String time) {
+        return fileManager.saveClass(String.join(",", classId, className, date, time));
+    }
+
+    public List<String> readSchedules() throws IOException {
+        return Files.readAllLines(Path.of("data/classes.txt"));
+    }
+
+    public boolean reportIssue(String issueId, String description) {
+        return fileManager.saveIssue(String.join(",", issueId, description));
+    }
+
+    public List<String> readRatings() throws IOException {
+        return Files.readAllLines(Path.of("data/ratings.txt"));
+    }
 
     public void createSchedule() {
 
@@ -26,20 +48,9 @@ public class InstructorService {
     System.out.print("Time: ");
     String time = scanner.nextLine();
 
-    FileManager fileManager =
-            new FileManager();
-
-    String record =
-            classId + "," +
-            className + "," +
-            date + "," +
-            time;
-
-    fileManager.saveClass(record);
-
-    System.out.println(
-            "\nSchedule Created Successfully!"
-    );
+    if (createSchedule(classId, className, date, time)) {
+        System.out.println("\nSchedule Created Successfully!");
+    }
 }
 
     public void viewSchedule() {
@@ -86,18 +97,9 @@ public class InstructorService {
     System.out.print("Issue Description: ");
     String description = scanner.nextLine();
 
-    String record =
-            issueId + "," +
-            description;
-
-    FileManager fileManager =
-            new FileManager();
-
-    fileManager.saveIssue(record);
-
-    System.out.println(
-            "\nIssue Reported Successfully!"
-    );
+    if (reportIssue(issueId, description)) {
+        System.out.println("\nIssue Reported Successfully!");
+    }
 }
 
     public void viewRatings() {

@@ -103,25 +103,9 @@ public class FileManager {
         e.printStackTrace();
     }
 }
-    public void saveClass(String record) {
-
-    try {
-
-        FileWriter fw =
-                new FileWriter("data/classes.txt", true);
-
-        fw.write(record + "\n");
-
-        fw.close();
-
-    } catch (Exception e) {
-
-        System.out.println("Error saving class.");
-        e.printStackTrace();
+    public boolean saveClass(String record) {
+        return appendRecord("data/classes.txt", record);
     }
-    
-    
-}
     public void saveAttendance(String record) {
 
     try {
@@ -213,25 +197,20 @@ public class FileManager {
         e.printStackTrace();
     }
 }
-    public void saveIssue(String record) {
-
-    try {
-
-        FileWriter fw =
-                new FileWriter("data/issues.txt", true);
-
-        fw.write(record + "\n");
-
-        fw.flush();
-
-        fw.close();
-
-    } catch (Exception e) {
-
-        System.out.println("Error saving issue.");
-        e.printStackTrace();
+    public boolean saveIssue(String record) {
+        return appendRecord("data/issues.txt", record);
     }
-}
+
+    private boolean appendRecord(String path, String record) {
+        try (FileWriter writer = new FileWriter(path, true)) {
+            writer.write(record + "\n");
+        } catch (java.io.IOException ex) {
+            System.err.println("Error appending record to " + path);
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
     public void savePayment(String record) {
 
     try {
