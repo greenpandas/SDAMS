@@ -15,14 +15,19 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
     /**
      * Creates new form AddStudentMenu
      */
-    public AdminUpdateStudentForm(java.awt.Frame parent, boolean modal) {
+    public AdminUpdateStudentForm(java.awt.Frame parent, boolean modal, model.User student) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
         
-        // Set user ID field to read-only and generates the new student ID
+        //set user ID to read-only
         txtUserId.setEditable(false);
-        txtUserId.setText(adminService.generateStudentId());
+        
+        //fill text fields with chosen user's information
+        txtUserId.setText(student.getUserId());
+        txtUsername.setText(student.getUsername());
+        txtPassword.setText(student.getPassword());
+        txtName.setText(student.getName());
     }
 
     /**
@@ -43,7 +48,7 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
         txtPassword = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        btnConfirm = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -72,9 +77,9 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
 
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
-        btnConfirm.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        btnConfirm.setText("Confirm");
-        btnConfirm.addActionListener(this::btnConfirmActionPerformed);
+        btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnUpdate.setText("Confirm");
+        btnUpdate.addActionListener(this::btnUpdateActionPerformed);
 
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnBack.setText("Back");
@@ -91,7 +96,7 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addGap(218, 218, 218))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(66, 66, 66))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(125, 125, 125)
@@ -141,7 +146,7 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
                     .addComponent(jLabel5)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -153,22 +158,22 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        //saves the new user to users.txt
-        String error = adminService.addStudent(
-                txtUserId.getText().trim(),
-                txtName.getText().trim(),
-                txtUsername.getText().trim(),
-                txtPassword.getText().trim());
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        //saves the user's new info to users.txt
+        String error = adminService.updateStudent(
+        txtUserId.getText().trim(),
+        txtName.getText().trim(),
+        txtUsername.getText().trim(),
+        txtPassword.getText().trim());
 
         if (error != null) {
             JOptionPane.showMessageDialog(this, error);
             return; //window stays open so that the user can fix the error without starting over
         }
         //confirmation message, closes current window
-        JOptionPane.showMessageDialog(this, "Student added successfully.");
+        JOptionPane.showMessageDialog(this, "Student updated successfully.");
         this.dispose();
-    }//GEN-LAST:event_btnConfirmActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserIdActionPerformed
         // TODO add your handling code here:
@@ -217,7 +222,7 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
