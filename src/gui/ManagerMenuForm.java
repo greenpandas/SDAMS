@@ -95,7 +95,7 @@ public class ManagerMenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnManageAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageAdminsActionPerformed
-        new AdminManagementForm().setVisible(true);
+        new AdminMenuForm().setVisible(true);
                             
     }//GEN-LAST:event_btnManageAdminsActionPerformed
 

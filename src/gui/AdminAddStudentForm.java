@@ -6,16 +6,16 @@ package gui;
 
 /**
  *
- * @author tatsuuko
+ * @author ryant
  */
-public class AdminManagementForm extends javax.swing.JFrame {
+public class AdminAddStudentForm extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminManagementForm.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminAddStudentForm.class.getName());
 
     /**
-     * Creates new form AdminManagementForm
+     * Creates new form AdminAddStudentForm
      */
-    public AdminManagementForm() {
+    public AdminAddStudentForm() {
         initComponents();
     }
 
@@ -28,36 +28,21 @@ public class AdminManagementForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTextField1.setText("Administrator Management");
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(124, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
+            .addGap(0, 520, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+            .addGap(0, 445, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -81,10 +66,9 @@ public class AdminManagementForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AdminManagementForm().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AdminAddStudentForm().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

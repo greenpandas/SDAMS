@@ -13,7 +13,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminMenuForm.class.getName());
 
     /**
-     * Creates new form AdminMenu
+     * Creates new form AdminManagementForm
      */
     public AdminMenuForm() {
         initComponents();
@@ -28,31 +28,93 @@ public class AdminMenuForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        Title = new javax.swing.JTextField();
+        manageStudent = new javax.swing.JButton();
+        manageStaff = new javax.swing.JButton();
+        paymentRecord = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        Title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Title.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Title.setText("Administrator Management");
+        Title.addActionListener(this::TitleActionPerformed);
+
+        manageStudent.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        manageStudent.setText("1. Manage Students");
+        manageStudent.addActionListener(this::manageStudentActionPerformed);
+
+        manageStaff.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        manageStaff.setText("2. Manage Staff");
+        manageStaff.addActionListener(this::manageStaffActionPerformed);
+
+        paymentRecord.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        paymentRecord.setText("3. Payment Records");
+        paymentRecord.addActionListener(this::paymentRecordActionPerformed);
+
+        logout.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        logout.setText("4. Logout");
+        logout.addActionListener(this::logoutActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(159, 159, 159))
             .addGroup(layout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGap(208, 208, 208)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(manageStudent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(manageStaff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(paymentRecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(manageStudent)
+                .addGap(45, 45, 45)
+                .addComponent(manageStaff)
+                .addGap(41, 41, 41)
+                .addComponent(paymentRecord)
+                .addGap(43, 43, 43)
+                .addComponent(logout)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TitleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TitleActionPerformed
+
+    private void manageStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStaffActionPerformed
+
+    }//GEN-LAST:event_manageStaffActionPerformed
+
+    private void paymentRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentRecordActionPerformed
+    }//GEN-LAST:event_paymentRecordActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        // Closes the current menu and goes back to the login menu
+        new LoginForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logoutActionPerformed
+
+    private void manageStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStudentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_manageStudentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,6 +142,10 @@ public class AdminMenuForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField Title;
+    private javax.swing.JButton logout;
+    private javax.swing.JButton manageStaff;
+    private javax.swing.JButton manageStudent;
+    private javax.swing.JButton paymentRecord;
     // End of variables declaration//GEN-END:variables
 }
