@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.JOptionPane;
 import service.AdminService;
+import model.User;
 
 /**
  *
@@ -12,11 +13,12 @@ public class AdminUpdateStudentForm extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminUpdateStudentForm.class.getName());
     private final AdminService adminService = new AdminService();
 
-    /**
-     * Creates new form AddStudentMenu
-     */
-    public AdminUpdateStudentForm(java.awt.Frame parent, boolean modal, model.User student) {
-        this(parent, modal, new model.User("", "", "", "", "Student"));
+    
+    public AdminUpdateStudentForm(java.awt.Frame parent, boolean modal) {
+    this(parent, modal, new model.User("", "", "", "", "Student"));
+}
+    
+    public AdminUpdateStudentForm(java.awt.Frame parent, boolean modal, User student) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);

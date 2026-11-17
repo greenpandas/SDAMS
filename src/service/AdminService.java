@@ -253,6 +253,56 @@ public String addStudent(String studentId, String name,
     return null;
 }
 
+public String updateStudent(String studentId, String name,
+        String username, String password) {
+
+    //check for empty fields
+    if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        return "All fields are required.";
+    }
+
+    //check for commas
+    if (name.contains(",") || username.contains(",") || password.contains(",")) {
+        return "Fields cannot contain commas.";
+    }
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> users = fileManager.readUsers();
+
+    User studentToUpdate = null;
+
+    //check for duplicate usernames
+    for (User user : users) {
+
+        if (user.getUserId().equals(studentId)
+                && user.getRole().equals("Student")) {
+
+            studentToUpdate = user;
+            continue;
+        }
+
+        if (user.getUsername().equals(username)) {
+            return "Username already exists.";
+        }
+    }
+
+    //check whether the student exists
+    if (studentToUpdate == null) {
+        return "Student could not be found.";
+    }
+
+    //update student's information
+    studentToUpdate.setName(name);
+    studentToUpdate.setUsername(username);
+    studentToUpdate.setPassword(password);
+
+    //save updated info
+    fileManager.overwriteUsers(users);
+
+    return null;
+}
+
     
 public String generateStudentId() {
 

@@ -1,71 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
+
 import model.User;
 import service.AdminService;
 
-/**
- *
- * @author tatsuuko
- */
 public class AdminManageStudentsForm extends javax.swing.JFrame {
-    
+
+    private final AdminService adminService = new AdminService();
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminManageStudentsForm.class.getName());
 
-    /**
-     * Creates new form AdminManagementForm
-     */
     public AdminManageStudentsForm() {
         initComponents();
         loadStudents();
     }
-    
-    //load the list of students into the taable
+
+    // Load the list of students into the table.
     private void loadStudents() {
 
-    AdminService adminService = new AdminService();
+        javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblStudents.getModel();
 
-    javax.swing.table.DefaultTableModel tableModel =
-            (javax.swing.table.DefaultTableModel) tblStudents.getModel();
+        tableModel.setRowCount(0);
 
-    tableModel.setRowCount(0);
-    
+        for (User user : adminService.getUsersByRole("Student")) {
 
-    for (User user : adminService.getUsersByRole("Student")) {
-
-        tableModel.addRow(new Object[]{
-            user.getUserId(),
-            user.getUsername(),
-            user.getPassword(),
-            user.getName()
-        });
+            tableModel.addRow(new Object[]{
+                user.getUserId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getName()
+            });
+        }
     }
-}
-    //search function specifically for students
+
+    // Search specifically for students.
     private void searchStudents() {
-    AdminService adminService = new AdminService();
 
-    javax.swing.table.DefaultTableModel tableModel =
-            (javax.swing.table.DefaultTableModel) tblStudents.getModel();
+        javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblStudents.getModel();
 
-    tableModel.setRowCount(0);
+        tableModel.setRowCount(0);
 
-    for (User user : adminService.searchUsers(
-            txtFieldSearch.getText(), "Student")) {
+        for (User user : adminService.searchUsers(
+                txtFieldSearch.getText(), "Student")) {
 
-        tableModel.addRow(new Object[]{
-            user.getUserId(),
-            user.getUsername(),
-            user.getPassword(),
-            user.getName()
-        });
+            tableModel.addRow(new Object[]{
+                user.getUserId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getName()
+            });
+        }
     }
-}
     
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -211,54 +196,77 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         searchStudents();
-        for (User user : adminService.getUsersByRole("Student")) {
-
-        if (user.getUserId().equals(selectedId)) {
-            selectedStudent = user;
-            break;
-        }
-    }
-
-    // Check whether the student exists
-    if (selectedStudent == null) {
-
-        javax.swing.JOptionPane.showMessageDialog(
-                this,
-                "The selected student could not be found."
-        );
-
-        loadStudents();
-        return;
-    }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        
+int selectedRow = tblStudents.getSelectedRow();
+
+        // Check whether a student was selected.
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Please select a student to update."
+            );
+            return;
+        }
+
+        // Get the selected student's ID from the table.
+        int modelRow = tblStudents.convertRowIndexToModel(selectedRow);
+
+        String selectedId = tblStudents.getModel()
+                .getValueAt(modelRow, 0).toString();
+
+        // Find the corresponding student.
+        User selectedStudent = null;
+
+        for (User user : adminService.getUsersByRole("Student")) {
+
+            if (user.getUserId().equals(selectedId)) {
+                selectedStudent = user;
+                break;
+            }
+        }
+
+        // Check whether the student was found.
+        if (selectedStudent == null) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "The selected student could not be found."
+            );
+
+            loadStudents();
+            return;
+        }
+
+        // Open the update form with the selected student's information.
+        AdminUpdateStudentForm updateForm = new AdminUpdateStudentForm(this, true, selectedStudent);
+
+        updateForm.setVisible(true);
+
+        // Refresh the table after the dialog closes.
+        loadStudents();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+
+                if ("Nimbus".equals(info.getName())) {javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+
+        } catch (ReflectiveOperationException |
+                javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AdminManageStudentsForm().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AdminManageStudentsForm().setVisible(true)
+        );
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
