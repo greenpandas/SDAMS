@@ -19,8 +19,10 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
      */
     public AdminManageStudentsForm() {
         initComponents();
+        loadStudents();
     }
     
+    //load the list of students into the taable
     private void loadStudents() {
 
     AdminService adminService = new AdminService();
@@ -29,6 +31,7 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
             (javax.swing.table.DefaultTableModel) tblStudents.getModel();
 
     tableModel.setRowCount(0);
+    
 
     for (User user : adminService.getUsersByRole("Student")) {
 
@@ -40,6 +43,28 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         });
     }
 }
+    //search function specifically for students
+    private void searchStudents() {
+    AdminService adminService = new AdminService();
+
+    javax.swing.table.DefaultTableModel tableModel =
+            (javax.swing.table.DefaultTableModel) tblStudents.getModel();
+
+    tableModel.setRowCount(0);
+
+    for (User user : adminService.searchUsers(
+            txtFieldSearch.getText(), "Student")) {
+
+        tableModel.addRow(new Object[]{
+            user.getUserId(),
+            user.getUsername(),
+            user.getPassword(),
+            user.getName()
+        });
+    }
+}
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,6 +96,7 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         btnAdd.addActionListener(this::btnAddActionPerformed);
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(this::btnSearchActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,6 +207,10 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         new AdminAddStudentMenu(this, true).setVisible(true);
         loadStudents();
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        searchStudents();
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments

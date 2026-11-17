@@ -276,7 +276,7 @@ public String generateStudentId() {
     return String.format("S%03d", max + 1);
 }
 
-
+//filter users by role
 public ArrayList<User> getUsersByRole(String role) {
 
     FileManager fileManager = new FileManager();
@@ -291,4 +291,43 @@ public ArrayList<User> getUsersByRole(String role) {
 
         return filteredUsers;
     }
+
+// search function for users
+public ArrayList<User> searchUsers(String keyword, String userType) {
+    FileManager fileManager = new FileManager();
+    ArrayList<User> matchingUsers = new ArrayList<>();
+
+    keyword = (keyword == null) ? "" : keyword.trim().toLowerCase();
+
+    for (User user : fileManager.readUsers()) {
+        boolean isStudent = user.getRole().equalsIgnoreCase("Student");
+
+        boolean correctType;
+
+        if (userType.equalsIgnoreCase("Student")) {
+            correctType = isStudent;
+        } else if (userType.equalsIgnoreCase("Staff")) {
+            correctType = !isStudent;
+        } else {
+            correctType = false;
+        }
+
+        if (!correctType) {
+            continue;
+        }
+
+        boolean matches =
+                user.getUserId().toLowerCase().contains(keyword)
+                || user.getUsername().toLowerCase().contains(keyword)
+                || user.getPassword().toLowerCase().contains(keyword)
+                || user.getName().toLowerCase().contains(keyword)
+                || user.getRole().toLowerCase().contains(keyword);
+
+        if (matches) {
+            matchingUsers.add(user);
+        }
+    }
+
+    return matchingUsers;
+}
 }

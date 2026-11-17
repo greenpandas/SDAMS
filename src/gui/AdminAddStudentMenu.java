@@ -78,6 +78,7 @@ public class AdminAddStudentMenu extends javax.swing.JDialog {
 
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnBack.setText("Back");
+        btnBack.addActionListener(this::btnBackActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,6 +173,10 @@ public class AdminAddStudentMenu extends javax.swing.JDialog {
     private void txtUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserIdActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
