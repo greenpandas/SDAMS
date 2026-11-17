@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
+import service.AdminService;
 
 /**
  *
@@ -18,6 +19,26 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
     public AdminManageStudentsForm() {
         initComponents();
     }
+    
+    private void loadStudents() {
+
+    AdminService adminService = new AdminService();
+
+    javax.swing.table.DefaultTableModel tableModel =
+            (javax.swing.table.DefaultTableModel) tblStudents.getModel();
+
+    tableModel.setRowCount(0);
+
+    for (User user : adminService.getUsersByRole("Student")) {
+
+        tableModel.addRow(new Object[]{
+            user.getUserId(),
+            user.getUsername(),
+            user.getPassword(),
+            user.getName()
+        });
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,6 +67,7 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         jLabel1.setText("Admin: Manage Students");
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(this::btnAddActionPerformed);
 
         btnSearch.setText("Search");
 
@@ -117,20 +139,20 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
 
         tblStudents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "User ID", "Username", "Password", "Name", "Role"
+                "User ID", "Username", "Password", "Name"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -153,6 +175,11 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         new AdminMenuForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAdd3ActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        new AdminAddStudentMenu(this, true).setVisible(true);
+        loadStudents();
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments

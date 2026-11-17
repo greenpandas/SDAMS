@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import filehandling.FileManager;
+
 import model.User;
 
 public class AdminService {
@@ -211,6 +212,86 @@ public class AdminService {
             default:
                 System.out.println("Invalid choice.");
         }
+    }
+}
+    
+    // Saves new student to users.txt, loads error message if something is wrong
+public String addStudent(String studentId, String name,
+        String username, String password) {
+
+// checks for commas
+    if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        return "All fields are required.";
+    }
+
+    if (name.contains(",") || username.contains(",") || password.contains(",")) {
+        return "Fields cannot contain commas.";
+    }
+
+    FileManager fileManager = new FileManager();
+
+// checks for mathcing usernames or IDs
+    for (User user : fileManager.readUsers()) {
+        if (user.getUsername().equals(username)) {
+            return "Username already exists.";
+        }
+        if (user.getUserId().equals(studentId)) {
+            return "Student ID already exists.";
+        }
+    }
+
+    String record =
+            studentId + "," +
+            username + "," +
+            password + "," +
+            name + "," +
+            "Student";
+
+    //adds new student
+    fileManager.saveUser(record);
+
+    return null;
+}
+
+    
+public String generateStudentId() {
+
+    FileManager fileManager = new FileManager();
+    int max = 0;
+
+    // Reads through users.txt and ignores the non-student users
+    for (User user : fileManager.readUsers()) {
+
+        if (user.getRole().equals("Student")) {
+            try {
+                int num = Integer.parseInt(user.getUserId().substring(1));
+                if (num > max) {
+                    max = num;
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    return String.format("S%03d", max + 1);
+}
+
+public class UserService {
+
+    FileManager fileManager = new FileManager();
+
+    public ArrayList<User> getUsersByRole(String role) {
+
+        ArrayList<User> filteredUsers = new ArrayList<>();
+
+        for (User user : fileManager.readUsers()) {
+
+            if (role.equalsIgnoreCase(user.getRole())) {
+                filteredUsers.add(user);
+            }
+        }
+
+        return filteredUsers;
     }
 }
 }

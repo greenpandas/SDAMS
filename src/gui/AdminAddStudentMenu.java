@@ -1,29 +1,28 @@
-
-
 package gui;
+
 import javax.swing.JOptionPane;
-import service.StudentService;
+import service.AdminService;
 
 /**
  *
  * @author ryant
  */
-public class AddStudentMenu extends javax.swing.JDialog {
+public class AdminAddStudentMenu extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddStudentMenu.class.getName());
-    private final StudentService studentService = new StudentService();
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminAddStudentMenu.class.getName());
+    private final AdminService adminService = new AdminService();
 
     /**
      * Creates new form AddStudentMenu
      */
-    public AddStudentMenu(java.awt.Frame parent, boolean modal) {
+    public AdminAddStudentMenu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
         
         // Set user ID field to read-only and generates the new student ID
         txtUserId.setEditable(false);
-        txtUserId.setText(studentService.generateStudentId());
+        txtUserId.setText(adminService.generateStudentId());
     }
 
     /**
@@ -154,8 +153,8 @@ public class AddStudentMenu extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        // TODO add your handling code here:
-        String error = studentService.addStudent(
+        //saves the new user to users.txt
+        String error = adminService.addStudent(
                 txtUserId.getText().trim(),
                 txtName.getText().trim(),
                 txtUsername.getText().trim(),
@@ -163,12 +162,11 @@ public class AddStudentMenu extends javax.swing.JDialog {
 
         if (error != null) {
             JOptionPane.showMessageDialog(this, error);
-            return;                    // stay open so they can fix it
+            return; //window stays open so that the user can fix the error without starting over
         }
-
+        //confirmation message, closes current window
         JOptionPane.showMessageDialog(this, "Student added successfully.");
         this.dispose();
-    }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void txtUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserIdActionPerformed
@@ -200,7 +198,7 @@ public class AddStudentMenu extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                AddStudentMenu dialog = new AddStudentMenu(new javax.swing.JFrame(), true);
+                AdminAddStudentMenu dialog = new AdminAddStudentMenu(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
