@@ -65,15 +65,13 @@ public class AdminMenuForm extends javax.swing.JFrame {
             }
         }
 
-        JPanel cards = new JPanel(new GridLayout(1, 3, 18, 18));
+        JPanel cards = new JPanel(new GridLayout(1, 2, 18, 18));
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
         cards.add(UiTheme.createStatCard("Total Students",
                 String.valueOf(studentCount), "Registered student accounts"));
         cards.add(UiTheme.createStatCard("Total Payments",
                 String.valueOf(UiTheme.countLines("data/payments.txt")), "Payment records"));
-        cards.add(UiTheme.createStatCard("Active Students",
-                String.valueOf(studentCount), "Accounts available for use"));
         content.add(cards, BorderLayout.NORTH);
 
         root.add(sidebar, BorderLayout.WEST);

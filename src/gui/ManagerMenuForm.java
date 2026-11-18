@@ -61,7 +61,7 @@ public class ManagerMenuForm extends javax.swing.JFrame {
         content.add(UiTheme.createHeader("Manager Dashboard",
                 "Overview of academy operations"), BorderLayout.NORTH);
 
-        JPanel cards = new JPanel(new GridLayout(2, 2, 18, 18));
+        JPanel cards = new JPanel(new GridLayout(1, 3, 18, 18));
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
 
@@ -84,8 +84,6 @@ public class ManagerMenuForm extends javax.swing.JFrame {
                 String.valueOf(administrators), "Active administrator accounts"));
         cards.add(UiTheme.createStatCard("Total Students",
                 String.valueOf(students), "Registered student accounts"));
-        cards.add(UiTheme.createStatCard("Total Staff",
-                String.valueOf(staff), "Manager and officer accounts"));
         cards.add(UiTheme.createStatCard("Total Revenue",
                 String.format("$%.2f", revenue), "Payment records"));
 

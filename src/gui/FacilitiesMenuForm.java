@@ -57,7 +57,7 @@ public class FacilitiesMenuForm extends javax.swing.JFrame {
         cards.add(UiTheme.createStatCard("Total Equipment",
                 String.valueOf(UiTheme.countLines("data/equipment.txt")),
                 "Equipment records"));
-        cards.add(UiTheme.createStatCard("Total Issues",
+        cards.add(UiTheme.createStatCard("Open Issues",
                 String.valueOf(UiTheme.countLines("data/issues.txt")),
                 "Reported issues"));
         content.add(cards, BorderLayout.NORTH);
