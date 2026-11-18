@@ -11,45 +11,41 @@ public class AdminManageStaffForm extends javax.swing.JFrame {
 
     public AdminManageStaffForm() {
         initComponents();
-        loadStudents();
+        loadStaff();
     }
 
-    // Load the list of students into the table.
-    private void loadStudents() {
+    private void loadStaff() {
 
-        javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblStudents.getModel();
+    javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblStudents.getModel();
 
-        tableModel.setRowCount(0);
+    tableModel.setRowCount(0);
 
-        for (User user : adminService.getUsersByRole("Student")) {
-
-            tableModel.addRow(new Object[]{
-                user.getUserId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getName()
-            });
-        }
+    for (User user : adminService.getManageableStaff()) {
+        tableModel.addRow(new Object[]{
+            user.getUserId(),
+            user.getUsername(),
+            user.getPassword(),
+            user.getName(),
+            user.getRole()
+        });
     }
+}
 
-    // Search specifically for students.
-    private void searchStudents() {
+    private void searchStaff() {
 
-        javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblStudents.getModel();
+    javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblStudents.getModel();
 
-        tableModel.setRowCount(0);
+    tableModel.setRowCount(0);
 
-        for (User user : adminService.searchUsers(
-                txtFieldSearch.getText(), "Student")) {
-
-            tableModel.addRow(new Object[]{
-                user.getUserId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getName()
-            });
-        }
+    for (User user : adminService.searchManageableStaff(txtFieldSearch.getText())) {
+        tableModel.addRow(new Object[]{
+            user.getUserId(),
+            user.getUsername(),
+            user.getPassword(),
+            user.getName(),
+            user.getRole()});
     }
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,8 +63,8 @@ public class AdminManageStaffForm extends javax.swing.JFrame {
         txtFieldSearch = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnUpdate = new javax.swing.JButton();
-        btnAdd2 = new javax.swing.JButton();
-        btnAdd3 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudents = new javax.swing.JTable();
 
@@ -116,11 +112,11 @@ public class AdminManageStaffForm extends javax.swing.JFrame {
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(this::btnUpdateActionPerformed);
 
-        btnAdd2.setText("Delete");
-        btnAdd2.addActionListener(this::btnAdd2ActionPerformed);
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(this::btnDeleteActionPerformed);
 
-        btnAdd3.setText("Back");
-        btnAdd3.addActionListener(this::btnAdd3ActionPerformed);
+        btnBack.setText("Back");
+        btnBack.addActionListener(this::btnBackActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -130,11 +126,11 @@ public class AdminManageStaffForm extends javax.swing.JFrame {
                 .addGap(128, 128, 128)
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
-                .addComponent(btnAdd2)
+                .addComponent(btnDelete)
                 .addGap(151, 151, 151))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
-                .addComponent(btnAdd3)
+                .addComponent(btnBack)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -143,9 +139,9 @@ public class AdminManageStaffForm extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
-                    .addComponent(btnAdd2))
+                    .addComponent(btnDelete))
                 .addGap(26, 26, 26)
-                .addComponent(btnAdd3)
+                .addComponent(btnBack)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -185,115 +181,85 @@ public class AdminManageStaffForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAdd3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd3ActionPerformed
-        new AdminMenuForm().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAdd3ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+   
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        new AdminAddStudentMenu(this, true).setVisible(true);
-        loadStudents();
+    AdminAddStaffMenu addStaffForm = new AdminAddStaffMenu(this, true);
+
+    addStaffForm.setVisible(true);
+
+    loadStaff();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        searchStudents();
+        searchStaff();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-int selectedRow = tblStudents.getSelectedRow();
+    int selectedRow = tblStudents.getSelectedRow();
 
-        // Check whether a student was selected.
-        if (selectedRow == -1) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Please select a student to update."
-            );
-            return;
-        }
-
-        // Get the selected student's ID from the table.
-        int modelRow = tblStudents.convertRowIndexToModel(selectedRow);
-
-        String selectedId = tblStudents.getModel()
-                .getValueAt(modelRow, 0).toString();
-
-        // Find the corresponding student.
-        User selectedStudent = null;
-
-        for (User user : adminService.getUsersByRole("Student")) {
-
-            if (user.getUserId().equals(selectedId)) {
-                selectedStudent = user;
-                break;
-            }
-        }
-
-        // Check whether the student was found.
-        if (selectedStudent == null) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "The selected student could not be found."
-            );
-
-            loadStudents();
-            return;
-        }
-
-        // Open the update form with the selected student's information.
-        AdminUpdateStudentForm updateForm = new AdminUpdateStudentForm(this, true, selectedStudent);
-
-        updateForm.setVisible(true);
-
-        // Refresh the table after the dialog closes.
-        loadStudents();
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
-        int selectedRow = tblStudents.getSelectedRow();
-
-    if (selectedRow == -1) {
-        javax.swing.JOptionPane.showMessageDialog(
-                this,
-                "Please select a student to delete."
-        );
+    if (selectedRow == -1) {javax.swing.JOptionPane.showMessageDialog(this,"Please select a staff member to update.");
         return;
     }
 
-    // Get the selected student's ID.
     int modelRow = tblStudents.convertRowIndexToModel(selectedRow);
 
-    String selectedId = tblStudents.getModel()
-            .getValueAt(modelRow, 0).toString();
+    String selectedId = tblStudents.getModel().getValueAt(modelRow, 0).toString();
 
-    // Ask for confirmation before deleting.
-    int confirmation = javax.swing.JOptionPane.showConfirmDialog(
-            this,
-            "Are you sure you want to delete student "
-                    + selectedId + "?",
+    User selectedStaff = null;
+
+    for (User user : adminService.getManageableStaff()) {
+
+        if (user.getUserId().equals(selectedId)) 
+        {selectedStaff = user;break;}
+    }
+
+    if (selectedStaff == null) {javax.swing.JOptionPane.showMessageDialog(this,"The selected staff member could not be found.");
+
+        loadStaff();
+        return;
+    }
+
+    AdminUpdateStaffForm updateForm = new AdminUpdateStaffForm(this, true, selectedStaff);
+
+    updateForm.setVisible(true);
+
+    loadStaff();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+    int selectedRow = tblStudents.getSelectedRow();
+
+    if (selectedRow == -1) {javax.swing.JOptionPane.showMessageDialog(this, "Please select a staff member to delete.");
+        return;
+    }
+
+    int modelRow = tblStudents.convertRowIndexToModel(selectedRow);
+
+    String selectedId = tblStudents.getModel().getValueAt(modelRow, 0).toString();
+
+    int confirmation = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to delete staff member "
+            + selectedId + "?",
             "Confirm Deletion",
             javax.swing.JOptionPane.YES_NO_OPTION,
-            javax.swing.JOptionPane.WARNING_MESSAGE
-    );
+            javax.swing.JOptionPane.WARNING_MESSAGE);
 
     if (confirmation != javax.swing.JOptionPane.YES_OPTION) {
         return;
     }
 
-    // Delete the selected student.
-    String result = adminService.deleteStudent(selectedId);
+    String error = adminService.deleteStaff(selectedId);
 
-    if (result != null) {
-        javax.swing.JOptionPane.showMessageDialog(this, result, "Deletion Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
+    if (error != null) {javax.swing.JOptionPane.showMessageDialog(this, error, "Deletion Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Student deleted successfully."
-    );
+    javax.swing.JOptionPane.showMessageDialog(this, "Staff member deleted successfully.");
 
-    loadStudents();
-    }//GEN-LAST:event_btnAdd2ActionPerformed
+    loadStaff();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,8 +285,8 @@ int selectedRow = tblStudents.getSelectedRow();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAdd2;
-    private javax.swing.JButton btnAdd3;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;

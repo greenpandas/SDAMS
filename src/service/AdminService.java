@@ -409,4 +409,253 @@ public ArrayList<User> searchUsers(String keyword, String userType) {
 
     return matchingUsers;
 }
+
+//Convert the role displayed in the GUI into the role stored in users.txt
+private String normalizeStaffRole(String role) {
+
+    if (role == null) {
+        return "";
+    }
+
+    String normalized = role.trim()
+            .replaceAll("\\s+", "")
+            .toLowerCase();
+
+    switch (normalized) {
+        case "instructor":
+            return "Instructor";
+
+        case "facilitiesofficer":
+        case "facilitesofficer":
+            return "FacilitiesOfficer";
+
+        case "attendanceofficer":
+            return "AttendanceOfficer";
+
+        default:
+            return "";
+    }
+}
+
+//Checks whether a user is an instuctor, attending officer, or facilities officer
+private boolean isManageableStaffRole(String role) {
+
+    return role.equalsIgnoreCase("Instructor")
+            || role.equalsIgnoreCase("FacilitiesOfficer")
+            || role.equalsIgnoreCase("AttendanceOfficer");
+}
+
+public String generateStaffId(String role) {
+
+    String staffRole = normalizeStaffRole(role);
+
+    String prefix;
+
+    switch (staffRole) {
+        case "Instructor":
+            prefix = "I";
+            break;
+
+        case "FacilitiesOfficer":
+            prefix = "F";
+            break;
+
+        case "AttendanceOfficer":
+            prefix = "AT";
+            break;
+
+        default:
+            return "";
+    }
+
+    int max = 0;
+
+    FileManager fileManager = new FileManager();
+
+    for (User user : fileManager.readUsers()) {
+
+        if (user.getRole().equalsIgnoreCase(staffRole)
+                && user.getUserId().startsWith(prefix)) {
+
+            try {
+                int number = Integer.parseInt(
+                        user.getUserId().substring(prefix.length())
+                );
+
+                if (number > max) {
+                    max = number;
+                }
+
+            } catch (NumberFormatException e) {
+                // Ignore IDs that do not follow the expected format.
+            }
+        }
+    }
+
+    return String.format("%s%03d", prefix, max + 1);
+}
+
+//function to add new staff
+public String addStaff(String staffId, String name,
+        String username, String password, String role) {
+
+    String staffRole = normalizeStaffRole(role);
+
+    if (staffRole.isEmpty()) {
+        return "Please select a valid staff role.";
+    }
+
+    if (staffId.isEmpty() || name.isEmpty()
+            || username.isEmpty() || password.isEmpty()) {
+        return "All fields are required.";
+    }
+
+    if (name.contains(",") || username.contains(",")
+            || password.contains(",")) {
+        return "Fields cannot contain commas.";
+    }
+
+    FileManager fileManager = new FileManager();
+
+    for (User user : fileManager.readUsers()) {
+
+        if (user.getUsername().equals(username)) {
+            return "Username already exists.";
+        }
+
+        if (user.getUserId().equals(staffId)) {
+            return "Staff ID already exists.";
+        }
+    }
+
+    String record =
+            staffId + ","
+            + username + ","
+            + password + ","
+            + name + ","
+            + staffRole;
+
+    fileManager.saveUser(record);
+
+    return null;
+}
+
+//function to update staff, user id and role cannot be edited
+public String updateStaff(String staffId, String name,
+        String username, String password) {
+
+    if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        return "All fields are required.";
+    }
+
+    if (name.contains(",") || username.contains(",")
+            || password.contains(",")) {
+        return "Fields cannot contain commas.";
+    }
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> users = fileManager.readUsers();
+
+    User staffToUpdate = null;
+
+    for (User user : users) {
+
+        if (user.getUserId().equals(staffId)
+                && isManageableStaffRole(user.getRole())) {
+
+            staffToUpdate = user;
+            continue;
+        }
+
+        if (user.getUsername().equals(username)) {
+            return "Username already exists.";
+        }
+    }
+
+    if (staffToUpdate == null) {
+        return "Staff member could not be found.";
+    }
+
+    staffToUpdate.setName(name);
+    staffToUpdate.setUsername(username);
+    staffToUpdate.setPassword(password);
+
+    fileManager.overwriteUsers(users);
+
+    return null;
+}
+
+//only shows instuctor, attending officer, and facilities officer
+public ArrayList<User> getManageableStaff() {
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> staff = new ArrayList<>();
+
+    for (User user : fileManager.readUsers()) {
+
+        if (isManageableStaffRole(user.getRole())) {
+            staff.add(user);
+        }
+    }
+
+    return staff;
+}
+
+//search function for admin manage staff
+public ArrayList<User> searchManageableStaff(String keyword) {
+
+    ArrayList<User> matchingStaff = new ArrayList<>();
+
+    keyword = (keyword == null) ? "" : keyword.trim().toLowerCase();
+
+    for (User user : getManageableStaff()) {
+
+        boolean matches =
+                user.getUserId().toLowerCase().contains(keyword)
+                || user.getUsername().toLowerCase().contains(keyword)
+                || user.getPassword().toLowerCase().contains(keyword)
+                || user.getName().toLowerCase().contains(keyword)
+                || user.getRole().toLowerCase().contains(keyword);
+
+        if (matches) {
+            matchingStaff.add(user);
+        }
+    }
+
+    return matchingStaff;
+}
+
+//function to delete staff users
+public String deleteStaff(String staffId) {
+
+    FileManager fileManager = new FileManager();
+
+    ArrayList<User> users = fileManager.readUsers();
+
+    boolean staffFound = false;
+
+    for (int i = 0; i < users.size(); i++) {
+
+        User user = users.get(i);
+
+        if (user.getUserId().equals(staffId)
+                && isManageableStaffRole(user.getRole())) {
+
+            users.remove(i);
+            staffFound = true;
+            break;
+        }
+    }
+
+    if (!staffFound) {
+        return "Staff member could not be found.";
+    }
+
+    fileManager.overwriteUsers(users);
+
+    return null;
+}
+
 }

@@ -67,8 +67,8 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         txtFieldSearch = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnUpdate = new javax.swing.JButton();
-        btnAdd2 = new javax.swing.JButton();
-        btnAdd3 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudents = new javax.swing.JTable();
 
@@ -116,11 +116,11 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(this::btnUpdateActionPerformed);
 
-        btnAdd2.setText("Delete");
-        btnAdd2.addActionListener(this::btnAdd2ActionPerformed);
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(this::btnDeleteActionPerformed);
 
-        btnAdd3.setText("Back");
-        btnAdd3.addActionListener(this::btnAdd3ActionPerformed);
+        btnBack.setText("Back");
+        btnBack.addActionListener(this::btnBackActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -130,11 +130,11 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
                 .addGap(128, 128, 128)
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
-                .addComponent(btnAdd2)
+                .addComponent(btnDelete)
                 .addGap(151, 151, 151))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
-                .addComponent(btnAdd3)
+                .addComponent(btnBack)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -143,9 +143,9 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
-                    .addComponent(btnAdd2))
+                    .addComponent(btnDelete))
                 .addGap(26, 26, 26)
-                .addComponent(btnAdd3)
+                .addComponent(btnBack)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -185,10 +185,10 @@ public class AdminManageStudentsForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAdd3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd3ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         new AdminMenuForm().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnAdd3ActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         new AdminAddStudentMenu(this, true).setVisible(true);
@@ -248,7 +248,7 @@ int selectedRow = tblStudents.getSelectedRow();
         loadStudents();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int selectedRow = tblStudents.getSelectedRow();
 
     if (selectedRow == -1) {
@@ -293,7 +293,7 @@ int selectedRow = tblStudents.getSelectedRow();
     );
 
     loadStudents();
-    }//GEN-LAST:event_btnAdd2ActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,8 +319,8 @@ int selectedRow = tblStudents.getSelectedRow();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAdd2;
-    private javax.swing.JButton btnAdd3;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;

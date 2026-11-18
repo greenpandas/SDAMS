@@ -16,13 +16,19 @@ public class AdminAddStaffMenu extends javax.swing.JDialog {
      * Creates new form AddStudentMenu
      */
     public AdminAddStaffMenu(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setLocationRelativeTo(parent);
-        
-        txtUserId.setEditable(false);
-        txtUserId.setText(adminService.generateStudentId());
-    }
+    super(parent, modal);
+    initComponents();
+    setLocationRelativeTo(parent);
+
+    txtUserId.setEditable(false);
+    txtUserId.setText("");
+
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Select Role", "Attendance Officer", "Facilities Officer", "Instructor"}
+    ));
+
+    //user ID is blank initially
+    jComboBox1.setSelectedIndex(0);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -165,20 +171,29 @@ public class AdminAddStaffMenu extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        //saves the new user to users.txt
-        String error = adminService.addStudent(
-                txtUserId.getText().trim(),
-                txtName.getText().trim(),
-                txtUsername.getText().trim(),
-                txtPassword.getText().trim());
+       String selectedRole = (String) jComboBox1.getSelectedItem();
 
-        if (error != null) {
-            JOptionPane.showMessageDialog(this, error);
-            return; //window stays open so that the user can fix the error without starting over
-        }
-        //confirmation message, closes current window
-        JOptionPane.showMessageDialog(this, "Student added successfully.");
-        this.dispose();
+    if (selectedRole == null || selectedRole.equals("Select Role")) {
+        JOptionPane.showMessageDialog(this, "Please select a staff role.");
+        return;
+    }
+
+    String error = adminService.addStaff(
+            txtUserId.getText().trim(),
+            txtName.getText().trim(),
+            txtUsername.getText().trim(),
+            txtPassword.getText().trim(),
+            selectedRole);
+
+    if (error != null) {
+        JOptionPane.showMessageDialog(this, error);
+        return;
+    }
+
+    JOptionPane.showMessageDialog(this, "Staff added successfully."
+    );
+
+    this.dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void txtUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserIdActionPerformed
@@ -190,7 +205,19 @@ public class AdminAddStaffMenu extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        String selectedRole = (String) jComboBox1.getSelectedItem();
+
+    if (selectedRole == null || selectedRole.equals("Select Role")) {
+
+        txtUserId.setText("");
+
+        return;
+    }
+
+    //generate user ID based on selected staff role
+    String generatedId = adminService.generateStaffId(selectedRole);
+
+    txtUserId.setText(generatedId);
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**

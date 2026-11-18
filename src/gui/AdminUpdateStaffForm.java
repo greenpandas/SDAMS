@@ -14,25 +14,21 @@ public class AdminUpdateStaffForm extends javax.swing.JDialog {
     private final AdminService adminService = new AdminService();
 
     
-    public AdminUpdateStaffForm(java.awt.Frame parent, boolean modal) {
-    this(parent, modal, new model.User("", "", "", "", "Student"));
-}
+    public AdminUpdateStaffForm(java.awt.Frame parent, boolean modal) {this(parent, modal, new User("", "", "", "", ""));}
     
-    public AdminUpdateStaffForm(java.awt.Frame parent, boolean modal, User student) {
+    public AdminUpdateStaffForm(java.awt.Frame parent, boolean modal, User staff) {
         super(parent, modal);
-        initComponents();
-        setLocationRelativeTo(parent);
-        
-        
-        //set user ID to read-only
-        txtUserId.setEditable(false);
-        txtRole.setEditable(false);
-        
-        //fill text fields with chosen user's information
-        txtUserId.setText(student.getUserId());
-        txtUsername.setText(student.getUsername());
-        txtPassword.setText(student.getPassword());
-        txtName.setText(student.getName());
+    initComponents();
+    setLocationRelativeTo(parent);
+
+    txtUserId.setEditable(false);
+    txtRole.setEditable(false);
+
+    txtUserId.setText(staff.getUserId());
+    txtUsername.setText(staff.getUsername());
+    txtPassword.setText(staff.getPassword());
+    txtName.setText(staff.getName());
+    txtRole.setText(staff.getRole());
     }
 
     /**
@@ -173,20 +169,19 @@ public class AdminUpdateStaffForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        //saves the user's new info to users.txt
-        String error = adminService.updateStudent(
-        txtUserId.getText().trim(),
-        txtName.getText().trim(),
-        txtUsername.getText().trim(),
-        txtPassword.getText().trim());
+         String error = adminService.updateStaff(
+            txtUserId.getText().trim(),
+            txtName.getText().trim(),
+            txtUsername.getText().trim(),
+            txtPassword.getText().trim()
+    );
 
-        if (error != null) {
-            JOptionPane.showMessageDialog(this, error);
-            return; //window stays open so that the user can fix the error without starting over
-        }
-        //confirmation message, closes current window
-        JOptionPane.showMessageDialog(this, "Student updated successfully.");
-        this.dispose();
+    if (error != null) {JOptionPane.showMessageDialog(this, error);return;
+    }
+
+    JOptionPane.showMessageDialog(this,"Staff updated successfully.");
+
+    this.dispose();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserIdActionPerformed
