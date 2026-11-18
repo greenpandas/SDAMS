@@ -1,15 +1,15 @@
-EQ001,Punching Bag
-EQ002,Boxing Gloves
-EQ003,Focus Mitt
-EQ004,Heavy Bag
-EQ005,Protective Helmet
-EQ006,Mouth Guard
-EQ007,Kicking Pad
-EQ008,Medicine Ball
-EQ009,Skipping Rope
-EQ010,Training Mat
-EQ011,Floor Kicking Shield
-EQ012,Wooden Dummy
-EQ013,Body Protector
-EQ014,Training Dummy
-EQ015,First Aid Kit
+E001,Boxing Gloves
+E002,Focus Pads
+E003,Thai Pads
+E004,Free Standing Punch Bag
+E005,Judo Mats
+E006,Karate Belts
+E007,Shin Guards
+E008,Head Guards
+E009,Mouth Guards
+E010,Skipping Ropes
+E011,Training Dummies
+E012,First Aid Kit
+E013,Wall Mirrors
+E014,Protective Bibs
+E015,Timer Clock
