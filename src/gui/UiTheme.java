@@ -20,6 +20,7 @@ public final class UiTheme {
     public static final Color SIDEBAR = new Color(30, 41, 59);
     public static final Color PRIMARY = new Color(37, 99, 235);
     public static final Color SUCCESS = new Color(34, 197, 94);
+    public static final Color WARNING = new Color(245, 158, 11);
     public static final Color DANGER = new Color(239, 68, 68);
     public static final Color CONTENT = new Color(248, 250, 252);
     public static final Color CARD = Color.WHITE;
@@ -171,6 +172,8 @@ public final class UiTheme {
         table.setGridColor(new Color(226, 232, 240));
         table.setSelectionBackground(new Color(219, 234, 254));
         table.setSelectionForeground(TEXT);
+        table.setAutoCreateRowSorter(true);
+        table.setFillsViewportHeight(true);
 
         JTableHeader header = table.getTableHeader();
         header.setFont(SEGOU_UI_BOLD);

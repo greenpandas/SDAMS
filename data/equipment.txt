@@ -1,1 +1,15 @@
-EQ001,Punchung bag
+EQ001,Punching Bag
+EQ002,Boxing Gloves
+EQ003,Focus Mitt
+EQ004,Heavy Bag
+EQ005,Protective Helmet
+EQ006,Mouth Guard
+EQ007,Kicking Pad
+EQ008,Medicine Ball
+EQ009,Skipping Rope
+EQ010,Training Mat
+EQ011,Floor Kicking Shield
+EQ012,Wooden Dummy
+EQ013,Body Protector
+EQ014,Training Dummy
+EQ015,First Aid Kit

@@ -1,1 +1,12 @@
-ID,USERNAME,PASSWORD,NAME,ROLE
+M001,manager1,1234,Ali Rahman,Manager
+M002,manager2,1234,Farah Lim,Manager
+A001,admin1,1234,Daniel Wong,Administrator
+A002,admin2,1234,Nurul Hassan,Administrator
+A003,admin3,1234,Kevin Tan,Administrator
+A004,admin4,1234,Siti Omar,Administrator
+A005,admin5,1234,Marcus Lee,Administrator
+I001,instructor1,1234,David Chen,Instructor
+I002,instructor2,1234,Amir Iskandar,Instructor
+I003,instructor3,1234,Grace Tan,Instructor
+I004,instructor4,1234,Muhammad Hafiz,Instructor
+I005,instructor5,1234,Clara Ng,Instructor

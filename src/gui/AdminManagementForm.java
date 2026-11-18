@@ -35,6 +35,7 @@ public class AdminManagementForm extends javax.swing.JFrame {
         initComponents();
         setTitle("SDAMS - Administrator Management");
         setSize(1180, 720);
+        setMinimumSize(new Dimension(1000, 620));
         setLocationRelativeTo(null);
         loadAdministrators();
     }

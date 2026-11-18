@@ -1,2 +1,10 @@
-ISS001,Broken Punching Bag
-ISS001,Broken Punching Baag
+ISS001,Broken punching bag spring
+ISS002,Ripped training mat in Studio A
+ISS003,Loose floor panel near entrance
+ISS004,Boxing ring padding worn
+ISS005,Air conditioning not working
+ISS006,Missing first aid supplies
+ISS007,Lock broken in changing room
+ISS008,Leaking tap in washroom
+ISS009,Cracked mirror in Studio B
+ISS010,Defective studio light

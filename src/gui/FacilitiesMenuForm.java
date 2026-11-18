@@ -15,6 +15,7 @@ public class FacilitiesMenuForm extends javax.swing.JFrame {
         initComponents();
         setTitle("SDAMS - Facilities Officer Dashboard");
         setSize(1180, 720);
+        setMinimumSize(new Dimension(1000, 620));
         setLocationRelativeTo(null);
     }
 
@@ -50,16 +51,15 @@ public class FacilitiesMenuForm extends javax.swing.JFrame {
         content.add(UiTheme.createHeader("Facilities Dashboard",
                 "Equipment and facility issue overview"), BorderLayout.NORTH);
 
-        JPanel cards = new JPanel(new GridLayout(1, 3, 18, 18));
+        JPanel cards = new JPanel(new GridLayout(1, 2, 18, 18));
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
-        cards.add(UiTheme.createStatCard("Equipment",
+        cards.add(UiTheme.createStatCard("Total Equipment",
                 String.valueOf(UiTheme.countLines("data/equipment.txt")),
                 "Equipment records"));
-        cards.add(UiTheme.createStatCard("Facility Issues",
+        cards.add(UiTheme.createStatCard("Total Issues",
                 String.valueOf(UiTheme.countLines("data/issues.txt")),
                 "Reported issues"));
-        cards.add(UiTheme.createStatCard("Open Status", "--", "Issue summary"));
         content.add(cards, BorderLayout.NORTH);
 
         root.add(sidebar, BorderLayout.WEST);

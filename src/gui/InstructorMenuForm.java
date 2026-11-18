@@ -15,6 +15,7 @@ public class InstructorMenuForm extends javax.swing.JFrame {
         initComponents();
         setTitle("SDAMS - Instructor Dashboard");
         setSize(1180, 720);
+        setMinimumSize(new Dimension(1000, 620));
         setLocationRelativeTo(null);
     }
 
@@ -50,7 +51,7 @@ public class InstructorMenuForm extends javax.swing.JFrame {
         content.add(UiTheme.createHeader("Instructor Dashboard",
                 "Classes, students and performance"), BorderLayout.NORTH);
 
-        JPanel cards = new JPanel(new GridLayout(1, 3, 18, 18));
+        JPanel cards = new JPanel(new GridLayout(1, 2, 18, 18));
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
         cards.add(UiTheme.createStatCard("Total Classes",
@@ -59,9 +60,6 @@ public class InstructorMenuForm extends javax.swing.JFrame {
         cards.add(UiTheme.createStatCard("Total Ratings",
                 String.valueOf(UiTheme.countLines("data/ratings.txt")),
                 "Student rating records"));
-        cards.add(UiTheme.createStatCard("Bookings",
-                String.valueOf(UiTheme.countLines("data/bookings.txt")),
-                "Scheduled bookings"));
         content.add(cards, BorderLayout.NORTH);
 
         root.add(sidebar, BorderLayout.WEST);
