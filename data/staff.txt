@@ -1,12 +1,15 @@
-M001,manager1,1234,Ali Rahman,Manager
-M002,manager2,1234,Farah Lim,Manager
-A001,admin1,1234,Daniel Wong,Administrator
-A002,admin2,1234,Nurul Hassan,Administrator
-A003,admin3,1234,Kevin Tan,Administrator
-A004,admin4,1234,Siti Omar,Administrator
-A005,admin5,1234,Marcus Lee,Administrator
-I001,instructor1,1234,David Chen,Instructor
-I002,instructor2,1234,Amir Iskandar,Instructor
-I003,instructor3,1234,Grace Tan,Instructor
-I004,instructor4,1234,Muhammad Hafiz,Instructor
-I005,instructor5,1234,Clara Ng,Instructor
+M001,manager1,Manager@2026,Daniel Morgan,Manager
+ADM001,admin1,Admin@2026,Sophia Chen,Administrator
+ADM002,admin2,Admin@2026,Marcus Lee,Administrator
+ADM003,admin3,Admin@2026,Olivia Grant,Administrator
+ADM004,admin4,Admin@2026,Noah Williams,Administrator
+INS001,instructor1,Instructor@2026,Emma Thompson,Instructor
+INS002,instructor2,Instructor@2026,James Carter,Instructor
+INS003,instructor3,Instructor@2026,Grace Kim,Instructor
+INS004,instructor4,Instructor@2026,Liam Brooks,Instructor
+INS005,instructor5,Instructor@2026,Amelia Jones,Instructor
+ATN001,attendance1,Attendance@2026,Ethan Clark,Attendance Officer
+ATN002,attendance2,Attendance@2026,Maya Patel,Attendance Officer
+FAC001,facilities1,Facilities@2026,Lucas Reed,Facilities Officer
+FAC002,facilities2,Facilities@2026,Chloe Evans,Facilities Officer
+FAC003,facilities3,Facilities@2026,Henry Wilson,Facilities Officer

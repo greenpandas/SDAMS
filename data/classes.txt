@@ -1,20 +1,20 @@
-C001,Karate Fundamentals,18/11/2026,10:00 AM
-C002,Boxing Basics,18/11/2026,6:00 PM
-C003,Muay Thai Conditioning,19/11/2026,7:00 PM
-C004,Brazilian Jiu-Jitsu,19/11/2026,8:00 PM
-C005,Self Defence Workshop,20/11/2026,2:00 PM
-C006,Taekwondo Beginners,21/11/2026,9:00 AM
-C007,Women's Self Defence,21/11/2026,11:00 AM
-C008,Advanced Kickboxing,22/11/2026,5:00 PM
-C009,Junior Karate,22/11/2026,10:00 AM
-C010,Boxing Sparring,23/11/2026,6:30 PM
-C011,Core and Flexibility,24/11/2026,7:30 PM
-C012,Krav Maga Essentials,25/11/2026,6:00 PM
-C013,Karate Kata,26/11/2026,7:00 PM
-C014,Pad Work Training,27/11/2026,5:30 PM
-C015,Ground Defence,28/11/2026,10:00 AM
-C016,Weapons Awareness,28/11/2026,1:00 PM
-C017,Junior Boxing,29/11/2026,9:30 AM
-C018,Strength for Martial Arts,30/11/2026,6:00 PM
-C019,Advanced Self Defence,01/12/2026,7:00 PM
-C020,Family Martial Arts,02/12/2026,10:30 AM
+C001,Kickboxing Fundamentals,2026-11-23,18:00
+C002,Karate Beginners,2026-11-23,19:30
+C003,Taekwondo Intermediate,2026-11-24,17:30
+C004,Women's Self Defence,2026-11-24,19:00
+C005,Brazilian Jiu-Jitsu,2026-11-25,18:30
+C006,Muay Thai Conditioning,2026-11-25,20:00
+C007,Striking for Beginners,2026-11-26,18:00
+C008,Defensive Groundwork,2026-11-26,19:30
+C009,Family Martial Arts,2026-11-27,16:00
+C010,Junior Karate,2026-11-27,17:30
+C011,Boxing Technique,2026-11-28,10:00
+C012,Open Sparring,2026-11-28,14:00
+C013,Kickboxing Fitness,2026-11-29,09:30
+C014,Self Defence Seminar,2026-11-29,12:00
+C015,Karate Kata,2026-11-30,18:00
+C016,Tactical Footwork,2026-11-30,19:30
+C017,Pad Work Skills,2026-12-01,18:00
+C018,Weapons Awareness,2026-12-01,20:00
+C019,Competition Preparation,2026-12-02,17:30
+C020,Core and Mobility,2026-12-02,19:00
