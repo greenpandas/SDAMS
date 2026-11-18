@@ -15,6 +15,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
         initComponents();
         setTitle("SDAMS - Student Dashboard");
         setSize(1180, 720);
+        setMinimumSize(new Dimension(1000, 620));
         setLocationRelativeTo(null);
     }
 
@@ -53,18 +54,14 @@ public class StudentMenuForm extends javax.swing.JFrame {
         content.add(UiTheme.createHeader("Student Dashboard",
                 "Classes, bookings and academy activity"), BorderLayout.NORTH);
 
-        JPanel cards = new JPanel(new GridLayout(1, 3, 18, 18));
+        JPanel cards = new JPanel(new GridLayout(1, 2, 18, 18));
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
         cards.add(UiTheme.createStatCard("Total Bookings",
                 String.valueOf(UiTheme.countLines("data/bookings.txt")),
                 "Academy booking records"));
-        cards.add(UiTheme.createStatCard("Available Classes",
-                String.valueOf(UiTheme.countLines("data/classes.txt")),
-                "Published class records"));
-        cards.add(UiTheme.createStatCard("Attendance",
-                String.valueOf(UiTheme.countLines("data/attendance.txt")),
-                "Recorded attendance entries"));
+        cards.add(UiTheme.createStatCard("Outstanding Payments",
+                "--", "Balance field not available"));
         content.add(cards, BorderLayout.NORTH);
 
         root.add(sidebar, BorderLayout.WEST);

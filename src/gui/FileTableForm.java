@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import javax.swing.BorderFactory;
@@ -31,6 +32,7 @@ public class FileTableForm extends JFrame {
         setTitle("SDAMS - " + title);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(900, 560);
+        setMinimumSize(new Dimension(760, 480));
         setLocationRelativeTo(null);
 
         JPanel content = new JPanel(new BorderLayout());

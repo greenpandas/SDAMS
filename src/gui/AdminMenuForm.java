@@ -19,6 +19,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
         initComponents();
         setTitle("SDAMS - Administrator Dashboard");
         setSize(1180, 720);
+        setMinimumSize(new Dimension(1000, 620));
         setLocationRelativeTo(null);
     }
 
@@ -71,8 +72,8 @@ public class AdminMenuForm extends javax.swing.JFrame {
                 String.valueOf(studentCount), "Registered student accounts"));
         cards.add(UiTheme.createStatCard("Total Payments",
                 String.valueOf(UiTheme.countLines("data/payments.txt")), "Payment records"));
-        cards.add(UiTheme.createStatCard("Bookings",
-                String.valueOf(UiTheme.countLines("data/bookings.txt")), "Class bookings"));
+        cards.add(UiTheme.createStatCard("Active Students",
+                String.valueOf(studentCount), "Accounts available for use"));
         content.add(cards, BorderLayout.NORTH);
 
         root.add(sidebar, BorderLayout.WEST);

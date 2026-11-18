@@ -19,6 +19,7 @@ public class ManagerMenuForm extends javax.swing.JFrame {
         initComponents();
         setTitle("SDAMS - Manager Dashboard");
         setSize(1180, 720);
+        setMinimumSize(new Dimension(1000, 620));
         setLocationRelativeTo(null);
     }
 
@@ -60,17 +61,20 @@ public class ManagerMenuForm extends javax.swing.JFrame {
         content.add(UiTheme.createHeader("Manager Dashboard",
                 "Overview of academy operations"), BorderLayout.NORTH);
 
-        JPanel cards = new JPanel(new GridLayout(1, 3, 18, 18));
+        JPanel cards = new JPanel(new GridLayout(2, 2, 18, 18));
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
 
         ArrayList<User> users = new FileManager().readUsers();
         int administrators = 0;
         int staff = 0;
+        int students = 0;
         for (User user : users) {
             if ("Administrator".equals(user.getRole())) {
                 administrators++;
-            } else if (!"Student".equals(user.getRole())) {
+            } else if ("Student".equals(user.getRole())) {
+                students++;
+            } else {
                 staff++;
             }
         }
@@ -78,6 +82,8 @@ public class ManagerMenuForm extends javax.swing.JFrame {
         double revenue = UiTheme.readPaymentRevenue("data/payments.txt");
         cards.add(UiTheme.createStatCard("Total Administrators",
                 String.valueOf(administrators), "Active administrator accounts"));
+        cards.add(UiTheme.createStatCard("Total Students",
+                String.valueOf(students), "Registered student accounts"));
         cards.add(UiTheme.createStatCard("Total Staff",
                 String.valueOf(staff), "Manager and officer accounts"));
         cards.add(UiTheme.createStatCard("Total Revenue",
@@ -103,11 +109,9 @@ public class ManagerMenuForm extends javax.swing.JFrame {
             dispose();
         });
         btnViewStaff.addActionListener(evt
-                -> JOptionPane.showMessageDialog(this,
-                        "View Staff GUI coming next."));
+                -> new StaffViewForm().setVisible(true));
         btnReports.addActionListener(evt
-                -> JOptionPane.showMessageDialog(this,
-                        "Reports GUI coming next."));
+                -> new ReportsForm().setVisible(true));
         btnLogout.addActionListener(evt -> {
             new LoginForm().setVisible(true);
             dispose();

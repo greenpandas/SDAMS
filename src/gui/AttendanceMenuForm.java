@@ -15,6 +15,7 @@ public class AttendanceMenuForm extends javax.swing.JFrame {
         initComponents();
         setTitle("SDAMS - Attendance Officer Dashboard");
         setSize(1180, 720);
+        setMinimumSize(new Dimension(1000, 620));
         setLocationRelativeTo(null);
     }
 
@@ -47,14 +48,12 @@ public class AttendanceMenuForm extends javax.swing.JFrame {
         content.add(UiTheme.createHeader("Attendance Dashboard",
                 "Review and manage attendance records"), BorderLayout.NORTH);
 
-        JPanel cards = new JPanel(new GridLayout(1, 3, 18, 18));
+        JPanel cards = new JPanel(new GridLayout(1, 1, 18, 18));
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
         int records = UiTheme.countLines("data/attendance.txt");
-        cards.add(UiTheme.createStatCard("Attendance Records",
+        cards.add(UiTheme.createStatCard("Total Attendance Records",
                 String.valueOf(records), "Recorded entries"));
-        cards.add(UiTheme.createStatCard("Present", "--", "Daily summary"));
-        cards.add(UiTheme.createStatCard("Absent", "--", "Daily summary"));
         content.add(cards, BorderLayout.NORTH);
 
         root.add(sidebar, BorderLayout.WEST);

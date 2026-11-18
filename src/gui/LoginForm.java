@@ -42,6 +42,7 @@ public class LoginForm extends javax.swing.JFrame {
         setTitle("SDAMS - Login");
         setSize(920, 620);
         setResizable(false);
+        setMinimumSize(new Dimension(820, 560));
         setLocationRelativeTo(null);
     }
 
