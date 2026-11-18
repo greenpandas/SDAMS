@@ -40,9 +40,9 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
         setTitle("SDAMS - Login");
-        setSize(920, 620);
+        setSize(850, 650);
         setResizable(false);
-        setMinimumSize(new Dimension(820, 560));
+        setMinimumSize(new Dimension(900, 560));
         setLocationRelativeTo(null);
     }
 
@@ -57,8 +57,8 @@ public class LoginForm extends javax.swing.JFrame {
         root.setBackground(BACKGROUND);
 
         JPanel card = new JPanel();
-        card.setPreferredSize(new Dimension(440, 520));
-        card.setMaximumSize(new Dimension(440, 520));
+        card.setPreferredSize(new Dimension(440, 580));
+        card.setMaximumSize(new Dimension(440, 580));
         card.setBackground(CARD);
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(BORDER),
