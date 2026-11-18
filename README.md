@@ -1,54 +1,236 @@
-## Team Members
-- Shaheer
-- Loai
-- Khalid
-- Mohammed
-- Ryan
-- Mashrur
-
-## Project Description
-Java Swing-based management system for a self-defence academy.
-
-## Technologies
-- Java
-- NetBeans
-- GitHub
-- Text File Storage
-
 # Self Defence Academy Management System (SDAMS)
 
 ## Project Overview
 
-The Self Defence Academy Management System (SDAMS) is a Java-based desktop application developed to manage the daily operations of a self-defence academy. The system enables efficient management of students, instructors, staff, attendance, bookings, payments, equipment, and facility-related issues.
+The Self Defence Academy Management System (SDAMS) is a Java-based desktop application developed using Object-Oriented Programming (OOP) principles. The system is designed to automate and manage the daily operations of a self-defence academy through a centralized platform that supports multiple user roles and academy management functions.
 
-This project is developed as part of a 6-week academic assignment using Object-Oriented Programming (OOP) principles and file-based data storage.
+The project provides authentication, role-based access control, student management, staff management, scheduling, attendance tracking, booking management, payment tracking, equipment management, issue reporting, and reporting capabilities.
 
----
-
-## Project Objectives
-
-- Manage student and staff records
-- Record attendance information
-- Manage class schedules and bookings
-- Track payments and transactions
-- Monitor academy equipment
-- Report and manage facility issues
-- Generate basic reports
-- Implement role-based user access
+The application is currently developed using Java, NetBeans, and file-based data persistence. Migration to a Java Swing graphical user interface is currently in progress.
 
 ---
 
-## Technology Stack
+# Purpose of the System
 
-- Java
-- NetBeans IDE
-- Java Swing (GUI)
-- Git & GitHub
-- Text File Storage (.txt)
+Many self-defence academies still rely on paper records or spreadsheet-based management systems. These approaches often lead to:
+
+- Duplicate records
+- Missing information
+- Attendance tracking issues
+- Inefficient payment management
+- Limited reporting capabilities
+- Poor operational visibility
+
+SDAMS aims to solve these challenges by providing a centralized digital management system that supports all major academy operations.
 
 ---
 
-## Project Structure
+# Project Objectives
+
+The primary objectives of SDAMS are:
+
+- Provide secure authentication and role-based authorization.
+- Manage student and staff records efficiently.
+- Digitally record attendance information.
+- Support schedule management and class bookings.
+- Manage academy equipment and facilities.
+- Record and track payment information.
+- Generate operational and revenue reports.
+- Demonstrate Object-Oriented Programming concepts through real-world implementation.
+
+---
+
+# Technology Stack
+
+| Component | Technology |
+|------------|------------|
+| Programming Language | Java |
+| Development Environment | NetBeans |
+| Version Control | Git |
+| Repository Hosting | GitHub |
+| Data Storage | Text Files |
+| User Interface | Java Swing (In Progress) |
+| Development Methodology | Incremental Development |
+
+---
+
+# User Roles
+
+The system currently supports six user roles.
+
+## Manager
+
+Responsibilities:
+
+- Manage Administrators
+- View Staff Information
+- Generate Staff Reports
+- Generate Revenue Reports
+
+---
+
+## Administrator
+
+Responsibilities:
+
+- Manage Students
+- Manage Staff
+- Manage Payments
+
+---
+
+## Instructor
+
+Responsibilities:
+
+- Create Class Schedules
+- View Class Schedules
+- Report Facility Issues
+- View Student Ratings
+
+---
+
+## Student
+
+Responsibilities:
+
+- View Available Classes
+- Book Classes
+- View Bookings
+- View Payment Records
+- Submit Ratings
+
+---
+
+## Attendance Officer
+
+Responsibilities:
+
+- Record Attendance
+- View Attendance Records
+
+---
+
+## Facilities Officer
+
+Responsibilities:
+
+- Add Equipment
+- View Equipment
+- View Reported Facility Issues
+
+---
+
+# System Architecture
+
+The system follows a layered architecture design.
+
+```text
+GUI Layer (Swing Forms)
+          ↓
+      Menu Layer
+          ↓
+     Service Layer
+          ↓
+      FileManager
+          ↓
+      Data Files
+```
+
+Each layer has a dedicated responsibility to improve maintainability and modularity.
+
+---
+
+# Authentication Flow
+
+User authentication is performed using data stored in `users.txt`.
+
+```text
+users.txt
+      ↓
+FileManager
+      ↓
+UserService
+      ↓
+Credential Validation
+      ↓
+Role Detection
+      ↓
+MenuRouter
+      ↓
+Role-Specific Dashboard
+```
+
+Successful authentication automatically routes users to their appropriate module.
+
+---
+
+# Object-Oriented Programming Concepts
+
+## Encapsulation
+
+System data is protected through private attributes and accessed using getters and setters.
+
+Example:
+
+```java
+private String username;
+
+public String getUsername() {
+    return username;
+}
+
+public void setUsername(String username) {
+    this.username = username;
+}
+```
+
+---
+
+## Inheritance
+
+The User class acts as the parent class for all system users.
+
+```text
+User
+├── Manager
+├── Administrator
+├── Instructor
+├── Student
+├── FacilitiesOfficer
+└── AttendanceOfficer
+```
+
+This structure promotes code reuse and consistency across user roles.
+
+---
+
+## Abstraction
+
+Business logic is separated into dedicated service classes.
+
+```text
+UserService
+ManagerService
+AdminService
+StudentService
+InstructorService
+AttendanceService
+FacilitiesService
+PaymentService
+```
+
+This separates business logic from the user interface layer.
+
+---
+
+## Polymorphism
+
+The inheritance hierarchy is designed to support future polymorphic behavior among user roles as the system evolves.
+
+---
+
+# Project Structure
 
 ```text
 SDAMS
@@ -61,14 +243,10 @@ SDAMS
 │   ├── issues.txt
 │   ├── payments.txt
 │   ├── ratings.txt
-│   ├── staff.txt
-│   ├── students.txt
 │   └── users.txt
 │
-├── diagrams
-│
 ├── docs
-│
+├── diagrams
 ├── screenshots
 │
 ├── src
@@ -83,252 +261,421 @@ SDAMS
 
 ---
 
-## System Roles
+# Data Storage Design
 
-The system supports the following user roles:
+The project currently uses text-file persistence rather than a relational database.
 
-- Manager
-- Administrator
-- Instructor
-- Student
-- Facilities Officer
-- Attendance Officer
+## Data Files
 
-Each role is provided with different permissions and system functionality.
+| File | Purpose |
+|--------|---------|
+| users.txt | User accounts, authentication and role information |
+| classes.txt | Instructor-created class schedules |
+| bookings.txt | Student class bookings |
+| attendance.txt | Attendance records |
+| payments.txt | Payment records |
+| equipment.txt | Equipment inventory |
+| issues.txt | Facility issues |
+| ratings.txt | Student ratings and feedback |
 
 ---
 
-## Object-Oriented Design
+# Implemented Modules
 
-### Base Class
+## Core System
 
-```java
-User
-```
+### Authentication and User Management
 
-### Inheritance Structure
+✅ User Authentication
+
+✅ Login Validation
+
+✅ Role Detection
+
+✅ Role-Based Access Control
+
+✅ Menu Routing
+
+✅ File-Based Persistence
+
+✅ User Management Foundation
+
+---
+
+## Manager Module
+
+### Administrator Management (CRUD)
+
+✅ Add Administrator
+
+✅ View Administrators
+
+✅ Search Administrator
+
+✅ Update Administrator
+
+✅ Delete Administrator
+
+### Staff Management
+
+✅ View Staff Information
+
+✅ Staff Reporting
+
+### Reporting
+
+✅ Revenue Reporting
+
+---
+
+## Administrator Module
+
+### Student Management (CRUD)
+
+✅ Add Student
+
+✅ View Students
+
+✅ Search Student
+
+✅ Update Student
+
+✅ Delete Student
+
+### Staff Management
+
+✅ View Staff
+
+✅ Search Staff
+
+### Payment Management
+
+✅ Add Payment Records
+
+✅ View Payment Records
+
+---
+
+## Student Module
+
+✅ View Classes
+
+✅ Book Classes
+
+✅ View Bookings
+
+✅ View Payment History
+
+✅ Submit Ratings
+
+---
+
+## Instructor Module
+
+✅ Create Schedule
+
+✅ View Schedule
+
+✅ Report Facility Issues
+
+✅ View Student Ratings
+
+---
+
+## Attendance Module
+
+✅ Record Attendance
+
+✅ View Attendance
+
+✅ Attendance Persistence
+
+---
+
+## Facilities Module
+
+✅ Add Equipment
+
+✅ View Equipment
+
+✅ View Facility Issues
+
+---
+
+# Implemented Workflows
+
+## Class Scheduling Workflow
 
 ```text
-User
-│
-├── Manager
-├── Administrator
-├── Instructor
-├── Student
-├── FacilitiesOfficer
-└── AttendanceOfficer
-```
-
-### OOP Concepts Applied
-
-- Encapsulation
-- Inheritance
-- Polymorphism
-- Abstraction
-
----
-
-## Main Classes
-
-### User Classes
-
-- User
-- Manager
-- Administrator
-- Instructor
-- Student
-- FacilitiesOfficer
-- AttendanceOfficer
-
-### System Classes
-
-- Booking
-- Payment
-- Attendance
-- Rating
-- Equipment
-- FacilityIssue
-- ClassSchedule
-
----
-
-## GUI Components
-
-Current GUI class structure:
-
-- LoginForm
-- ManagerMenu
-- AdminMenu
-- StudentMenu
-- InstructorMenu
-- FacilitiesMenu
-- AttendanceMenu
-
-Java Swing implementation will be added during later development stages.
-
----
-
-## Service Layer
-
-Current service classes include:
-
-- UserService
-- BookingService
-- PaymentService
-- AttendanceService
-- EquipmentService
-
-These classes handle the business logic of the application.
-
----
-
-## File Management
-
-The project uses a text-file-based storage approach.
-
-### FileManager Responsibilities
-
-- Save records
-- Read records
-- Update records
-- Delete records
-
-Planned methods:
-
-```java
-saveUser()
-readUsers()
-updateUser()
-deleteUser()
+Instructor
+      ↓
+Create Schedule
+      ↓
+classes.txt
+      ↓
+Student
+      ↓
+View Available Classes
 ```
 
 ---
 
-## User Data Format
-
-Users are stored in `users.txt` using the following format:
+## Class Booking Workflow
 
 ```text
-ID,USERNAME,PASSWORD,NAME,ROLE
-```
-
-Example:
-
-```text
-M001,manager1,1234,Ali,Manager
-A001,admin1,1234,Ahmad,Administrator
-S001,student1,1234,Sarah,Student
-I001,instructor1,1234,David,Instructor
+Student
+      ↓
+View Classes
+      ↓
+Book Class
+      ↓
+bookings.txt
 ```
 
 ---
 
-## Git Workflow
+## Attendance Workflow
 
-Before starting work:
+```text
+Attendance Officer
+      ↓
+Record Attendance
+      ↓
+attendance.txt
+      ↓
+View Attendance
+```
+
+---
+
+## Facility Issue Reporting Workflow
+
+```text
+Instructor
+      ↓
+Report Issue
+      ↓
+issues.txt
+      ↓
+Facilities Officer
+      ↓
+View Reported Issues
+```
+
+---
+
+## Payment Workflow
+
+```text
+Administrator
+      ↓
+Add Payment
+      ↓
+payments.txt
+      ↓
+Student
+      ↓
+View Payments
+      ↓
+Manager
+      ↓
+Generate Revenue Reports
+```
+
+---
+
+# Service Layer
+
+The service layer contains the core business logic of the system.
+
+## Implemented Services
+
+```text
+UserService
+ManagerService
+AdminService
+StudentService
+InstructorService
+AttendanceService
+FacilitiesService
+PaymentService
+FileManager
+```
+
+---
+
+# GUI Development Status
+
+## Completed
+
+✅ LoginForm
+
+✅ Role-Based GUI Navigation
+
+✅ Manager Dashboard Foundation
+
+✅ Dashboard Structure Creation
+
+---
+
+## In Progress
+
+🔄 Administrator Dashboard
+
+🔄 Student Dashboard
+
+🔄 Instructor Dashboard
+
+🔄 Attendance Dashboard
+
+🔄 Facilities Dashboard
+
+🔄 Backend-to-GUI Integration
+
+---
+
+# Current Project Status
+
+## Completed
+
+✅ Authentication System
+
+✅ File Storage Layer
+
+✅ User Management
+
+✅ Manager Module
+
+✅ Administrator Module
+
+✅ Student CRUD Operations
+
+✅ Scheduling System
+
+✅ Booking System
+
+✅ Attendance Tracking
+
+✅ Equipment Management
+
+✅ Payment Management
+
+✅ Revenue Reporting
+
+✅ Facility Issue Tracking
+
+✅ Rating System
+
+---
+
+## Currently In Progress
+
+🔄 Java Swing GUI Development
+
+🔄 UML Diagram Creation
+
+🔄 Integration Testing
+
+🔄 Documentation Expansion
+
+---
+
+## Remaining Work
+
+⏳ Complete GUI Migration
+
+⏳ Advanced Reports
+
+⏳ System Testing
+
+⏳ Bug Fixing
+
+⏳ Documentation Finalization
+
+⏳ Presentation Preparation
+
+⏳ Final Submission
+
+---
+
+# Development Progress
+
+| Phase | Status |
+|---------|---------|
+| Planning & Design | ✅ Complete |
+| Authentication | ✅ Complete |
+| Core Backend Development | ✅ Complete |
+| Manager Module | ✅ Complete |
+| Administrator Module | ✅ Complete |
+| Student Management | ✅ Complete |
+| Attendance Module | ✅ Complete |
+| Facilities Module | ✅ Complete |
+| Payment Module | ✅ Complete |
+| GUI Development | 🔄 In Progress |
+| Testing | ⏳ Pending |
+| Documentation | 🔄 In Progress |
+
+---
+
+# Estimated Completion
+
+```text
+Backend Development      : 90%
+GUI Development          : 20%
+Documentation            : 30%
+
+Overall Project Progress : 75% - 80%
+```
+
+---
+
+# Team Workflow
+
+Before starting development:
 
 ```bash
 git pull
 ```
 
-Check project status:
-
-```bash
-git status
-```
-
-Stage changes:
+After completing a feature:
 
 ```bash
 git add .
-```
-
-Commit changes:
-
-```bash
-git commit -m "Meaningful commit message"
-```
-
-Push changes:
-
-```bash
+git commit -m "Meaningful Feature Description"
 git push
 ```
 
-View commit history:
+Example:
 
 ```bash
-git log --oneline
+git commit -m "Implement instructor scheduling workflow"
 ```
 
 ---
 
-## Current Progress (Week 1)
+# Upcoming Milestones
 
-### Completed
+## Week 5
 
-✅ GitHub repository setup
+- Complete GUI Development
+- Connect GUI to Backend Services
+- UML Diagram Completion
+- Begin Integration Testing
 
-✅ Local repository configuration
+## Week 6
 
-✅ Project folder structure
-
-✅ Package creation
-
-✅ Model class skeletons
-
-✅ GUI class skeletons
-
-✅ Service class skeletons
-
-✅ Data file structure
-
-✅ Documentation planning
-
-✅ UML planning
-
-✅ Git workflow implementation
+- Complete Documentation
+- Perform System Testing
+- Fix Remaining Bugs
+- Prepare Presentation
+- Final Submission
 
 ---
 
-## Week 1 Deliverables
+# Contributors
 
-- User hierarchy completed
-- Project structure created
-- Initial class skeletons created
-- File storage structure prepared
-- GitHub repository configured
-- Documentation framework planned
+**SDAMS Development Team**
 
----
-
-## Week 2 Development Plan
-
-The next phase focuses on the Login and Authentication Module.
-
-### Features to Implement
-
-- Login system
-- User authentication
-- Read users from users.txt
-- Credential validation
-- Role-based access control
-- Menu redirection based on user role
-
-This module will serve as the foundation for all remaining SDAMS features.
-
----
-
-## Team Repository
-
-Repository Link:
-
-https://github.com/greenpandas/SDAMS
-
----
-
-## Authors
+Academic Project - Object-Oriented Programming (OOP)
 
 Self Defence Academy Management System (SDAMS)
-
-Developed as an academic group project using Java, NetBeans, Git, and Object-Oriented Programming principles.

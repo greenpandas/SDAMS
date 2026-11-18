@@ -1,10 +1,25 @@
 package model;
 
 public class User {
+
     private String userId;
     private String username;
     private String password;
     private String name;
+    private String role;
+
+    public User() {
+    }
+
+    public User(String userId, String username, String password,
+            String name, String role) {
+
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+    }
 
     public String getUserId() {
         return userId;
@@ -38,15 +53,11 @@ public class User {
         this.name = name;
     }
 
-    public User() {
+    public String getRole() {
+        return role;
     }
 
-    public User(String userId, String username, String password, String name) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.name = name;
+    public void setRole(String role) {
+        this.role = role;
     }
-
-    // Generated getters and setters
 }
