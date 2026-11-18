@@ -15,14 +15,12 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form LoginForm
      */
     public LoginForm() {
-
-    initComponents();
-
-    setTitle(
-            "Self Defence Academy Management System"
-    );
-
-    setLocationRelativeTo(null);
+        UiTheme.applyDefaults();
+        initComponents();
+        setTitle("SDAMS - Sign In");
+        setSize(900, 600);
+        setResizable(false);
+        setLocationRelativeTo(null);
 }
 
     /**
@@ -33,66 +31,89 @@ public class LoginForm extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        Username = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
-        Password = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        btnLogin = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
+        btnLogin = UiTheme.createButton("Sign In", UiTheme.PRIMARY);
+        btnExit = UiTheme.createButton("Exit", UiTheme.DANGER);
+        Username = new javax.swing.JLabel();
+        Password = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        javax.swing.JPanel root = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        root.setBackground(UiTheme.SIDEBAR);
+        java.awt.GridBagConstraints gc = new java.awt.GridBagConstraints();
+
+        javax.swing.JPanel card = new javax.swing.JPanel();
+        card.setBackground(UiTheme.CARD);
+        card.setBorder(javax.swing.BorderFactory.createEmptyBorder(36, 42, 36, 42));
+        card.setPreferredSize(new java.awt.Dimension(420, 470));
+
+        javax.swing.JLabel logo = new javax.swing.JLabel("SD");
+        logo.setPreferredSize(new java.awt.Dimension(64, 64));
+        logo.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 24));
+        logo.setForeground(java.awt.Color.WHITE);
+        logo.setBackground(UiTheme.PRIMARY);
+        logo.setOpaque(true);
+        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.JLabel title = new javax.swing.JLabel("SDAMS");
+        title.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 28));
+        title.setForeground(UiTheme.TEXT);
+        javax.swing.JLabel welcome = new javax.swing.JLabel("Welcome back");
+        welcome.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 18));
+        welcome.setForeground(UiTheme.TEXT);
+        javax.swing.JLabel message = new javax.swing.JLabel("Sign in to access your academy dashboard");
+        message.setForeground(UiTheme.MUTED);
+
         Username.setText("Username");
+        Password.setText("Password");
+        txtUsername.setPreferredSize(new java.awt.Dimension(320, 42));
+        txtPassword.setPreferredSize(new java.awt.Dimension(320, 42));
+        btnLogin.setPreferredSize(new java.awt.Dimension(320, 42));
+        btnExit.setPreferredSize(new java.awt.Dimension(320, 42));
 
         txtUsername.addActionListener(this::txtUsernameActionPerformed);
-
-        Password.setText("Password");
-
         txtPassword.addActionListener(this::txtPasswordActionPerformed);
-
-        btnLogin.setText("Login");
         btnLogin.addActionListener(this::btnLoginActionPerformed);
-
-        btnExit.setText("Exit");
         btnExit.addActionListener(this::btnExitActionPerformed);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(561, 561, 561)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnLogin)
-                    .addComponent(Username, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Password, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExit))
-                .addContainerGap(634, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Username)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Password)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(btnExit))
-                .addContainerGap(382, Short.MAX_VALUE))
-        );
+        javax.swing.GroupLayout cardLayout = new javax.swing.GroupLayout(card);
+        card.setLayout(cardLayout);
+        cardLayout.setHorizontalGroup(cardLayout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.CENTER)
+            .addComponent(logo)
+            .addComponent(title)
+            .addComponent(welcome)
+            .addComponent(message)
+            .addComponent(Username, 320, 320, 320)
+            .addComponent(txtUsername, 320, 320, 320)
+            .addComponent(Password, 320, 320, 320)
+            .addComponent(txtPassword, 320, 320, 320)
+            .addComponent(btnLogin, 320, 320, 320)
+            .addComponent(btnExit, 320, 320, 320));
+        cardLayout.setVerticalGroup(cardLayout.createSequentialGroup()
+            .addComponent(logo)
+            .addGap(14, 14, 14)
+            .addComponent(title)
+            .addGap(4, 4, 4)
+            .addComponent(welcome)
+            .addComponent(message)
+            .addGap(24, 24, 24)
+            .addComponent(Username)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(txtUsername, 42, 42, 42)
+            .addGap(12, 12, 12)
+            .addComponent(Password)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(txtPassword, 42, 42, 42)
+            .addGap(18, 18, 18)
+            .addComponent(btnLogin, 42, 42, 42)
+            .addGap(8, 8, 8)
+            .addComponent(btnExit, 42, 42, 42));
 
-        pack();
+        root.add(card, gc);
+        setContentPane(root);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
