@@ -11,7 +11,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -69,6 +71,39 @@ public final class UiTheme {
         button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
         return button;
+    }
+
+    public static JPanel createCardPanel() {
+        JPanel card = new JPanel();
+        card.setBackground(CARD);
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDER),
+                BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+        return card;
+    }
+
+    public static JLabel createFieldLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setForeground(TEXT);
+        label.setFont(SEGOU_UI_BOLD);
+        return label;
+    }
+
+    public static void styleField(JTextField field) {
+        field.setPreferredSize(new Dimension(260, 38));
+        field.setFont(SEGOU_UI);
+        field.setForeground(TEXT);
+        field.setBackground(CARD);
+        field.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDER),
+                BorderFactory.createEmptyBorder(8, 12, 8, 12)));
+    }
+
+    public static JScrollPane createTableScroll(JTable table) {
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createLineBorder(BORDER));
+        scrollPane.setPreferredSize(new Dimension(590, 0));
+        return scrollPane;
     }
 
     public static JPanel createSidebar(String role) {
