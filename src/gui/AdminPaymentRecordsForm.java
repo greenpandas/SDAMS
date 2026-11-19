@@ -28,10 +28,10 @@ public class AdminPaymentRecordsForm extends javax.swing.JFrame {
     }
     
     
+
 private void displayPayments(String keyword) {
 
-    javax.swing.table.DefaultTableModel tableModel =
-            (javax.swing.table.DefaultTableModel) tblPayment.getModel();
+    javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblPayment.getModel();
 
     tableModel.setRowCount(0);
 
@@ -40,9 +40,6 @@ private void displayPayments(String keyword) {
             : keyword.trim().toLowerCase()
                     .replace("$", "")
                     .replace(",", "");
-
-    java.util.ArrayList<User> students =
-            adminService.getUsersByRole("Student");
 
     try (java.io.BufferedReader br =
             new java.io.BufferedReader(
@@ -65,16 +62,6 @@ private void displayPayments(String keyword) {
             String userId = data[0].trim();
             String amount = data[1].trim();
 
-            String username = "Unknown";
-
-            for (User user : students) {
-
-                if (user.getUserId().equalsIgnoreCase(userId)) {
-                    username = user.getUsername();
-                    break;
-                }
-            }
-
             String normalizedId = userId.toLowerCase();
 
             String normalizedAmount = amount.toLowerCase()
@@ -87,7 +74,6 @@ private void displayPayments(String keyword) {
 
                 tableModel.addRow(new Object[]{
                     userId,
-                    username,
                     amount
                 });
             }
@@ -103,6 +89,7 @@ private void displayPayments(String keyword) {
         );
     }
 }
+
 
     
     /**

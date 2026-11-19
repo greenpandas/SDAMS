@@ -219,9 +219,8 @@ public class AdminService {
 public String addStudent(String studentId, String name,
         String username, String password) {
 
-// checks for commas
-    if (name.isEmpty() || username.isEmpty() || password.isEmpty()) {
-        return "All fields are required.";
+    if (studentId.isEmpty() || name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+    return "All fields are required.";
     }
 
     if (name.contains(",") || username.contains(",") || password.contains(",")) {
