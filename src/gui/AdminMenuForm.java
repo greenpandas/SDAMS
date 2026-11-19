@@ -105,6 +105,8 @@ public class AdminMenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_manageStaffActionPerformed
 
     private void paymentRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentRecordActionPerformed
+    new AdminPaymentRecordsForm().setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_paymentRecordActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed

@@ -11,45 +11,99 @@ public class AdminPaymentRecordsForm extends javax.swing.JFrame {
 
     public AdminPaymentRecordsForm() {
         initComponents();
-        loadStudents();
+        loadPayments();
     }
 
-    // Load the list of students into the table.
-    private void loadStudents() {
+    
+    private void loadPayments() {
+        displayPayments("");
+    }
 
-        javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblPayment.getModel();
 
-        tableModel.setRowCount(0);
+    
+    private void searchPayments() {
 
-        for (User user : adminService.getUsersByRole("Student")) {
+        String keyword = txtFieldSearch.getText().trim();
+        displayPayments(keyword);
+    }
+    
+    
+private void displayPayments(String keyword) {
 
-            tableModel.addRow(new Object[]{
-                user.getUserId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getName()
-            });
+    javax.swing.table.DefaultTableModel tableModel =
+            (javax.swing.table.DefaultTableModel) tblPayment.getModel();
+
+    tableModel.setRowCount(0);
+
+    String searchKeyword = (keyword == null)
+            ? ""
+            : keyword.trim().toLowerCase()
+                    .replace("$", "")
+                    .replace(",", "");
+
+    java.util.ArrayList<User> students =
+            adminService.getUsersByRole("Student");
+
+    try (java.io.BufferedReader br =
+            new java.io.BufferedReader(
+                    new java.io.FileReader("data/payments.txt"))) {
+
+        String line;
+
+        while ((line = br.readLine()) != null) {
+
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+
+            String[] data = line.split(",", -1);
+
+            if (data.length < 2) {
+                continue;
+            }
+
+            String userId = data[0].trim();
+            String amount = data[1].trim();
+
+            String username = "Unknown";
+
+            for (User user : students) {
+
+                if (user.getUserId().equalsIgnoreCase(userId)) {
+                    username = user.getUsername();
+                    break;
+                }
+            }
+
+            String normalizedId = userId.toLowerCase();
+
+            String normalizedAmount = amount.toLowerCase()
+                    .replace("$", "")
+                    .replace(",", "");
+
+            boolean matches = searchKeyword.isEmpty() || normalizedId.contains(searchKeyword) || normalizedAmount.contains(searchKeyword);
+
+            if (matches) {
+
+                tableModel.addRow(new Object[]{
+                    userId,
+                    username,
+                    amount
+                });
+            }
         }
+
+    } catch (java.io.IOException e) {
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Unable to read payment records: " + e.getMessage(),
+                "File Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+        );
     }
+}
 
-    // Search specifically for students.
-    private void searchStudents() {
-
-        javax.swing.table.DefaultTableModel tableModel = (javax.swing.table.DefaultTableModel) tblPayment.getModel();
-
-        tableModel.setRowCount(0);
-
-        for (User user : adminService.searchUsers(
-                txtFieldSearch.getText(), "Student")) {
-
-            tableModel.addRow(new Object[]{
-                user.getUserId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getName()
-            });
-        }
-    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -168,7 +222,7 @@ public class AdminPaymentRecordsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        searchStudents();
+        searchPayments();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
