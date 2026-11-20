@@ -3,10 +3,71 @@ package service;
 import filehandling.FileManager;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
 public class InstructorService {
+
+    private final FileManager fileManager = new FileManager();
+
+    public boolean createSchedule(String classId, String className,
+            String date, String time) {
+        if (!areValidFields(classId, className, date, time)) {
+            return false;
+        }
+        try {
+            LocalDate.parse(date.trim());
+            LocalTime.parse(time.trim());
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/classes.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length > 0
+                        && data[0].trim().equalsIgnoreCase(classId.trim())) {
+                    return false;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return fileManager.saveClass(String.join(",",
+                classId.trim(), className.trim(), date.trim(), time.trim()));
+    }
+
+    public boolean reportIssue(String issueId, String description) {
+        if (!areValidFields(issueId, description)) {
+            return false;
+        }
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/issues.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length > 0
+                        && data[0].trim().equalsIgnoreCase(issueId.trim())) {
+                    return false;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return fileManager.saveIssue(String.join(",",
+                issueId.trim(), description.trim()));
+    }
+
+    private boolean areValidFields(String... fields) {
+        for (String field : fields) {
+            if (field == null || field.trim().isEmpty() || field.contains(",")) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void createSchedule() {
 
@@ -26,20 +87,11 @@ public class InstructorService {
     System.out.print("Time: ");
     String time = scanner.nextLine();
 
-    FileManager fileManager =
-            new FileManager();
-
-    String record =
-            classId + "," +
-            className + "," +
-            date + "," +
-            time;
-
-    fileManager.saveClass(record);
-
-    System.out.println(
-            "\nSchedule Created Successfully!"
-    );
+    if (createSchedule(classId, className, date, time)) {
+        System.out.println("\nSchedule Created Successfully!");
+    } else {
+        System.out.println("\nCould not save schedule. Check the field values.");
+    }
 }
 
     public void viewSchedule() {
@@ -86,18 +138,11 @@ public class InstructorService {
     System.out.print("Issue Description: ");
     String description = scanner.nextLine();
 
-    String record =
-            issueId + "," +
-            description;
-
-    FileManager fileManager =
-            new FileManager();
-
-    fileManager.saveIssue(record);
-
-    System.out.println(
-            "\nIssue Reported Successfully!"
-    );
+    if (reportIssue(issueId, description)) {
+        System.out.println("\nIssue Reported Successfully!");
+    } else {
+        System.out.println("\nCould not save issue. Check the field values.");
+    }
 }
 
     public void viewRatings() {

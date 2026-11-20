@@ -1,2 +1,10 @@
-ISS001,Broken Punching Bag
-ISS001,Broken Punching Baag
+I001,Rear changing-room light flickering
+I002,Mat 3 has a split seam
+I003,Water fountain near Studio 2 is leaking
+I004,Boxing-bag bracket requires inspection
+I005,Emergency exit sign is dim
+I006,Main entrance door handle is loose
+I007,Wall mirror 4 has chipped edging
+I008,Studio 1 heating control is not responding
+I009,Focus-pad stitching is damaged
+I010,First aid kit needs restocking
