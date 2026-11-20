@@ -106,6 +106,12 @@ public class ManagerMenuForm extends javax.swing.JFrame {
                 -> new StaffViewForm().setVisible(true));
         btnReports.addActionListener(evt
                 -> new ReportsForm().setVisible(true));
+        btnOverview.addActionListener(evt -> {
+            ManagerMenuForm refreshed = new ManagerMenuForm();
+            refreshed.setBounds(getBounds());
+            refreshed.setVisible(true);
+            dispose();
+        });
         btnLogout.addActionListener(evt -> {
             if (JOptionPane.showConfirmDialog(this,
                     "Are you sure you want to log out?", "Logout",

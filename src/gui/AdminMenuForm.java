@@ -98,6 +98,12 @@ public class AdminMenuForm extends javax.swing.JFrame {
             new StudentManagementForm().setVisible(true);
             dispose();
         });
+        btnOverview.addActionListener(evt -> {
+            AdminMenuForm refreshed = new AdminMenuForm();
+            refreshed.setBounds(getBounds());
+            refreshed.setVisible(true);
+            dispose();
+        });
         btnPayments.addActionListener(evt
                 -> new PaymentManagementForm().setVisible(true));
         btnStaff.addActionListener(evt

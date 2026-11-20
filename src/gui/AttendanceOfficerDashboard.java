@@ -49,6 +49,7 @@ public class AttendanceOfficerDashboard extends JFrame {
         // ----- Sidebar with the three buttons -----
         JPanel sidebar = UiTheme.createSidebar("Attendance Officer");
 
+        JButton btnOverview = UiTheme.createNavigationButton("Overview");
         btnRecordAttendance = UiTheme.createNavigationButton("Record Attendance");
         btnViewAttendance = UiTheme.createNavigationButton("View Attendance");
         btnLogout = UiTheme.createNavigationButton("Logout");
@@ -58,6 +59,8 @@ public class AttendanceOfficerDashboard extends JFrame {
         navigation.setOpaque(false);
         navigation.setLayout(new BoxLayout(navigation, BoxLayout.Y_AXIS));
         navigation.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        navigation.add(btnOverview);
+        navigation.add(Box.createRigidArea(new Dimension(0, 4)));
         navigation.add(btnRecordAttendance);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
         navigation.add(btnViewAttendance);
@@ -91,12 +94,17 @@ public class AttendanceOfficerDashboard extends JFrame {
                 "Record and review student attendance"), BorderLayout.NORTH);
         top.add(cards, BorderLayout.CENTER);
         content.add(top, BorderLayout.NORTH);
+        content.add(UiTheme.createRecentTablePanel("Recent Attendance",
+                ATTENDANCE_FILE,
+                new String[]{"Student ID", "Date", "Status"}),
+                BorderLayout.CENTER);
 
         root.add(sidebar, BorderLayout.WEST);
         root.add(content, BorderLayout.CENTER);
         setContentPane(root);
 
         // ----- Actions -----
+        btnOverview.addActionListener(evt -> refreshDashboard());
         btnRecordAttendance.addActionListener(evt -> showRecordDialog());
         btnViewAttendance.addActionListener(evt
                 -> new FileTableForm("Attendance Records", ATTENDANCE_FILE,

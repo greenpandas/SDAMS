@@ -95,6 +95,12 @@ public class InstructorMenuForm extends javax.swing.JFrame {
         btnRatings.addActionListener(evt -> showRecords(
                 "Rating Records", "data/ratings.txt",
                 new String[]{"Student ID", "Instructor ID", "Rating"}));
+        btnOverview.addActionListener(evt -> {
+            InstructorMenuForm refreshed = new InstructorMenuForm();
+            refreshed.setBounds(getBounds());
+            refreshed.setVisible(true);
+            dispose();
+        });
         btnLogout.addActionListener(evt -> {
             if (JOptionPane.showConfirmDialog(this,
                     "Are you sure you want to log out?", "Logout",
