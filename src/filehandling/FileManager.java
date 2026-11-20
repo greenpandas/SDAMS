@@ -103,7 +103,7 @@ public class FileManager {
         e.printStackTrace();
     }
 }
-    public void saveClass(String record) {
+    public boolean saveClass(String record) {
 
     try {
 
@@ -113,11 +113,13 @@ public class FileManager {
         fw.write(record + "\n");
 
         fw.close();
+        return true;
 
     } catch (Exception e) {
 
         System.out.println("Error saving class.");
         e.printStackTrace();
+        return false;
     }
     
     
@@ -213,7 +215,7 @@ public class FileManager {
         e.printStackTrace();
     }
 }
-    public void saveIssue(String record) {
+    public boolean saveIssue(String record) {
 
     try {
 
@@ -225,11 +227,13 @@ public class FileManager {
         fw.flush();
 
         fw.close();
+        return true;
 
     } catch (Exception e) {
 
         System.out.println("Error saving issue.");
         e.printStackTrace();
+        return false;
     }
 }
     public void savePayment(String record) {
