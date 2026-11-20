@@ -3,14 +3,33 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import service.PaymentService;
+import model.User;
+import service.StudentService;
 
 public class StudentMenuForm extends javax.swing.JFrame {
 
+    private final User currentStudent;
+
     public StudentMenuForm() {
+        this(null);
+    }
+
+    public StudentMenuForm(User currentStudent) {
+        this.currentStudent = currentStudent;
         UiTheme.applyDefaults();
         initComponents();
         setTitle("SDAMS - Student Dashboard");
@@ -31,6 +50,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
         javax.swing.JButton btnOverview = UiTheme.createNavigationButton("Overview");
         javax.swing.JButton btnClasses = UiTheme.createNavigationButton("Available Classes");
         javax.swing.JButton btnBookings = UiTheme.createNavigationButton("My Bookings");
+        javax.swing.JButton btnPayments = UiTheme.createNavigationButton("Payments");
         javax.swing.JButton btnRating = UiTheme.createNavigationButton("Submit Rating");
         javax.swing.JButton btnLogout = UiTheme.createNavigationButton("Logout");
         btnLogout.setBackground(UiTheme.DANGER);
@@ -39,6 +59,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
         navigation.add(btnClasses);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
         navigation.add(btnBookings);
+        navigation.add(Box.createRigidArea(new Dimension(0, 4)));
+        navigation.add(btnPayments);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
         navigation.add(btnRating);
         sidebar.add(navigation, BorderLayout.CENTER);
@@ -58,11 +80,15 @@ public class StudentMenuForm extends javax.swing.JFrame {
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
         cards.add(UiTheme.createStatCard("Total Bookings",
-                String.valueOf(UiTheme.countLines("data/bookings.txt")),
-                "Academy booking records"));
-        cards.add(UiTheme.createStatCard("Outstanding Payments",
-                "--", "Balance field not available"));
+                String.valueOf(countStudentBookings()),
+                "Your booking records"));
+        cards.add(UiTheme.createStatCard("Payment Records",
+                countStudentPayments() == 0 ? "$0.00" : "$" + totalStudentPayments(),
+                "Recorded payments for your account"));
         content.add(cards, BorderLayout.NORTH);
+        content.add(UiTheme.createRecentTablePanel("Recent Classes",
+                "data/classes.txt", new String[]{"Class ID", "Class", "Date", "Time"}),
+                BorderLayout.CENTER);
 
         root.add(sidebar, BorderLayout.WEST);
         root.add(content, BorderLayout.CENTER);
@@ -78,10 +104,141 @@ public class StudentMenuForm extends javax.swing.JFrame {
                         new String[]{"Class ID", "Name", "Schedule", "Instructor"})
                         .setVisible(true));
         btnBookings.addActionListener(evt
-                -> new FileTableForm("Booking Records",
+                -> new FileTableForm("My Booking Records",
                         "data/bookings.txt",
-                        new String[]{"Student ID", "Class ID", "Status"})
+                        new String[]{"Student ID", "Class ID", "Status"},
+                        currentStudent == null ? null : currentStudent.getUserId())
                         .setVisible(true));
+        btnPayments.addActionListener(evt -> showPayments());
+        btnRating.addActionListener(evt -> showRatingDialog());
+        btnOverview.addActionListener(evt -> setVisible(true));
+    }
+
+    private int countStudentBookings() {
+        int count = 0;
+        if (currentStudent == null) {
+            return 0;
+        }
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/bookings.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length >= 1
+                        && data[0].trim().equalsIgnoreCase(currentStudent.getUserId())) {
+                    count++;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return count;
+    }
+
+    private int countStudentPayments() {
+        int count = 0;
+        if (currentStudent == null) {
+            return 0;
+        }
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/payments.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length >= 1
+                        && data[0].trim().equalsIgnoreCase(currentStudent.getUserId())) {
+                    count++;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return count;
+    }
+
+    private String totalStudentPayments() {
+        java.math.BigDecimal total = java.math.BigDecimal.ZERO;
+        if (currentStudent == null) {
+            return "0.00";
+        }
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/payments.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length >= 2
+                        && data[0].trim().equalsIgnoreCase(currentStudent.getUserId())) {
+                    try {
+                        total = total.add(new java.math.BigDecimal(data[1].trim()));
+                    } catch (NumberFormatException ignored) {
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return total.setScale(2, java.math.RoundingMode.HALF_UP).toPlainString();
+    }
+
+    private void showPayments() {
+        if (currentStudent == null) {
+            JOptionPane.showMessageDialog(this, "Student account details unavailable.");
+            return;
+        }
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[]{"Amount", "Payment Date"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        int records = 0;
+        for (String[] payment : new PaymentService().readPayments()) {
+            if (payment[0].trim().equalsIgnoreCase(currentStudent.getUserId())) {
+                model.addRow(new Object[]{payment[1], payment[2]});
+                records++;
+            }
+        }
+        if (records == 0) {
+            model.addRow(new Object[]{"No payment records", ""});
+        }
+
+        JTable table = new JTable(model);
+        UiTheme.styleTable(table);
+        JScrollPane scroll = UiTheme.createTableScroll(table);
+        scroll.setPreferredSize(new java.awt.Dimension(520, 300));
+        JOptionPane.showMessageDialog(this, scroll, "My Payment History",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void showRatingDialog() {
+        if (currentStudent == null) {
+            JOptionPane.showMessageDialog(this, "Student account details unavailable.");
+            return;
+        }
+
+        JTextField instructorId = new JTextField();
+        JComboBox<Integer> rating = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});
+        JPanel form = new JPanel(new GridLayout(0, 2, 10, 8));
+        form.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        UiTheme.styleField(instructorId);
+        form.add(new JLabel("Instructor ID"));
+        form.add(instructorId);
+        form.add(new JLabel("Rating"));
+        form.add(rating);
+
+        if (JOptionPane.showConfirmDialog(this, form, "Submit Rating",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE)
+                == JOptionPane.OK_OPTION) {
+            boolean saved = new StudentService().submitRating(
+                    currentStudent.getUserId(), instructorId.getText(),
+                    String.valueOf(rating.getSelectedItem()));
+            if (saved) {
+                JOptionPane.showMessageDialog(this, "Rating submitted successfully.",
+                        "Submit Rating", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Enter a valid instructor ID and rating.",
+                        "Submit Rating", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public static void main(String args[]) {

@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public final class UiTheme {
@@ -235,6 +236,56 @@ public final class UiTheme {
         return count;
     }
 
+    public static JPanel createRecentTablePanel(String title, String relativePath,
+            String[] columns) {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setOpaque(false);
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 24, 24, 24));
+
+        JLabel heading = new JLabel(title);
+        heading.setFont(SEGOU_UI_BOLD);
+        heading.setForeground(TEXT);
+        heading.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+        panel.add(heading, BorderLayout.NORTH);
+
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable table = new JTable(model);
+        styleTable(table);
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(relativePath))) {
+            String line;
+            int added = 0;
+            java.util.ArrayList<Object[]> rows = new java.util.ArrayList<>();
+            while ((line = reader.readLine()) != null && added < 8) {
+                String[] data = line.split(",", -1);
+                Object[] row = new Object[columns.length];
+                for (int i = 0; i < columns.length; i++) {
+                    row[i] = i < data.length ? data[i].trim() : "";
+                }
+                rows.add(0, row);
+                added++;
+            }
+            for (Object[] row : rows) {
+                model.addRow(row);
+            }
+        } catch (Exception ignored) {
+        }
+        if (model.getRowCount() == 0) {
+            model.addRow(new Object[]{"No recent activity"});
+        }
+
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBorder(BorderFactory.createLineBorder(BORDER));
+        scroll.setPreferredSize(new Dimension(0, 220));
+        panel.add(scroll, BorderLayout.CENTER);
+        return panel;
+    }
+
     public static double readPaymentRevenue(String relativePath) {
         double total = 0;
         try (BufferedReader reader = new BufferedReader(
@@ -253,5 +304,25 @@ public final class UiTheme {
             return 0;
         }
         return total;
+    }
+
+    public static java.math.BigDecimal readPaymentRevenueExact(String relativePath) {
+        java.math.BigDecimal total = java.math.BigDecimal.ZERO;
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(relativePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length >= 2) {
+                    try {
+                        total = total.add(new java.math.BigDecimal(data[1].trim()));
+                    } catch (NumberFormatException ignored) {
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+            return java.math.BigDecimal.ZERO;
+        }
+        return total.setScale(2, java.math.RoundingMode.HALF_UP);
     }
 }

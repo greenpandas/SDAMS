@@ -8,6 +8,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import filehandling.FileManager;
+import model.User;
 
 public class PaymentManagementForm extends JFrame {
 
@@ -35,7 +39,7 @@ public class PaymentManagementForm extends JFrame {
         UiTheme.applyDefaults();
 
         tableModel = new DefaultTableModel(
-                new Object[]{"Student ID", "Amount", "Payment Date"}, 0) {
+                new Object[]{"Student ID", "Student Name", "Amount", "Payment Date"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -124,8 +128,8 @@ public class PaymentManagementForm extends JFrame {
                 int row = paymentTable.convertRowIndexToModel(
                         paymentTable.getSelectedRow());
                 txtStudentId.setText(String.valueOf(tableModel.getValueAt(row, 0)));
-                txtAmount.setText(String.valueOf(tableModel.getValueAt(row, 1)));
-                txtPaymentDate.setText(String.valueOf(tableModel.getValueAt(row, 2)));
+                txtAmount.setText(String.valueOf(tableModel.getValueAt(row, 2)));
+                txtPaymentDate.setText(String.valueOf(tableModel.getValueAt(row, 3)));
             }
         });
     }
@@ -151,12 +155,12 @@ public class PaymentManagementForm extends JFrame {
         }
 
         try {
-            double value = Double.parseDouble(amount);
-            if (value <= 0) {
+            BigDecimal value = new BigDecimal(amount);
+            if (value.compareTo(BigDecimal.ZERO) <= 0) {
                 showError("Amount must be greater than zero.");
                 return;
             }
-            amount = String.format(java.util.Locale.US, "%.2f", value);
+            amount = value.setScale(2, RoundingMode.HALF_UP).toPlainString();
             LocalDate.parse(date);
         } catch (NumberFormatException ex) {
             showError("Amount must be a valid number.");
@@ -190,13 +194,15 @@ public class PaymentManagementForm extends JFrame {
         for (String[] payment : paymentService.readPayments()) {
             if (payment[0].toLowerCase(java.util.Locale.ROOT)
                     .contains(query.toLowerCase(java.util.Locale.ROOT))) {
-                tableModel.addRow(payment);
+                tableModel.addRow(new Object[]{
+                    payment[0], findStudentName(payment[0]), payment[1], payment[2]
+                });
                 matches++;
             }
         }
 
         if (matches == 0) {
-            tableModel.addRow(new Object[]{"No matching payments", "", ""});
+            tableModel.addRow(new Object[]{"No matching payments", "", "", ""});
         }
         setTitle("SDAMS - Payment Management (" + matches + " found)");
     }
@@ -233,13 +239,25 @@ public class PaymentManagementForm extends JFrame {
         tableModel.setRowCount(0);
         ArrayList<String[]> payments = paymentService.readPayments();
         if (payments.isEmpty()) {
-            tableModel.addRow(new Object[]{"No payment records", "", ""});
+            tableModel.addRow(new Object[]{"No payment records", "", "", ""});
         } else {
             for (String[] payment : payments) {
-                tableModel.addRow(payment);
+                tableModel.addRow(new Object[]{
+                    payment[0], findStudentName(payment[0]), payment[1], payment[2]
+                });
             }
         }
         setTitle("SDAMS - Payment Management");
+    }
+
+    private String findStudentName(String studentId) {
+        for (User user : new FileManager().readUsers()) {
+            if ("Student".equals(user.getRole())
+                    && user.getUserId().equalsIgnoreCase(studentId)) {
+                return user.getName();
+            }
+        }
+        return "Unknown Student";
     }
 
     private void clearForm() {

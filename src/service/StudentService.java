@@ -10,6 +10,42 @@ import model.User;
 
 public class StudentService {
 
+    public boolean submitRating(String studentId, String instructorId,
+            String rating) {
+        if (studentId == null || studentId.trim().isEmpty()
+                || instructorId == null || instructorId.trim().isEmpty()
+                || rating == null || rating.trim().isEmpty()) {
+            return false;
+        }
+
+        int value;
+        try {
+            value = Integer.parseInt(rating.trim());
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+        if (value < 1 || value > 5) {
+            return false;
+        }
+
+        FileManager fileManager = new FileManager();
+        ArrayList<User> users = fileManager.readUsers();
+        boolean studentExists = users.stream().anyMatch(user ->
+                "Student".equals(user.getRole())
+                && user.getUserId().equalsIgnoreCase(studentId.trim()));
+        boolean instructorExists = users.stream().anyMatch(user ->
+                ("Instructor".equals(user.getRole())
+                || "Instructor".equals(user.getRole()))
+                && user.getUserId().equalsIgnoreCase(instructorId.trim()));
+        if (!studentExists || !instructorExists) {
+            return false;
+        }
+
+        fileManager.saveRating(studentId.trim() + "," + instructorId.trim()
+                + "," + value);
+        return true;
+    }
+
     public boolean addStudent(String studentId, String name,
             String username, String password) {
 

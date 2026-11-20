@@ -61,6 +61,10 @@ public class FacilitiesMenuForm extends javax.swing.JFrame {
                 String.valueOf(UiTheme.countLines("data/issues.txt")),
                 "Reported issues"));
         content.add(cards, BorderLayout.NORTH);
+        content.add(UiTheme.createRecentTablePanel("Recent Facility Issues",
+                "data/issues.txt",
+                new String[]{"Issue ID", "Description"}),
+                BorderLayout.CENTER);
 
         root.add(sidebar, BorderLayout.WEST);
         root.add(content, BorderLayout.CENTER);
@@ -69,12 +73,12 @@ public class FacilitiesMenuForm extends javax.swing.JFrame {
         btnEquipment.addActionListener(evt
                 -> new FileTableForm("Equipment Records",
                         "data/equipment.txt",
-                        new String[]{"Equipment ID", "Name", "Status"})
+                        new String[]{"Equipment ID", "Equipment Name"})
                         .setVisible(true));
         btnIssues.addActionListener(evt
                 -> new FileTableForm("Facility Issues",
                         "data/issues.txt",
-                        new String[]{"Issue ID", "Facility", "Description", "Status"})
+                        new String[]{"Issue ID", "Description"})
                         .setVisible(true));
         btnLogout.addActionListener(evt -> {
             new LoginForm().setVisible(true);

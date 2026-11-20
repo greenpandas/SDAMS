@@ -78,6 +78,10 @@ public class InstructorMenuForm extends javax.swing.JFrame {
                 String.valueOf(UiTheme.countLines("data/issues.txt")),
                 "Facility issue records"));
         content.add(cards, BorderLayout.NORTH);
+        content.add(UiTheme.createRecentTablePanel("Recent Ratings",
+                "data/ratings.txt",
+                new String[]{"Student ID", "Instructor ID", "Rating"}),
+                BorderLayout.CENTER);
 
         root.add(sidebar, BorderLayout.WEST);
         root.add(content, BorderLayout.CENTER);
