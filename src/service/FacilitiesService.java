@@ -7,6 +7,31 @@ import java.io.FileReader;
 
 public class FacilitiesService {
 
+    public boolean addEquipment(String equipmentId, String equipmentName) {
+        if (equipmentId == null || equipmentName == null
+                || equipmentId.trim().isEmpty()
+                || equipmentName.trim().isEmpty()
+                || equipmentId.contains(",")
+                || equipmentName.contains(",")) {
+            return false;
+        }
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/equipment.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length > 0
+                        && data[0].trim().equalsIgnoreCase(equipmentId.trim())) {
+                    return false;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        new FileManager().saveEquipment(equipmentId.trim()
+                + "," + equipmentName.trim());
+        return true;
+    }
+
     public void addEquipment() {
 
         Scanner scanner = new Scanner(System.in);

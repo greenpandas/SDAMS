@@ -109,10 +109,10 @@ public class AdminMenuForm extends javax.swing.JFrame {
         btnStaff.addActionListener(evt
                 -> new StaffViewForm().setVisible(true));
         btnLogout.addActionListener(evt -> {
-            if (javax.swing.JOptionPane.showConfirmDialog(this,
+            if (JOptionPane.showConfirmDialog(this,
                     "Are you sure you want to log out?", "Logout",
-                    javax.swing.JOptionPane.YES_NO_OPTION)
-                    == javax.swing.JOptionPane.YES_OPTION) {
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                    == JOptionPane.YES_OPTION) {
                 new LoginForm().setVisible(true);
                 dispose();
             }

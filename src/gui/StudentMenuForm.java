@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import service.PaymentService;
 import model.User;
 import service.StudentService;
+import service.BookingService;
 
 public class StudentMenuForm extends javax.swing.JFrame {
 
@@ -49,6 +50,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
         javax.swing.JButton btnOverview = UiTheme.createNavigationButton("Overview");
         javax.swing.JButton btnClasses = UiTheme.createNavigationButton("Available Classes");
+        javax.swing.JButton btnBook = UiTheme.createNavigationButton("Book a Class");
         javax.swing.JButton btnBookings = UiTheme.createNavigationButton("My Bookings");
         javax.swing.JButton btnPayments = UiTheme.createNavigationButton("Payments");
         javax.swing.JButton btnRating = UiTheme.createNavigationButton("Submit Rating");
@@ -57,6 +59,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
         navigation.add(btnOverview);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
         navigation.add(btnClasses);
+        navigation.add(Box.createRigidArea(new Dimension(0, 4)));
+        navigation.add(btnBook);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
         navigation.add(btnBookings);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
@@ -98,14 +102,15 @@ public class StudentMenuForm extends javax.swing.JFrame {
         setContentPane(root);
 
         btnLogout.addActionListener(evt -> {
-            if (javax.swing.JOptionPane.showConfirmDialog(this,
+            if (JOptionPane.showConfirmDialog(this,
                     "Are you sure you want to log out?", "Logout",
-                    javax.swing.JOptionPane.YES_NO_OPTION)
-                    == javax.swing.JOptionPane.YES_OPTION) {
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                    == JOptionPane.YES_OPTION) {
                 new LoginForm().setVisible(true);
                 dispose();
             }
         });
+        btnBook.addActionListener(evt -> showBookingDialog());
         btnClasses.addActionListener(evt
                 -> new FileTableForm("Available Classes",
                         "data/classes.txt",
@@ -188,6 +193,42 @@ public class StudentMenuForm extends javax.swing.JFrame {
         } catch (Exception ignored) {
         }
         return total.setScale(2, java.math.RoundingMode.HALF_UP).toPlainString();
+    }
+
+    private void showBookingDialog() {
+        if (currentStudent == null) {
+            JOptionPane.showMessageDialog(this, "Student account details unavailable.");
+            return;
+        }
+        JTextField classId = new JTextField();
+        UiTheme.styleField(classId);
+        JPanel form = new JPanel(new GridLayout(0, 2, 10, 8));
+        form.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        form.add(new JLabel("Class ID"));
+        form.add(classId);
+        if (JOptionPane.showConfirmDialog(this, form, "Book a Class",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE)
+                == JOptionPane.OK_OPTION) {
+            boolean booked = new BookingService().bookClass(
+                    currentStudent.getUserId(), classId.getText());
+            if (booked) {
+                JOptionPane.showMessageDialog(this, "Class booked successfully.",
+                        "Booking", JOptionPane.INFORMATION_MESSAGE);
+                refreshDashboard();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "The class ID is invalid or this class is already booked.",
+                        "Booking", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void refreshDashboard() {
+        StudentMenuForm refreshed = new StudentMenuForm(currentStudent);
+        refreshed.setBounds(getBounds());
+        refreshed.setExtendedState(getExtendedState());
+        refreshed.setVisible(true);
+        dispose();
     }
 
     private void showPayments() {

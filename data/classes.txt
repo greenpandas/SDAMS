@@ -1,20 +1,20 @@
-C001,Kickboxing Fundamentals,2026-11-23,18:00
-C002,Karate Beginners,2026-11-23,19:30
+C001,Basic Silat,2026-11-23,18:00
+C002,Karate for Beginners,2026-11-23,19:30
 C003,Taekwondo Intermediate,2026-11-24,17:30
-C004,Women's Self Defence,2026-11-24,19:00
+C004,Women's Self-Defence,2026-11-24,19:00
 C005,Brazilian Jiu-Jitsu,2026-11-25,18:30
 C006,Muay Thai Conditioning,2026-11-25,20:00
-C007,Striking for Beginners,2026-11-26,18:00
+C007,Kickboxing Fundamentals,2026-11-26,18:00
 C008,Defensive Groundwork,2026-11-26,19:30
 C009,Family Martial Arts,2026-11-27,16:00
 C010,Junior Karate,2026-11-27,17:30
 C011,Boxing Technique,2026-11-28,10:00
 C012,Open Sparring,2026-11-28,14:00
 C013,Kickboxing Fitness,2026-11-29,09:30
-C014,Self Defence Seminar,2026-11-29,12:00
+C014,Personal Safety Seminar,2026-11-29,12:00
 C015,Karate Kata,2026-11-30,18:00
 C016,Tactical Footwork,2026-11-30,19:30
 C017,Pad Work Skills,2026-12-01,18:00
-C018,Weapons Awareness,2026-12-01,20:00
+C018,Disarmament Awareness,2026-12-01,20:00
 C019,Competition Preparation,2026-12-02,17:30
 C020,Core and Mobility,2026-12-02,19:00

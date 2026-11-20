@@ -41,6 +41,20 @@ public class StudentService {
             return false;
         }
 
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/ratings.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length >= 3
+                        && data[0].trim().equalsIgnoreCase(studentId.trim())
+                        && data[1].trim().equalsIgnoreCase(instructorId.trim())) {
+                    return false;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
         fileManager.saveRating(studentId.trim() + "," + instructorId.trim()
                 + "," + value);
         return true;
@@ -57,6 +71,13 @@ public class StudentService {
         }
 
         FileManager fileManager = new FileManager();
+        ArrayList<User> users = fileManager.readUsers();
+        for (User user : users) {
+            if (user.getUserId().equalsIgnoreCase(studentId.trim())
+                    || user.getUsername().equalsIgnoreCase(username.trim())) {
+                return false;
+            }
+        }
 
         String record =
                 studentId.trim() + "," +
@@ -72,7 +93,10 @@ public class StudentService {
     public boolean updateStudent(String studentId, String name,
             String username, String password) {
 
-        if (studentId == null || studentId.trim().isEmpty()) {
+        if (studentId == null || studentId.trim().isEmpty()
+                || name == null || name.trim().isEmpty()
+                || username == null || username.trim().isEmpty()
+                || password == null || password.isEmpty()) {
             return false;
         }
 
@@ -81,6 +105,10 @@ public class StudentService {
         boolean found = false;
 
         for (User user : users) {
+            if (!user.getUserId().equalsIgnoreCase(studentId.trim())
+                    && user.getUsername().equalsIgnoreCase(username.trim())) {
+                return false;
+            }
             if (user.getRole().equals("Student")
                     && user.getUserId().equals(studentId.trim())) {
                 user.setName(name);

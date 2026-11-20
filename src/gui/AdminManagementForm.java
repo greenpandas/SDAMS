@@ -155,15 +155,21 @@ public class AdminManagementForm extends javax.swing.JFrame {
         if (!validateRequiredFields()) {
             return;
         }
-        new ManagerService().addAdministrator(
+        boolean added = new ManagerService().addAdministrator(
                 txtAdminId.getText().trim(),
                 txtName.getText().trim(),
                 txtUsername.getText().trim(),
                 new String(txtPassword.getPassword()));
-        JOptionPane.showMessageDialog(this,
-                "Administrator added successfully.");
-        loadAdministrators();
-        clearFields();
+        if (added) {
+            JOptionPane.showMessageDialog(this,
+                    "Administrator added successfully.");
+            loadAdministrators();
+            clearFields();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "ID or username already exists, or fields are invalid.",
+                    "Administrator Not Added", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void searchAdministrator() {
@@ -194,14 +200,20 @@ public class AdminManagementForm extends javax.swing.JFrame {
         if (!validateRequiredFields()) {
             return;
         }
-        new ManagerService().updateAdministrator(
+        boolean updated = new ManagerService().updateAdministrator(
                 txtAdminId.getText().trim(),
                 txtName.getText().trim(),
                 txtUsername.getText().trim(),
                 new String(txtPassword.getPassword()));
-        JOptionPane.showMessageDialog(this,
-                "Administrator updated successfully.");
-        loadAdministrators();
+        if (updated) {
+            JOptionPane.showMessageDialog(this,
+                    "Administrator updated successfully.");
+            loadAdministrators();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Administrator not found or username is already in use.",
+                    "Update Failed", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void deleteAdministrator() {
