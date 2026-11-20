@@ -21,12 +21,21 @@ public class BookingService {
         classId = classId.trim();
 
         ArrayList<User> users = new FileManager().readUsers();
-        boolean studentExists = users.stream().anyMatch(user
-                -> "Student".equals(user.getRole())
-                && user.getUserId().equalsIgnoreCase(studentId));
-        if (!studentExists) {
+        String resolvedStudentId = null;
+        for (User user : users) {
+            if ("Student".equals(user.getRole())
+                    && ((user.getUserId() != null
+                    && user.getUserId().equalsIgnoreCase(studentId))
+                    || (user.getUsername() != null
+                    && user.getUsername().equalsIgnoreCase(studentId)))) {
+                resolvedStudentId = user.getUserId();
+                break;
+            }
+        }
+        if (resolvedStudentId == null) {
             return false;
         }
+        studentId = resolvedStudentId;
 
         boolean classExists = false;
         try (BufferedReader reader = new BufferedReader(
