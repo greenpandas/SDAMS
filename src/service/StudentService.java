@@ -379,29 +379,24 @@ public class StudentService {
 }
     public void bookClass() {
 
-    Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-    System.out.println("\n===== BOOK CLASS =====");
+        System.out.println("\n===== BOOK CLASS =====");
 
-    System.out.print("Student ID: ");
-    String studentId = scanner.nextLine();
+        System.out.print("Student ID or username: ");
+        String studentId = scanner.nextLine();
 
-    System.out.print("Class ID: ");
-    String classId = scanner.nextLine();
+        System.out.print("Class ID: ");
+        String classId = scanner.nextLine();
 
-    String record =
-        studentId + "," +
-        classId + "," +
-        "Booked";
-
-    FileManager fileManager =
-            new FileManager();
-
-    fileManager.saveBooking(record);
-
-    System.out.println(
-            "\nClass booked successfully!"
-    );
+        boolean booked = new BookingService().bookClass(studentId, classId);
+        if (booked) {
+            System.out.println("\nClass booked successfully!");
+        } else {
+            System.out.println(
+                    "\nBooking failed. Check the student ID/username and class ID."
+            );
+        }
 }
     public void submitRating() {
 
