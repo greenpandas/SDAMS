@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import filehandling.FileManager;
 
@@ -26,7 +28,21 @@ public class PaymentService {
             if (value.compareTo(BigDecimal.ZERO) <= 0) {
                 return false;
             }
+            if (value.scale() > 2 && value.stripTrailingZeros().scale() > 2) {
+                return false;
+            }
         } catch (NumberFormatException ex) {
+            return false;
+        }
+        try {
+            LocalDate.parse(date.trim());
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
+        boolean studentExists = new FileManager().readUsers().stream()
+                .anyMatch(user -> "Student".equals(user.getRole())
+                        && user.getUserId().equalsIgnoreCase(studentId.trim()));
+        if (!studentExists) {
             return false;
         }
 

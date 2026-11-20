@@ -8,39 +8,56 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class ManagerService {
-    public void addAdministrator(
+    public boolean addAdministrator(
         String adminId,
         String name,
         String username,
         String password) {
-
-    FileManager fileManager =
-            new FileManager();
+    if (adminId == null || name == null || username == null || password == null
+            || adminId.trim().isEmpty() || name.trim().isEmpty()
+            || username.trim().isEmpty() || password.isEmpty()) {
+        return false;
+    }
+    ArrayList<User> users = new FileManager().readUsers();
+    for (User user : users) {
+        if (user.getUserId().equalsIgnoreCase(adminId.trim())
+                || user.getUsername().equalsIgnoreCase(username.trim())) {
+            return false;
+        }
+    }
 
     String record =
-            adminId + "," +
-            username + "," +
+            adminId.trim() + "," +
+            username.trim() + "," +
             password + "," +
-            name + "," +
+            name.trim() + "," +
             "Administrator";
 
-    fileManager.saveUser(record);
+    new FileManager().saveUser(record);
+    return true;
     
 }
     
-    public void updateAdministrator(
+    public boolean updateAdministrator(
         String adminId,
         String name,
         String username,
         String password) {
-
-    FileManager fileManager =
-            new FileManager();
+    if (adminId == null || name == null || username == null || password == null
+            || adminId.trim().isEmpty() || name.trim().isEmpty()
+            || username.trim().isEmpty() || password.isEmpty()) {
+        return false;
+    }
 
     ArrayList<User> users =
-            fileManager.readUsers();
+            new FileManager().readUsers();
+    boolean found = false;
 
     for(User user : users) {
+        if (!user.getUserId().equalsIgnoreCase(adminId.trim())
+                && user.getUsername().equalsIgnoreCase(username.trim())) {
+            return false;
+        }
 
         if(user.getRole()
                 .equals("Administrator")
@@ -48,15 +65,19 @@ public class ManagerService {
                 &&
 
                 user.getUserId()
-                .equals(adminId)) {
+                .equalsIgnoreCase(adminId.trim())) {
 
-            user.setName(name);
-            user.setUsername(username);
+            user.setName(name.trim());
+            user.setUsername(username.trim());
             user.setPassword(password);
+            found = true;
         }
     }
 
-    fileManager.overwriteUsers(users);
+    if (found) {
+        new FileManager().overwriteUsers(users);
+    }
+    return found;
 }
     public void deleteAdministrator(
         String adminId) {
