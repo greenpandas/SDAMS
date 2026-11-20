@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public final class UiTheme {
@@ -259,7 +260,7 @@ public final class UiTheme {
                 new FileReader(relativePath))) {
             String line;
             int added = 0;
-            java.util.ArrayList<String[]> rows = new java.util.ArrayList<>();
+            java.util.ArrayList<Object[]> rows = new java.util.ArrayList<>();
             while ((line = reader.readLine()) != null && added < 8) {
                 String[] data = line.split(",", -1);
                 Object[] row = new Object[columns.length];
