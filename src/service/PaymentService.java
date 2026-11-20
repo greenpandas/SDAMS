@@ -72,6 +72,32 @@ public class PaymentService {
         return payments;
     }
 
+    public boolean exportPaymentsCsv() {
+        return exportPaymentsCsv("reports/payments_report.csv");
+    }
+
+    public boolean exportPaymentsCsv(String outputPath) {
+        if (outputPath == null || outputPath.trim().isEmpty()) {
+            return false;
+        }
+
+        ArrayList<String[]> payments = readPayments();
+        if (payments.isEmpty()) {
+            return false;
+        }
+
+        for (String[] payment : payments) {
+            if (payment == null || payment.length < 3
+                    || payment[0].trim().isEmpty()
+                    || payment[1].trim().isEmpty()
+                    || payment[2].trim().isEmpty()) {
+                return false;
+            }
+        }
+
+        return new FileManager().writePaymentsCsv(payments, outputPath.trim());
+    }
+
     public boolean deletePayment(String studentId) {
         if (studentId == null || studentId.trim().isEmpty()) {
             return false;

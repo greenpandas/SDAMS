@@ -52,6 +52,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
         javax.swing.JButton btnClasses = UiTheme.createNavigationButton("Available Classes");
         javax.swing.JButton btnBook = UiTheme.createNavigationButton("Book a Class");
         javax.swing.JButton btnBookings = UiTheme.createNavigationButton("My Bookings");
+        javax.swing.JButton btnCancelBooking =
+                UiTheme.createNavigationButton("Cancel Booking");
         javax.swing.JButton btnPayments = UiTheme.createNavigationButton("Payments");
         javax.swing.JButton btnRating = UiTheme.createNavigationButton("Submit Rating");
         javax.swing.JButton btnLogout = UiTheme.createNavigationButton("Logout");
@@ -63,6 +65,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
         navigation.add(btnBook);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
         navigation.add(btnBookings);
+        navigation.add(Box.createRigidArea(new Dimension(0, 4)));
+        navigation.add(btnCancelBooking);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
         navigation.add(btnPayments);
         navigation.add(Box.createRigidArea(new Dimension(0, 4)));
@@ -122,6 +126,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
                         new String[]{"Student ID", "Class ID", "Status"},
                         currentStudent == null ? null : currentStudent.getUserId())
                         .setVisible(true));
+        btnCancelBooking.addActionListener(evt -> showCancelBookingDialog());
         btnPayments.addActionListener(evt -> showPayments());
         btnRating.addActionListener(evt -> showRatingDialog());
         btnOverview.addActionListener(evt -> {
@@ -142,8 +147,9 @@ public class StudentMenuForm extends javax.swing.JFrame {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",", -1);
-                if (data.length >= 1
-                        && data[0].trim().equalsIgnoreCase(currentStudent.getUserId())) {
+                if (data.length >= 3
+                        && data[0].trim().equalsIgnoreCase(currentStudent.getUserId())
+                        && "Booked".equalsIgnoreCase(data[2].trim())) {
                     count++;
                 }
             }
@@ -220,6 +226,57 @@ public class StudentMenuForm extends javax.swing.JFrame {
                         "The class ID is invalid or this class is already booked.",
                         "Booking", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void showCancelBookingDialog() {
+        if (currentStudent == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Student account details unavailable.");
+            return;
+        }
+
+        JTextField classId = new JTextField();
+        UiTheme.styleField(classId);
+        JPanel form = new JPanel(new GridLayout(0, 2, 10, 8));
+        form.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        form.add(new JLabel("Class ID"));
+        form.add(classId);
+
+        if (JOptionPane.showConfirmDialog(this, form, "Cancel Booking",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE)
+                != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        String enteredClassId = classId.getText().trim();
+        if (enteredClassId.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Enter a class ID.", "Cancellation",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirmation = JOptionPane.showConfirmDialog(this,
+                "Cancel booking for " + enteredClassId + "?",
+                "Confirm Cancellation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        if (confirmation != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean cancelled = new BookingService().cancelBooking(
+                currentStudent.getUserId(), enteredClassId);
+        if (cancelled) {
+            JOptionPane.showMessageDialog(this,
+                    "Booking cancelled successfully.", "Cancellation",
+                    JOptionPane.INFORMATION_MESSAGE);
+            refreshDashboard();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Cancellation failed. The booking was not found or is already cancelled.",
+                    "Cancellation", JOptionPane.ERROR_MESSAGE);
         }
     }
 
