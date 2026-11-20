@@ -3,6 +3,9 @@ package service;
 import filehandling.FileManager;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
@@ -15,6 +18,24 @@ public class InstructorService {
         if (!areValidFields(classId, className, date, time)) {
             return false;
         }
+        try {
+            LocalDate.parse(date.trim());
+            LocalTime.parse(time.trim());
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/classes.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length > 0
+                        && data[0].trim().equalsIgnoreCase(classId.trim())) {
+                    return false;
+                }
+            }
+        } catch (Exception ignored) {
+        }
         return fileManager.saveClass(String.join(",",
                 classId.trim(), className.trim(), date.trim(), time.trim()));
     }
@@ -22,6 +43,18 @@ public class InstructorService {
     public boolean reportIssue(String issueId, String description) {
         if (!areValidFields(issueId, description)) {
             return false;
+        }
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data/issues.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length > 0
+                        && data[0].trim().equalsIgnoreCase(issueId.trim())) {
+                    return false;
+                }
+            }
+        } catch (Exception ignored) {
         }
         return fileManager.saveIssue(String.join(",",
                 issueId.trim(), description.trim()));

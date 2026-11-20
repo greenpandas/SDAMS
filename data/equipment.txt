@@ -1,7 +1,7 @@
 E001,Boxing Gloves
 E002,Focus Pads
 E003,Thai Pads
-E004,Free Standing Punch Bag
+E004,Free-standing Punch Bag
 E005,Judo Mats
 E006,Karate Belts
 E007,Shin Guards

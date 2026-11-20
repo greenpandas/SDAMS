@@ -107,8 +107,13 @@ public class ManagerMenuForm extends javax.swing.JFrame {
         btnReports.addActionListener(evt
                 -> new ReportsForm().setVisible(true));
         btnLogout.addActionListener(evt -> {
-            new LoginForm().setVisible(true);
-            dispose();
+            if (JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to log out?", "Logout",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                    == JOptionPane.YES_OPTION) {
+                new LoginForm().setVisible(true);
+                dispose();
+            }
         });
     }
 

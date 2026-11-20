@@ -180,6 +180,11 @@ public class AttendanceOfficerDashboard extends JFrame {
                 showError(dialog, "Please enter the date as YYYY-MM-DD.");
                 return;
             }
+            if (attendanceExists(studentId, date)) {
+                showError(dialog,
+                        "Attendance already exists for this student and date.");
+                return;
+            }
 
             new FileManager().saveAttendance(studentId + "," + date + "," + status);
             JOptionPane.showMessageDialog(dialog,
@@ -219,6 +224,23 @@ public class AttendanceOfficerDashboard extends JFrame {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data.length > 0 && data[0].trim().equalsIgnoreCase(studentId)) {
+                    return true;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return false;
+    }
+
+    private boolean attendanceExists(String studentId, String date) {
+        try (BufferedReader reader =
+                new BufferedReader(new FileReader(ATTENDANCE_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",", -1);
+                if (data.length >= 2
+                        && data[0].trim().equalsIgnoreCase(studentId)
+                        && data[1].trim().equalsIgnoreCase(date)) {
                     return true;
                 }
             }
