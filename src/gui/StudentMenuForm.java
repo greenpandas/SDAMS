@@ -76,15 +76,18 @@ public class StudentMenuForm extends javax.swing.JFrame {
         content.add(UiTheme.createHeader("Student Dashboard",
                 "Classes, bookings and academy activity"), BorderLayout.NORTH);
 
-        JPanel cards = new JPanel(new GridLayout(1, 2, 18, 18));
+        JPanel cards = new JPanel(new GridLayout(1, 3, 18, 18));
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
-        cards.add(UiTheme.createStatCard("Total Bookings",
+        cards.add(UiTheme.createStatCard("My Bookings",
                 String.valueOf(countStudentBookings()),
                 "Your booking records"));
+        cards.add(UiTheme.createStatCard("Available Classes",
+                String.valueOf(UiTheme.countLines("data/classes.txt")),
+                "Academy class records"));
         cards.add(UiTheme.createStatCard("Payment Records",
-                countStudentPayments() == 0 ? "$0.00" : "$" + totalStudentPayments(),
-                "Recorded payments for your account"));
+                String.valueOf(countStudentPayments()),
+                "Payment history entries"));
         content.add(cards, BorderLayout.NORTH);
         content.add(UiTheme.createRecentTablePanel("Recent Classes",
                 "data/classes.txt", new String[]{"Class ID", "Class", "Date", "Time"}),
@@ -95,8 +98,13 @@ public class StudentMenuForm extends javax.swing.JFrame {
         setContentPane(root);
 
         btnLogout.addActionListener(evt -> {
-            new LoginForm().setVisible(true);
-            dispose();
+            if (javax.swing.JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to log out?", "Logout",
+                    javax.swing.JOptionPane.YES_NO_OPTION)
+                    == javax.swing.JOptionPane.YES_OPTION) {
+                new LoginForm().setVisible(true);
+                dispose();
+            }
         });
         btnClasses.addActionListener(evt
                 -> new FileTableForm("Available Classes",
@@ -111,7 +119,12 @@ public class StudentMenuForm extends javax.swing.JFrame {
                         .setVisible(true));
         btnPayments.addActionListener(evt -> showPayments());
         btnRating.addActionListener(evt -> showRatingDialog());
-        btnOverview.addActionListener(evt -> setVisible(true));
+        btnOverview.addActionListener(evt -> {
+            StudentMenuForm refreshed = new StudentMenuForm(currentStudent);
+            refreshed.setBounds(getBounds());
+            refreshed.setVisible(true);
+            dispose();
+        });
     }
 
     private int countStudentBookings() {

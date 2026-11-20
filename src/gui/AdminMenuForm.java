@@ -98,13 +98,24 @@ public class AdminMenuForm extends javax.swing.JFrame {
             new StudentManagementForm().setVisible(true);
             dispose();
         });
+        btnOverview.addActionListener(evt -> {
+            AdminMenuForm refreshed = new AdminMenuForm();
+            refreshed.setBounds(getBounds());
+            refreshed.setVisible(true);
+            dispose();
+        });
         btnPayments.addActionListener(evt
                 -> new PaymentManagementForm().setVisible(true));
         btnStaff.addActionListener(evt
                 -> new StaffViewForm().setVisible(true));
         btnLogout.addActionListener(evt -> {
-            new LoginForm().setVisible(true);
-            dispose();
+            if (javax.swing.JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to log out?", "Logout",
+                    javax.swing.JOptionPane.YES_NO_OPTION)
+                    == javax.swing.JOptionPane.YES_OPTION) {
+                new LoginForm().setVisible(true);
+                dispose();
+            }
         });
     }
 

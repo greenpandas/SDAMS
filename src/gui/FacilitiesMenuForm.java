@@ -80,9 +80,20 @@ public class FacilitiesMenuForm extends javax.swing.JFrame {
                         "data/issues.txt",
                         new String[]{"Issue ID", "Description"})
                         .setVisible(true));
-        btnLogout.addActionListener(evt -> {
-            new LoginForm().setVisible(true);
+        btnOverview.addActionListener(evt -> {
+            FacilitiesMenuForm refreshed = new FacilitiesMenuForm();
+            refreshed.setBounds(getBounds());
+            refreshed.setVisible(true);
             dispose();
+        });
+        btnLogout.addActionListener(evt -> {
+            if (javax.swing.JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to log out?", "Logout",
+                    javax.swing.JOptionPane.YES_NO_OPTION)
+                    == javax.swing.JOptionPane.YES_OPTION) {
+                new LoginForm().setVisible(true);
+                dispose();
+            }
         });
     }
 
