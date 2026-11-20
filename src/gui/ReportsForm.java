@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import filehandling.FileManager;
 import model.User;
+import service.PaymentService;
 
 public class ReportsForm extends JFrame {
 
@@ -79,7 +80,7 @@ public class ReportsForm extends JFrame {
         JButton staffButton =
                 UiTheme.createButton("Staff Report", UiTheme.PRIMARY);
         JButton exportButton =
-                UiTheme.createButton("Export", UiTheme.WARNING);
+                UiTheme.createButton("Export Payments CSV", UiTheme.WARNING);
         JButton backButton =
                 UiTheme.createButton("Back", new java.awt.Color(71, 85, 105));
         actions.add(revenueButton);
@@ -93,12 +94,25 @@ public class ReportsForm extends JFrame {
 
         revenueButton.addActionListener(evt -> showRevenueReport());
         staffButton.addActionListener(evt -> showStaffReport());
-        exportButton.addActionListener(evt ->
-                JOptionPane.showMessageDialog(this,
-                        "CSV export can be added once the report view is finalized.",
-                        "Export",
-                        JOptionPane.INFORMATION_MESSAGE));
+        exportButton.addActionListener(evt -> exportPaymentsCsv());
         backButton.addActionListener(evt -> dispose());
+    }
+
+    private void exportPaymentsCsv() {
+        boolean exported = new PaymentService().exportPaymentsCsv();
+        if (exported) {
+            java.io.File report = new java.io.File(
+                    "reports/payments_report.csv");
+            JOptionPane.showMessageDialog(this,
+                    "Payments CSV exported successfully:\n"
+                            + report.getAbsolutePath(),
+                    "CSV Export", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "CSV export failed. Verify that payments.txt is readable "
+                            + "and contains at least one valid payment record.",
+                    "CSV Export", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void showRevenueReport() {
