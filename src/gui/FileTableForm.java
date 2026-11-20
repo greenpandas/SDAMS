@@ -17,10 +17,17 @@ public class FileTableForm extends JFrame {
     private final String[] columns;
     private final DefaultTableModel tableModel;
     private final JTable table;
+    private final String filterStudentId;
 
     public FileTableForm(String title, String filePath, String[] columns) {
+        this(title, filePath, columns, null);
+    }
+
+    public FileTableForm(String title, String filePath, String[] columns,
+            String filterStudentId) {
         this.filePath = filePath;
         this.columns = columns;
+        this.filterStudentId = filterStudentId;
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -57,6 +64,11 @@ public class FileTableForm extends JFrame {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",", -1);
+                if (filterStudentId != null
+                        && (data.length == 0
+                        || !data[0].trim().equalsIgnoreCase(filterStudentId))) {
+                    continue;
+                }
                 Object[] row = new Object[columns.length];
                 for (int i = 0; i < columns.length; i++) {
                     row[i] = i < data.length ? data[i].trim() : "";

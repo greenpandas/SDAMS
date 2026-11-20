@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 
 import filehandling.FileManager;
 
@@ -21,7 +22,10 @@ public class PaymentService {
         }
 
         try {
-            Double.parseDouble(amount.trim());
+            BigDecimal value = new BigDecimal(amount.trim());
+            if (value.compareTo(BigDecimal.ZERO) <= 0) {
+                return false;
+            }
         } catch (NumberFormatException ex) {
             return false;
         }

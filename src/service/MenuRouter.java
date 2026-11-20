@@ -33,6 +33,12 @@ public class MenuRouter {
             case "FacilitiesOfficer":
                 showFacilitiesMenu();
                 break;
+            case "Attendance Officer":
+                showAttendanceMenu();
+                break;
+            case "Facilities Officer":
+                showFacilitiesMenu();
+                break;
 
             default:
                 System.out.println("Unknown role.");

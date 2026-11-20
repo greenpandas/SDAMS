@@ -215,12 +215,16 @@ public class LoginForm extends javax.swing.JFrame {
             } else if (user.getRole().equals("Administrator")) {
                 new AdminMenuForm().setVisible(true);
             } else if (user.getRole().equals("Student")) {
-                new StudentMenuForm().setVisible(true);
+                new StudentMenuForm(user).setVisible(true);
             } else if (user.getRole().equals("Instructor")) {
                 new InstructorMenuForm().setVisible(true);
             } else if (user.getRole().equals("AttendanceOfficer")) {
                 new AttendanceOfficerDashboard().setVisible(true);
             } else if (user.getRole().equals("FacilitiesOfficer")) {
+                new FacilitiesMenuForm().setVisible(true);
+            } else if ("Attendance Officer".equals(user.getRole())) {
+                new AttendanceOfficerDashboard().setVisible(true);
+            } else if ("Facilities Officer".equals(user.getRole())) {
                 new FacilitiesMenuForm().setVisible(true);
             }
 

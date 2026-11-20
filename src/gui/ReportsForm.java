@@ -48,14 +48,17 @@ public class ReportsForm extends JFrame {
         cards.setOpaque(false);
         cards.setBorder(BorderFactory.createEmptyBorder(24, 24, 24, 24));
         cards.add(UiTheme.createStatCard("Total Revenue",
-                String.format("$%.2f",
-                        UiTheme.readPaymentRevenue("data/payments.txt")),
+                "$" + UiTheme.readPaymentRevenueExact("data/payments.txt").toPlainString(),
                 "From payment records"));
-        double revenue = UiTheme.readPaymentRevenue("data/payments.txt");
+        java.math.BigDecimal revenue =
+                UiTheme.readPaymentRevenueExact("data/payments.txt");
         int paymentCount = UiTheme.countLines("data/payments.txt");
-        double average = paymentCount == 0 ? 0 : revenue / paymentCount;
+        java.math.BigDecimal average = paymentCount == 0
+                ? java.math.BigDecimal.ZERO
+                : revenue.divide(java.math.BigDecimal.valueOf(paymentCount),
+                        2, java.math.RoundingMode.HALF_UP);
         cards.add(UiTheme.createStatCard("Average Payment",
-                String.format("$%.2f", average),
+                "$" + average.toPlainString(),
                 paymentCount + " total payments"));
         root.add(cards, BorderLayout.CENTER);
 
@@ -100,15 +103,19 @@ public class ReportsForm extends JFrame {
 
     private void showRevenueReport() {
         reportModel.setRowCount(0);
-        double revenue = UiTheme.readPaymentRevenue("data/payments.txt");
+        java.math.BigDecimal revenue =
+                UiTheme.readPaymentRevenueExact("data/payments.txt");
         int payments = UiTheme.countLines("data/payments.txt");
-        double average = payments == 0 ? 0 : revenue / payments;
+        java.math.BigDecimal average = payments == 0
+                ? java.math.BigDecimal.ZERO
+                : revenue.divide(java.math.BigDecimal.valueOf(payments),
+                        2, java.math.RoundingMode.HALF_UP);
         reportModel.addRow(new Object[]{"Total Revenue",
-                String.format("$%.2f", revenue)});
+                "$" + revenue.toPlainString()});
         reportModel.addRow(new Object[]{"Total Payments",
                 String.valueOf(payments)});
         reportModel.addRow(new Object[]{"Average Payment",
-                String.format("$%.2f", average)});
+                "$" + average.toPlainString()});
     }
 
     private void showStaffReport() {
