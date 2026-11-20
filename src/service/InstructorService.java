@@ -8,6 +8,34 @@ import java.util.Scanner;
 
 public class InstructorService {
 
+    private final FileManager fileManager = new FileManager();
+
+    public boolean createSchedule(String classId, String className,
+            String date, String time) {
+        if (!areValidFields(classId, className, date, time)) {
+            return false;
+        }
+        return fileManager.saveClass(String.join(",",
+                classId.trim(), className.trim(), date.trim(), time.trim()));
+    }
+
+    public boolean reportIssue(String issueId, String description) {
+        if (!areValidFields(issueId, description)) {
+            return false;
+        }
+        return fileManager.saveIssue(String.join(",",
+                issueId.trim(), description.trim()));
+    }
+
+    private boolean areValidFields(String... fields) {
+        for (String field : fields) {
+            if (field == null || field.trim().isEmpty() || field.contains(",")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void createSchedule() {
 
     Scanner scanner = new Scanner(System.in);
@@ -26,20 +54,11 @@ public class InstructorService {
     System.out.print("Time: ");
     String time = scanner.nextLine();
 
-    FileManager fileManager =
-            new FileManager();
-
-    String record =
-            classId + "," +
-            className + "," +
-            date + "," +
-            time;
-
-    fileManager.saveClass(record);
-
-    System.out.println(
-            "\nSchedule Created Successfully!"
-    );
+    if (createSchedule(classId, className, date, time)) {
+        System.out.println("\nSchedule Created Successfully!");
+    } else {
+        System.out.println("\nCould not save schedule. Check the field values.");
+    }
 }
 
     public void viewSchedule() {
@@ -86,18 +105,11 @@ public class InstructorService {
     System.out.print("Issue Description: ");
     String description = scanner.nextLine();
 
-    String record =
-            issueId + "," +
-            description;
-
-    FileManager fileManager =
-            new FileManager();
-
-    fileManager.saveIssue(record);
-
-    System.out.println(
-            "\nIssue Reported Successfully!"
-    );
+    if (reportIssue(issueId, description)) {
+        System.out.println("\nIssue Reported Successfully!");
+    } else {
+        System.out.println("\nCould not save issue. Check the field values.");
+    }
 }
 
     public void viewRatings() {
