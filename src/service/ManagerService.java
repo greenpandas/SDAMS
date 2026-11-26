@@ -4,8 +4,104 @@ import java.util.Scanner;
 import filehandling.FileManager;
 import model.User;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class ManagerService {
+    public boolean addAdministrator(
+        String adminId,
+        String name,
+        String username,
+        String password) {
+    if (adminId == null || name == null || username == null || password == null
+            || adminId.trim().isEmpty() || name.trim().isEmpty()
+            || username.trim().isEmpty() || password.isEmpty()) {
+        return false;
+    }
+    ArrayList<User> users = new FileManager().readUsers();
+    for (User user : users) {
+        if (user.getUserId().equalsIgnoreCase(adminId.trim())
+                || user.getUsername().equalsIgnoreCase(username.trim())) {
+            return false;
+        }
+    }
+
+    String record =
+            adminId.trim() + "," +
+            username.trim() + "," +
+            password + "," +
+            name.trim() + "," +
+            "Administrator";
+
+    new FileManager().saveUser(record);
+    return true;
+    
+}
+    
+    public boolean updateAdministrator(
+        String adminId,
+        String name,
+        String username,
+        String password) {
+    if (adminId == null || name == null || username == null || password == null
+            || adminId.trim().isEmpty() || name.trim().isEmpty()
+            || username.trim().isEmpty() || password.isEmpty()) {
+        return false;
+    }
+
+    ArrayList<User> users =
+            new FileManager().readUsers();
+    boolean found = false;
+
+    for(User user : users) {
+        if (!user.getUserId().equalsIgnoreCase(adminId.trim())
+                && user.getUsername().equalsIgnoreCase(username.trim())) {
+            return false;
+        }
+
+        if(user.getRole()
+                .equals("Administrator")
+
+                &&
+
+                user.getUserId()
+                .equalsIgnoreCase(adminId.trim())) {
+
+            user.setName(name.trim());
+            user.setUsername(username.trim());
+            user.setPassword(password);
+            found = true;
+        }
+    }
+
+    if (found) {
+        new FileManager().overwriteUsers(users);
+    }
+    return found;
+}
+    public void deleteAdministrator(
+        String adminId) {
+
+    FileManager fileManager =
+            new FileManager();
+
+    ArrayList<User> users =
+            fileManager.readUsers();
+
+    users.removeIf(user ->
+
+            user.getRole()
+                    .equals("Administrator")
+
+            &&
+
+            user.getUserId()
+                    .equals(adminId)
+
+    );
+
+    fileManager.overwriteUsers(users);
+}
 
     public void addAdministrator() {
         
@@ -322,10 +418,62 @@ public class ManagerService {
 
     public void generateRevenueReport() {
 
-    System.out.println(
-        "\nRevenue Report will be implemented "
-        + "when Payment Module is completed."
-    );
+    try {
 
+        BufferedReader br =
+                new BufferedReader(
+                new FileReader("data/payments.txt"));
+
+        String line;
+
+        double totalRevenue = 0;
+
+        int paymentCount = 0;
+
+        while ((line = br.readLine()) != null) {
+
+            String[] data = line.split(",");
+
+            totalRevenue +=
+                    Double.parseDouble(data[1]);
+
+            paymentCount++;
+        }
+
+        br.close();
+
+        double average = 0;
+
+        if(paymentCount > 0) {
+
+            average =
+                    totalRevenue / paymentCount;
+        }
+
+        System.out.println(
+                "\n===== REVENUE REPORT ====="
+        );
+
+        System.out.println(
+                "Total Revenue: RM "
+                + totalRevenue
+        );
+
+        System.out.println(
+                "Payments Recorded: "
+                + paymentCount
+        );
+
+        System.out.println(
+                "Average Payment: RM "
+                + average
+        );
+
+    } catch (Exception e) {
+
+        System.out.println(
+                "Error generating revenue report."
+        );
+    }
 }
 }

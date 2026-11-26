@@ -1,1 +1,20 @@
-ID,USERNAME,PASSWORD,NAME,ROLE
+S001,student1,1234,Aiman Roslan,Student
+S002,student2,1234,Nur Aina,Student
+S003,student3,1234,Zikri Danish,Student
+S004,student4,1234,Sarah Lee,Student
+S005,student5,1234,Harith Muhaimin,Student
+S006,student6,1234,Intan Syafiqah,Student
+S007,student7,1234,Adam Firdaus,Student
+S008,student8,1234,Chong Mei Yan,Student
+S009,student9,1234,Danish Razak,Student
+S010,student10,1234,Amira Natasha,Student
+S011,student11,1234,Ahmad Faris,Student
+S012,student12,1234,Hana Sofia,Student
+S013,student13,1234,Ravi Kumar,Student
+S014,student14,1234,Nur Iman,Student
+S015,student15,1234,Brandon Ong,Student
+S016,student16,1234,Maisarah Zain,Student
+S017,student17,1234,Haziq Nordin,Student
+S018,student18,1234,Jessica Tan,Student
+S019,student19,1234,Fatin Najwa,Student
+S020,student20,1234,Arif Shah,Student

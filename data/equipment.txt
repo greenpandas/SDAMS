@@ -1,1 +1,15 @@
-ID,USERNAME,PASSWORD,NAME,ROLE
+E001,Boxing Gloves
+E002,Focus Pads
+E003,Thai Pads
+E004,Free-standing Punch Bag
+E005,Judo Mats
+E006,Karate Belts
+E007,Shin Guards
+E008,Head Guards
+E009,Mouth Guards
+E010,Skipping Ropes
+E011,Training Dummies
+E012,First Aid Kit
+E013,Wall Mirrors
+E014,Protective Bibs
+E015,Timer Clock

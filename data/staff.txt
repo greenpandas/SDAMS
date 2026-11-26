@@ -1,1 +1,11 @@
-ID,USERNAME,PASSWORD,NAME,ROLE
+M001,manager,1234,Ahmad Rahman,Manager
+ADM001,admin1,1234,Nurul Aisyah,Administrator
+ADM002,admin2,1234,Farid Hassan,Administrator
+ADM003,admin3,1234,Siti Zulaikha,Administrator
+INS001,instructor1,1234,Lim Wei Jian,Instructor
+INS002,instructor2,1234,Priya Nair,Instructor
+INS003,instructor3,1234,Mohd Khairul,Instructor
+ATN001,attendance1,1234,Amirul Hakim,Attendance Officer
+ATN002,attendance2,1234,Chong Mei Ling,Attendance Officer
+FAC001,facilities1,1234,Razif Abdullah,Facilities Officer
+FAC002,facilities2,1234,Lee Jia Ying,Facilities Officer
